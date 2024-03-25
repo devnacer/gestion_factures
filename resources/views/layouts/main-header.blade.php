@@ -162,19 +162,34 @@
                 <li class="user-footer">
                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                     {{-- logout --}}
-                    <a href="{{ route('logout') }}" class="btn btn-default btn-flat float-right" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Sign out</a>
+                    <a href="{{ route('logout') }}" class="btn btn-default btn-flat float-right"
+                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">Sign out</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
+                        @csrf
                     </form>
                 </li>
             </ul>
         </li>
         <!-- Language Dropdown Menu -->
         <li class="nav-item dropdown">
-            {{-- <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="flag-icon flag-icon-us"></i>
-            </a> --}}
-            <a href="#" class="nav-link d-flex nav-item nav-link pl-0 country-flag1" data-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                @if (App::getLocale() == 'ar')
+                    <i class="flag-icon flag-icon-dz mr-2 avatar country-Flag"></i>
+                    <strong class="mr-2 my-auto">{{ LaravelLocalization::getCurrentLocaleName() }}</strong>
+
+                @elseif (App::getLocale() == 'fr')
+                    <i class="flag-icon flag-icon-fr mr-2 avatar country-Flag"></i>
+                    <strong class="mr-2 my-auto">{{ LaravelLocalization::getCurrentLocaleName() }}</strong>
+
+                @else
+                    <i class="flag-icon flag-icon-us mr-2 avatar country-Flag"></i>
+                    <strong class="mr-2 my-auto">{{ LaravelLocalization::getCurrentLocaleName() }}</strong>
+
+                @endif
+
+                <div class="my-auto"></div>
+            </a>
+            {{-- <a href="#" class="nav-link d-flex nav-item nav-link pl-0 country-flag1" data-toggle="dropdown" aria-expanded="false">
                 @if (App::getLocale() == 'ar')
                     <span class="avatar country-Flag mr-0 align-self-center bg-transparent"><img
                             src="{{ URL::asset('assets/img/flags/algeria_flag.png') }}"
@@ -192,23 +207,26 @@
                     <strong class="mr-2 ml-2 my-auto">{{ LaravelLocalization::getCurrentLocaleName() }}</strong>
                 @endif
                 <div class="my-auto"></div>
-            </a>
-            {{-- <div class="dropdown-menu dropdown-menu-right p-0">
-                <a href="#" class="dropdown-item active">
-                    <i class="flag-icon flag-icon-us mr-2"></i> English
-                </a>
-                <a href="#" class="dropdown-item">
-                    <i class="flag-icon flag-icon-de mr-2"></i> German
-                </a>
-                <a href="#" class="dropdown-item">
-                    <i class="flag-icon flag-icon-fr mr-2"></i> French
-                </a>
-                <a href="#" class="dropdown-item">
-                    <i class="flag-icon flag-icon-es mr-2"></i> Spanish
-                </a>
-            </div> --}}
+            </a>  --}}
+            <div class="dropdown-menu dropdown-menu-right p-0">
+                @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <a href="#" class="dropdown-item @if (LaravelLocalization::getCurrentLocale() == $localeCode) active @endif"
+                        rel="alternate" hreflang="{{ $localeCode }}"
+                        href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                        @if ($properties['native'] == 'English')
+                            <i class="flag-icon flag-icon-us mr-2"></i>
+                        @elseif($properties['native'] == 'العربية')
+                            <i class="flag-icon flag-icon-dz mr-2"></i>
+                        @elseif($properties['native'] == 'français')
+                            <i class="flag-icon flag-icon-fr mr-2"></i>
+                        @endif
+                        {{ $properties['native'] }}
+                    </a>
+                @endforeach
+            </div>
 
-            <div class="dropdown-menu dropdown-menu-right p-0" x-placement="bottom-end">
+
+            {{-- <div class="dropdown-menu dropdown-menu-right p-0" x-placement="bottom-end">
                 @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                     <a class="dropdown-item" rel="alternate" hreflang="{{ $localeCode }}"
                         href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
@@ -222,7 +240,7 @@
                         {{ $properties['native'] }}
                     </a>
                 @endforeach
-            </div>
+            </div>  --}}
 
         </li>
         <li class="nav-item">

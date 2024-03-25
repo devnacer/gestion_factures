@@ -21,5 +21,7 @@
 <link rel="stylesheet" href="{{ URL::asset('assets/plugins/daterangepicker/daterangepicker.css') }}">
 <!-- summernote -->
 <link rel="stylesheet" href="{{ URL::asset('assets/plugins/summernote/summernote-bs4.min.css') }}">
+<!-- flag-icon-css -->
+<link rel="stylesheet" href="{{ URL::asset('assets/plugins/flag-icon-css/css/flag-icon.min.css') }}">
 
 @yield('css')

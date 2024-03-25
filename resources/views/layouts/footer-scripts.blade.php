@@ -33,6 +33,8 @@
 <script src="{{URL::asset('assets/js/demo.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{URL::asset('assets/js/pages/dashboard.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{URL::asset('assets/js/adminlte.min.js')}}"></script>
 
 @yield('scripts')
 

@@ -1,25 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.master')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    @include('layouts.head')
-</head>
+@section('title')
+    home page
+@endsection
 
-<body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
+@section('css')
+@endsection
 
-        <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{{ URL::asset('assets/img/AdminLTELogo.png') }}" alt="AdminLTELogo"
-                height="60" width="60">
-        </div>
-
-        @include('layouts.main-header')
-
-        @include('layouts.main-sidebar')
-
+@section('content')
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -31,8 +19,8 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">@yield('breadcrumb_1')</a></li>
-                                <li class="breadcrumb-item active">@yield('breadcrumb_2')</li>
+                                <li class="breadcrumb-item"><a href="#">homee12</a></li>
+                                <li class="breadcrumb-item active">homme123</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -673,19 +661,7 @@
             </section>
             <!-- /.content -->
         </div>
+@endsection
 
-        @include('layouts.footer')
-
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
-    </div>
-    <!-- ./wrapper -->
-
-    @include('layouts.footer-scripts')
-</body>
-
-</html>
+@section('scripts')
+@endsection
