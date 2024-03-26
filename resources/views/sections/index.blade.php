@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    {{ trans('titles.List of invoices') }}
+    {{ trans('titles.List of sections') }}
 @endsection
 
 @section('css')
@@ -19,12 +19,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>DataTables</h1>
+                        <h1>{{ trans('titles.List of sections') }}</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">DataTables</li>
+                            <li class="breadcrumb-item"><a href="#">Setting</a></li>
+                            <li class="breadcrumb-item active">sections</li>
                         </ol>
                     </div>
                 </div>
@@ -36,10 +36,14 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                    
+
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">DataTable with default features</h3>
+                                {{-- modal --}}
+                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-lg">
+                                    Launch Large Modal
+                                </button>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -47,18 +51,9 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>number</th>
-                                            <th>date</th>
-                                            <th>experation</th>
-                                            <th>Product</th>
-                                            <th>class</th>
-                                            <th>discount</th>
-                                            <th>pourc ration impot</th>
-                                            <th>ration impot</th>
-                                            <th>total</th>
-                                            <th>Status</th>
-                                            <th>value status</th>
-                                            <th>note</th>
+                                            <th>Session name</th>
+                                            <th>Description</th>
+                                            <th>Operations</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -67,15 +62,6 @@
                                             <td>123 234 23</td>
                                             <td>12 12 2022</td>
                                             <td>12 12 2022</td>
-                                            <td>Gaz</td>
-                                            <td>Sonalgaz</td>
-                                            <td>1200</td>
-                                            <td>3%</td>
-                                            <td>2345</td>
-                                            <td>3566</td>
-                                            <td>yes</td>
-                                            <td>1</td>
-                                            <td></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -85,6 +71,41 @@
                         <!-- /.card -->
                     </div>
                     <!-- /.col -->
+                    <!--modal -->
+                    <div class="modal fade" id="modal-lg">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Add section</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <form action="{{ route('sections.store') }}" method="post">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="name">Section name</label>
+                                            <input type="text" class="form-control" id="name" name="name">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="description">Descriptions</label>
+                                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">validate</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
                 </div>
                 <!-- /.row -->
             </div>
@@ -93,7 +114,6 @@
         <!-- /.content -->
     </div>
 @endsection
-
 
 @section('scripts')
     <!-- DataTables  & Plugins -->

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    home page
+    {{ trans('titles.InvoiceMaster | Dashboard') }}
 @endsection
 
 @section('css')
