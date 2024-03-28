@@ -39,7 +39,7 @@
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Home
+                {{trans('main-sidebar.Home')}}
               </p>
             </a>
           </li>
@@ -128,7 +128,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                Setting
+                {{trans('main-sidebar.Settings')}}
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -136,7 +136,7 @@
               <li class="nav-item">
                 <a href="{{ route('sections.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Sections</p>
+                  <p>{{trans('main-sidebar.Sections')}}</p>
                 </a>
               </li>
               <li class="nav-item">

@@ -6,10 +6,10 @@ return [
     |--------------------------------------------------------------------------
     | messages notif
     |--------------------------------------------------------------------------
-
     */
-    'add' => 'The data has been saved successfully',
-    'edit' => 'The data has been modified successfully',
-    'delete' => 'The data has been deleted successfully',
+
+    'add' => 'Les données ont été enregistrées avec succès',
+    'edit' => 'Les données ont été modifiées avec succès',
+    'delete' => 'Les données ont été supprimées avec succès',
 
 ];

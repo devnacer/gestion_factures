@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    {{ trans('titles.List of sections') }}
+    {{ trans('titles.List of sections') }};
 @endsection
 
 @section('css')
@@ -12,6 +12,7 @@
 @endsection
 
 @section('content')
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -39,14 +40,15 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">DataTable with default features</h3>
-                                {{-- modal --}}
                                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-lg">
-                                    Launch Large Modal
+                                    Add Section
                                 </button>
                             </div>
+
+                            
                             <!-- /.card-header -->
                             <div class="card-body">
+                                @include('layouts.alert')
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>

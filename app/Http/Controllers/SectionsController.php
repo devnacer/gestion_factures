@@ -40,8 +40,7 @@ class SectionsController extends Controller
                 'created_by' => (Auth::user()->name),
 
             ]);
-            // session()->flash('Add', 'تم اضافة القسم بنجاح ');
-            return to_route('sections.index')->with('add','messageee');
+            return to_route('sections.index')->with('success', trans('messages.add') );
     }
 
     /**
