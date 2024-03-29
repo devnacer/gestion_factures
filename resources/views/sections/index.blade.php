@@ -12,7 +12,6 @@
 @endsection
 
 @section('content')
-
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -40,12 +39,12 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-lg">
-                                    Add Section
-                                </button>
+                                <form action="{{ route('sections.create') }}" method="GET">
+                                    @csrf
+                                    <button class="btn btn-default">Add Section</button>
+                                </form>
                             </div>
 
-                            
                             <!-- /.card-header -->
                             <div class="card-body">
                                 @include('layouts.alert')
@@ -53,18 +52,31 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Session name</th>
+                                            <th>Name</th>
                                             <th>Description</th>
                                             <th>Operations</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>123 234 23</td>
-                                            <td>12 12 2022</td>
-                                            <td>12 12 2022</td>
-                                        </tr>
+                                        @foreach ($sections as $section)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $section->name }}</td>
+                                                <td>{{ $section->description }}</td>
+                                                <td>
+
+                                                    <form action="{{ route('sections.edit', $section->id) }}"
+                                                        method="GET">
+                                                        @csrf
+                                                        <button class="modal-effect btn btn-sm btn-info">Edit</button>
+                                                    </form>
+
+                                                    <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                                        data-id="{{ $section->id }}" data-name="{{ $section->name }}"
+                                                        data-toggle="modal" href="#ModalDelete">delete</i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -73,28 +85,27 @@
                         <!-- /.card -->
                     </div>
                     <!-- /.col -->
-                    <!--modal -->
-                    <div class="modal fade" id="modal-lg">
+
+                    <!--modal Delete-->
+                    <div class="modal fade" id="ModalDelete">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Add section</h4>
+                                    <h4 class="modal-title">Delete section</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
 
-                                <form action="{{ route('sections.store') }}" method="post">
+                                <form action="{{ route('sections.destroy', $section->id) }}" method="post"
+                                    autocomplete="off">
+                                    @method('delete')
                                     @csrf
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            <label for="name">Section name</label>
-                                            <input type="text" class="form-control" id="name" name="name">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="description">Descriptions</label>
-                                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                            <p>Are you sure to delete ?</p>
+                                            <input class="form-control" name="name" id="name" type="text"
+                                                readonly>
                                         </div>
                                     </div>
                                     <div class="modal-footer justify-content-between">
@@ -149,5 +160,15 @@
                 "responsive": true,
             });
         });
+    </script>
+    <script>
+        $('#ModalDelete').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var name = button.data('name')
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #name').val(name);
+        })
     </script>
 @endsection

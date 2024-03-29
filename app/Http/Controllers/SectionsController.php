@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SectionRequest;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,8 @@ class SectionsController extends Controller
      */
     public function index()
     {
-        return view('sections.index');
+        $sections = Section::all();
+        return view('sections.index', compact('sections'));
     }
 
     /**
@@ -21,24 +23,20 @@ class SectionsController extends Controller
      */
     public function create()
     {
-        //
+        return view('sections.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SectionRequest $request)
     {
         
-        $validatedDataSection = $request->validate([
-            'name' => 'required|unique:sections|max:255',
-        ]);
-
+        $formFields = $request->validated();
             Section::create([
-                'name' => $validatedDataSection['name'],
+                'name' => $formFields['name'],
                 'description' => $request->description,
                 'created_by' => (Auth::user()->name),
-
             ]);
             return to_route('sections.index')->with('success', trans('messages.add') );
     }
@@ -56,15 +54,18 @@ class SectionsController extends Controller
      */
     public function edit(Section $section)
     {
-        //
+        return view('sections.edit', compact('section'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Section $section)
+    public function update(SectionRequest $request, Section $section)
     {
-        //
+        $formFields = $request->validated();
+        $section->fill($formFields)->save();
+    
+        return to_route('sections.index')->with('success', trans('messages.edit') );
     }
 
     /**
