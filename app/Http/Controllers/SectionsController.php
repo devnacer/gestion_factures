@@ -31,14 +31,14 @@ class SectionsController extends Controller
      */
     public function store(SectionRequest $request)
     {
-        
+
         $formFields = $request->validated();
-            Section::create([
-                'name' => $formFields['name'],
-                'description' => $request->description,
-                'created_by' => (Auth::user()->name),
-            ]);
-            return to_route('sections.index')->with('success', trans('messages.add') );
+        Section::create([
+            'name' => $formFields['name'],
+            'description' => $request->description,
+            'created_by' => (Auth::user()->name),
+        ]);
+        return to_route('sections.index')->with('success', trans('messages.add'));
     }
 
     /**
@@ -64,8 +64,8 @@ class SectionsController extends Controller
     {
         $formFields = $request->validated();
         $section->fill($formFields)->save();
-    
-        return to_route('sections.index')->with('success', trans('messages.edit') );
+
+        return to_route('sections.index')->with('success', trans('messages.edit'));
     }
 
     /**
