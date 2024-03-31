@@ -71,8 +71,10 @@ class SectionsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Section $section)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->id;
+        Section::find($id)->delete();
+        return to_route('sections.index')->with('success', trans('messages.delete'));
     }
 }

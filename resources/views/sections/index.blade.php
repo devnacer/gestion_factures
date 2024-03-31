@@ -101,6 +101,7 @@
                             @csrf
                             <div class="modal-body">
                                 <div class="form-group">
+                                    <input type="hidden" name="id" id="id" value="">
                                     <p>{{ trans('sections.Are you sure you want to delete this Section?') }}</p>
                                     <input class="form-control" name="name" id="name" type="text" readonly>
                                 </div>
