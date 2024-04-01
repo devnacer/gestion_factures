@@ -11,5 +11,6 @@ return [
     'Home' => 'Home',
     'Settings' => 'Settings',
     'Sections' => 'Sections',
+    'Products' => 'Products',
 
 ];

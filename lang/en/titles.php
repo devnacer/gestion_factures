@@ -13,4 +13,6 @@ return [
     'List of sections' => 'List of sections',
     'Create new Section' => 'Create new Section',
     'Section Update' => 'Section Update',
+    'List of Products' => 'List of Products',
+    'Create new Product' => 'Create new Product',
 ];

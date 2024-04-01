@@ -47,7 +47,7 @@
                                 </div>
                                 @error('name')
                                 <small class="text-danger">{{ $message }}</small>
-                            @enderror
+                                 @enderror
                             </div>
 
                             <div class="form-group row">
@@ -62,7 +62,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-secondary" name="edit">{{trans('sections.Validate')}}</button>
+                            <button type="submit" class="btn btn-secondary">{{trans('sections.Validate')}}</button>
                             <button id="btnClose" type="submit" class="btn btn-default float-right">{{trans('sections.Close')}}</button>
                         </div>
                         <!-- /.card-footer -->

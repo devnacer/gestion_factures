@@ -140,9 +140,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/forms/advanced.html" class="nav-link">
+                <a href="{{ route('products.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ajouter produit</p>
+                  <p>{{trans('main-sidebar.Products')}}</p>
                 </a>
               </li>
             </ul>

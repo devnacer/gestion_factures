@@ -5,6 +5,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SectionsController;
 
 /*
@@ -41,6 +42,10 @@ Route::group(
 
         Route::middleware('auth')->group(function () {
             Route::resource('invoices', InvoiceController::class);
+        });
+
+        Route::middleware('auth')->group(function () {
+            Route::resource('products', ProductController::class);
         });
 
         Route::middleware('auth')->group(function () {
