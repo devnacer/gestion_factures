@@ -51,22 +51,28 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $sections = Section::all();
+        return view('products.edit', compact('product','sections'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        $formFields = $request->validated();
+        $product->fill($formFields)->save();
+
+        return to_route('products.index')->with('success', trans('messages.edit'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->id;
+        Product::find($id)->delete();
+        return to_route('products.index')->with('success', trans('messages.delete'));
     }
 }

@@ -21,8 +21,10 @@ class SectionRequest extends FormRequest
      */
     public function rules(): array
     {
+        $sectionId = $this->route('section') ? $this->route('section')->id : null;        
+        
         return [
-            'name' => 'required|unique:sections|max:255',
+            'name' => 'required|unique:sections,name,'.$sectionId.'|max:255',
             'description' => '',
         ];
     }

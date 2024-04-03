@@ -15,4 +15,5 @@ return [
     'Section Update' => 'Section Update',
     'List of Products' => 'List of Products',
     'Create new Product' => 'Create new Product',
+    'Product Update' => 'Product Update',
 ];

@@ -17,6 +17,7 @@ return [
     'Operations' => 'Operations',
     'Edit' => 'Edit',
     'Delete' => 'Delete',
+    'No products available' => 'No products available',
 
     //create + edit product 
     'Products' => 'Products',

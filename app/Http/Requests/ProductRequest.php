@@ -21,11 +21,19 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
+        // return [
+        //     'name' => 'required|unique:products|max:255',
+        //     'description' => '',
+        //     'section_id' => 'required',
+
+        // ];
+
+        $productId = $this->route('product') ? $this->route('product')->id : null;        
         return [
-            'name' => 'required|unique:products|max:255',
+            'name' => 'required|unique:products,name,' . $productId . '|max:255',
             'description' => '',
             'section_id' => 'required',
-
         ];
+
     }
 }

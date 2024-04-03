@@ -55,32 +55,40 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($sections as $section)
+                            @if ($sections->isEmpty())
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $section->name }}</td>
-                                    <td>{{ $section->description }}</td>
-                                    <td>
-                                        <form action="{{ route('sections.edit', $section->id) }}" method="GET">
-                                            @csrf
-                                            <button class="modal-effect btn btn-sm btn-info">
-                                                <i class="fas fa-pencil-alt">
-                                                </i>
-                                                {{ trans('sections.Edit') }}</button>
-                                        </form>
-
-                                        <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                            data-id="{{ $section->id }}" data-name="{{ $section->name }}"
-                                            data-toggle="modal" href="#ModalDelete">
-                                            <i class="fas fa-trash">
-                                            </i>
-                                            {{ trans('sections.Delete') }}</a>
-                                    </td>
+                                    <td colspan="4">{{ trans('No sections available') }}</td>
                                 </tr>
-                            @endforeach
+                            @else
+                                @foreach ($sections as $section)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $section->name }}</td>
+                                        <td>{{ $section->description }}</td>
+                                        <td>
+                                            <form action="{{ route('sections.edit', $section->id) }}" method="GET">
+                                                @csrf
+                                                <button class="modal-effect btn btn-sm btn-info">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                    {{ trans('sections.Edit') }}
+                                                </button>
+                                            </form>
+
+                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                                data-id="{{ $section->id }}" data-name="{{ $section->name }}"
+                                                data-toggle="modal" href="#ModalDelete">
+                                                <i class="fas fa-trash"></i>
+                                                {{ trans('sections.Delete') }}
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>
+
                 <!-- /.card-body -->
             </div>
             <!-- /.card -->
@@ -96,7 +104,7 @@
                             </button>
                         </div>
 
-                        <form action="{{ route('sections.destroy', $section->id) }}" method="post" autocomplete="off">
+                        <form action="{{ route('sections.destroy', 0) }}" method="post" autocomplete="off">
                             @method('delete')
                             @csrf
                             <div class="modal-body">
@@ -112,6 +120,7 @@
                                     data-dismiss="modal">{{ trans('sections.Close') }}</button>
                             </div>
                         </form>
+
                     </div>
                     <!-- /.modal-content -->
                 </div>

@@ -56,30 +56,36 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($products as $product)
+                            @if ($products->isEmpty())
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $product->name }}</td>
-                                    <td>{{ $product->section_id }}</td>
-                                    <td>{{ $product->description }}</td>
-                                    <td>
-                                        <form action="{{ route('products.edit', $product->id) }}" method="GET">
-                                            @csrf
-                                            <button class="modal-effect btn btn-sm btn-info">
-                                                <i class="fas fa-pencil-alt">
-                                                </i>
-                                                {{ trans('products.Edit') }}</button>
-                                        </form>
-
-                                        <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                            data-id="{{ $product->id }}" data-name="{{ $product->name }}"
-                                            data-toggle="modal" href="#ModalDelete">
-                                            <i class="fas fa-trash">
-                                            </i>
-                                            {{ trans('products.Delete') }}</a>
-                                    </td>
+                                    <td colspan="5">{{ trans('No products available') }}</td>
                                 </tr>
-                            @endforeach
+                            @else
+                                @foreach ($products as $product)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $product->name }}</td>
+                                        <td>{{ $product->section->name }}</td>
+                                        <td>{{ $product->description }}</td>
+                                        <td>
+                                            <form action="{{ route('products.edit', $product->id) }}" method="GET">
+                                                @csrf
+                                                <button class="modal-effect btn btn-sm btn-info">
+                                                    <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    {{ trans('products.Edit') }}</button>
+                                            </form>
+
+                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                                data-id="{{ $product->id }}" data-name="{{ $product->name }}"
+                                                data-toggle="modal" href="#ModalDelete">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                                {{ trans('products.Delete') }}</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -97,8 +103,8 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-{{-- 
-                        <form action="{{ route('products.destroy', $products->id) }}" method="post" autocomplete="off">
+                         
+                        <form action="{{ route('products.destroy', 0) }}" method="post" autocomplete="off">
                             @method('delete')
                             @csrf
                             <div class="modal-body">
@@ -113,7 +119,7 @@
                                 <button type="button" class="btn btn-default"
                                     data-dismiss="modal">{{ trans('products.Close') }}</button>
                             </div>
-                        </form> --}}
+                        </form> 
                     </div>
                     <!-- /.modal-content -->
                 </div>

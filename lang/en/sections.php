@@ -16,6 +16,7 @@ return [
     'Operations' => 'Operations',
     'Edit' => 'Edit',
     'Delete' => 'Delete',
+    'No sections available' => 'No sections available',
 
     //create + edit section 
     'Sections' => 'Sections',

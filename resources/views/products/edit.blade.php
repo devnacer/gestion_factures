@@ -35,14 +35,15 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" action="{{ route('products.store') }}" method="post" autocomplete="off">
+                <form class="form-horizontal" action="{{ route('products.update', $product->id) }}" method="post" autocomplete="off">
                     @csrf
+                    @method('put')
                     <div class="card-body">
                         <div class="form-group row">
                             <label for="name" class="col-sm-2 col-form-label">{{ trans('products.Name') }}</label>
                             <div class="col-sm-10">
                                 <input name="name" type="text" class="form-control" id="name"
-                                    value="{{ old('name') }}" required>
+                                    value="{{ old('name', $product->name) }}" required>
                             </div>
                             @error('name')
                                 <small class="text-danger">{{ $message }}</small>
@@ -54,7 +55,7 @@
                                 class="col-sm-2 col-form-label">{{ trans('products.Section name') }}</label>
                             <div class="col-sm-10">
                                 <select id="section_id" name="section_id" class="form-control custom-select">
-                                    <option value="" selected disabled>{{ trans('products.Choose a section') }}
+                                    <option value="{{ $product->section->id }}" selected>{{ $product->section->name }}
                                     </option>
                                     @foreach ($sections as $section)
                                         <option value="{{ $section->id }}">{{ $section->name }}</option>
@@ -70,7 +71,7 @@
                             <label for="description"
                                 class="col-sm-2 col-form-label">{{ trans('products.Description') }}</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" id="description" name="description" rows="3">{{ old('description') }}</textarea>
+                                <textarea class="form-control" id="description" name="description" rows="3">{{ old('description', $product->description) }}</textarea>
                             </div>
                             @error('description')
                                 <small class="text-danger">{{ $message }}</small>
