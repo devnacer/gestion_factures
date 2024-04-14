@@ -19,12 +19,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>DataTables</h1>
+                        <h1>{{ trans('invoices.Invoices') }}</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">DataTables</li>
+                            <li class="breadcrumb-item"><a href="#">{{ trans('invoices.Invoices') }}</a></li>
+                            <li class="breadcrumb-item active">{{ trans('invoices.Invoices list') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -33,67 +33,135 @@
 
         <!-- Main content -->
         <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                    
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">DataTable with default features</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>number</th>
-                                            <th>date</th>
-                                            <th>experation</th>
-                                            <th>Product</th>
-                                            <th>class</th>
-                                            <th>discount</th>
-                                            <th>pourc ration impot</th>
-                                            <th>ration impot</th>
-                                            <th>total</th>
-                                            <th>Status</th>
-                                            <th>value status</th>
-                                            <th>note</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>123 234 23</td>
-                                            <td>12 12 2022</td>
-                                            <td>12 12 2022</td>
-                                            <td>Gaz</td>
-                                            <td>Sonalgaz</td>
-                                            <td>1200</td>
-                                            <td>3%</td>
-                                            <td>2345</td>
-                                            <td>3566</td>
-                                            <td>yes</td>
-                                            <td>1</td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
-                    <!-- /.col -->
+
+            <div class="card">
+                <div class="card-header d-flex">
+                    <h3 class="card-title mr-auto">{{ trans('invoices.Invoices list') }}</h3>
+                    <form action="{{ route('invoices.create') }}" method="GET">
+                        @csrf
+                        <button class="btn btn-default">{{ trans('invoices.Create new Invoice') }}</button>
+                    </form>
                 </div>
-                <!-- /.row -->
+
+                <!-- /.card-header -->
+                <div class="card-body">
+                    @include('layouts.alert')
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>{{ trans('invoices.#') }}</th>
+                                <th>{{ trans('invoices.Invoice Number') }}</th>
+                                <th>{{ trans('invoices.Invoice Date') }}</th>
+                                <th>{{ trans('invoices.Due Date') }}</th>
+                                <th>{{ trans('invoices.Product') }}</th>
+                                <th>{{ trans('invoices.Section') }}</th>
+                                <th>{{ trans('invoices.Discount') }}</th>
+                                <th>{{ trans('invoices.Tax Rate') }}</th>
+                                <th>{{ trans('invoices.Tax Amount') }}</th>
+                                <th>{{ trans('invoices.Total') }}</th>
+                                <th>{{ trans('invoices.Status') }}</th>
+                                <th>{{ trans('invoices.Notes') }}</th>
+                                <th>{{ trans('invoices.Operations') }}</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{-- @if ($invoices->isEmpty())
+                                <tr>
+                                    <td colspan="4">{{ trans('No invoices available') }}</td>
+                                </tr>
+                            @else 
+                                @foreach ($invoices as $section) --}}
+                            <tr>
+                                <td>1</td>
+                                <td>001</td>
+                                <td>2024-04-01</td>
+                                <td>2024-04-15</td>
+                                <td>Ordinateur portable Dell XPS 15</td>
+                                <td>Électronique</td>
+                                <td>10%</td>
+                                <td>20%</td>
+                                <td>300 USD</td>
+                                <td>1800 USD</td>
+                                <td>Payé</td>
+                                <td>Aucune</td>
+                                <td>Actions</td>
+
+                                {{-- <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $section->name }}</td>
+                                        <td>{{ $section->description }}</td> --}}
+
+
+                                {{-- <td>
+                                            <form action="{{ route('invoices.edit', $section->id) }}" method="GET">
+                                                @csrf
+                                                <button class="modal-effect btn btn-sm btn-info">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                    {{ trans('invoices.Edit') }}
+                                                </button>
+                                            </form>
+
+                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                                data-id="{{ $section->id }}" data-name="{{ $section->name }}"
+                                                data-toggle="modal" href="#ModalDelete">
+                                                <i class="fas fa-trash"></i>
+                                                {{ trans('invoices.Delete') }}
+                                            </a>
+
+                                        </td> --}}
+                            </tr>
+                            {{-- @endforeach
+                            @endif --}}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- /.card-body -->
             </div>
-            <!-- /.container-fluid -->
+            <!-- /.card -->
+
+            <!--modal Delete-->
+            {{-- <div class="modal fade" id="ModalDelete">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">{{ trans('invoices.Delete Section') }}</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <form action="{{ route('invoices.destroy', 0) }}" method="post" autocomplete="off">
+                            @method('delete')
+                            @csrf
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <input type="hidden" name="id" id="id" value="">
+                                    <p>{{ trans('invoices.Are you sure you want to delete this Section?') }}</p>
+                                    <input class="form-control" name="name" id="name" type="text" readonly>
+                                </div>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="submit" class="btn btn-secondary">{{ trans('invoices.Validate') }}</button>
+                                <button type="button" class="btn btn-default"
+                                    data-dismiss="modal">{{ trans('invoices.Close') }}</button>
+                            </div>
+                        </form>
+
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div> --}}
+            <!-- /.modal -->
+
+
+
         </section>
         <!-- /.content -->
+
     </div>
 @endsection
-
 
 @section('scripts')
     <!-- DataTables  & Plugins -->
@@ -127,5 +195,15 @@
                 "responsive": true,
             });
         });
+    </script>
+    <script>
+        // $('#ModalDelete').on('show.bs.modal', function(event) {
+        //     var button = $(event.relatedTarget)
+        //     var id = button.data('id')
+        //     var name = button.data('name')
+        //     var modal = $(this)
+        //     modal.find('.modal-body #id').val(id);
+        //     modal.find('.modal-body #name').val(name);
+        // })
     </script>
 @endsection

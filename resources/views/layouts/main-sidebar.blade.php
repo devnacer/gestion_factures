@@ -45,39 +45,40 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Invoices
-                <i class="fas fa-angle-left right"></i>
-              </p>
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                    {{ trans('main-sidebar.Invoices') }}
+                    <i class="fas fa-angle-left right"></i>
+                </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('invoices.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Invoices list</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Invoices payés</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Invoices non payés</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Invoices un peu payés </p>
-                </a>
-              </li>
+                <li class="nav-item">
+                    <a href="{{ route('invoices.index')}}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>{{ trans('main-sidebar.Invoices list') }}</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>{{ trans('main-sidebar.Paid invoices') }}</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/layout/boxed.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>{{ trans('main-sidebar.Unpaid invoices') }}</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/layout/fixed-sidebar.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>{{ trans('main-sidebar.Partially paid invoices') }}</p>
+                    </a>
+                </li>
             </ul>
-          </li>
+        </li>
+        
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
