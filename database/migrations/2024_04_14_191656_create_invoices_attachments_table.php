@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('invoices_attachments', function (Blueprint $table) {
             $table->id();
+            $table->string('file_name', 999);
+            $table->string('invoice_number', 55);
+            $table->string('Created_by', 255);
+            $table->unsignedBigInteger('invoice_id')->nullable();
+            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
             $table->timestamps();
         });
     }
