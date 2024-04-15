@@ -36,7 +36,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" action="{{ route('invoices.store') }}" method="post" autocomplete="off">
+                <form class="form-horizontal" action="{{ route('invoices.store') }}" method="post" enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     <div class="card-body">
 
@@ -58,7 +58,7 @@
                                 <label>{{ trans('invoices.Invoice Date') }}</label>
                                 <div class="input-group date" id="reservationdate" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#reservationdate" placeholder="YYYY-MM-DD" name="invoice_Date"
+                                        data-target="#reservationdate" placeholder="YYYY-MM-DD" name="invoice_Date" value="{{ date('Y-m-d') }}"
                                         required />
                                     <div class="input-group-append" data-target="#reservationdate"
                                         data-toggle="datetimepicker">
@@ -71,7 +71,7 @@
                                 <label>{{ trans('invoices.Due Date') }}</label>
                                 <div class="input-group date" id="reservationdate2" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#reservationdate2" name="Due_date" placeholder="YYYY-MM-DD" required />
+                                        data-target="#reservationdate2" name="Due_date" placeholder="YYYY-MM-DD" value="{{ date('Y-m-d') }}" required />
                                     <div class="input-group-append" data-target="#reservationdate2"
                                         data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -170,7 +170,7 @@
                                 <label for="exampleInputFile">File input المرفقات</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input name="pic" accept=".pdf,.jpg, .png, image/jpeg, image/png"
+                                        <input name="invoice_files" accept=".pdf,.jpg, .png, image/jpeg, image/png"
                                             type="file" class="custom-file-input" id="exampleInputFile" multiple>
                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                     </div>
@@ -216,11 +216,11 @@
     <script>
         //Date picker
         $('#reservationdate').datetimepicker({
-            format: 'L'
+            format: 'YYYY-MM-DD'
         });
         //Date picker2
         $('#reservationdate2').datetimepicker({
-            format: 'L'
+            format: 'YYYY-MM-DD'
         });
     </script>
 
