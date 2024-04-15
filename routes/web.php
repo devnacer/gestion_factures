@@ -5,6 +5,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\InvoicesDetailsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SectionsController;
 
@@ -54,6 +55,9 @@ Route::group(
 
         //section select
         Route::get('/section/{id}', [InvoiceController::class, 'getproducts']);
+
+        Route::get('/invoice/details/{id}', [InvoicesDetailsController::class, 'show'])->name('invoice.details');
+
 
 
         Route::middleware('auth')->group(function () {

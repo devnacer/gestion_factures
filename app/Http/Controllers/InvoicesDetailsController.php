@@ -34,9 +34,10 @@ class InvoicesDetailsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Invoices_details $invoices_details)
+    public function show(Invoices_details $invoices_details, $invoices_id)
     {
-        //
+        return $invoices_id;
+        // return view('invoices.details');
     }
 
     /**

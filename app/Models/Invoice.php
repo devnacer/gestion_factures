@@ -30,8 +30,9 @@ class Invoice extends Model
 
     // protected $dates = ['deleted_at'];
 
-//  public function section()
-//    {
-//    return $this->belongsTo('App\sections');
-//    }
+    public function section()
+    {
+        return $this->belongsTo(Section::class);
+    }
+
 }

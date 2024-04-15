@@ -66,34 +66,36 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @if ($invoices->isEmpty())
+                            @if ($invoices->isEmpty())
                                 <tr>
                                     <td colspan="4">{{ trans('No invoices available') }}</td>
                                 </tr>
-                            @else 
-                                @foreach ($invoices as $section) --}}
-                            <tr>
-                                <td>1</td>
-                                <td>001</td>
-                                <td>2024-04-01</td>
-                                <td>2024-04-15</td>
-                                <td>Ordinateur portable Dell XPS 15</td>
-                                <td>Électronique</td>
-                                <td>10%</td>
-                                <td>20%</td>
-                                <td>300 USD</td>
-                                <td>1800 USD</td>
-                                <td>Payé</td>
-                                <td>Aucune</td>
-                                <td>Actions</td>
-
-                                {{-- <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $section->name }}</td>
-                                        <td>{{ $section->description }}</td> --}}
-
-
-                                {{-- <td>
-                                            <form action="{{ route('invoices.edit', $section->id) }}" method="GET">
+                            @else
+                                @foreach ($invoices as $invoice)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $invoice->invoice_number }}</td>
+                                        <td>{{ $invoice->invoice_Date }}</td>
+                                        <td>{{ $invoice->Due_date }}</td>
+                                        <td>{{ $invoice->product }}</td>
+                                        <td>{{ $invoice->section->name }}</td>
+                                        <td>{{ $invoice->Discount }}</td>
+                                        <td>{{ $invoice->Rate_VAT }}</td>
+                                        <td>{{ $invoice->Value_VAT }}</td>
+                                        <td>{{ $invoice->Total }}</td>
+                                        <td>
+                                            @if($invoice->Value_Status == 1)
+                                                <span class="badge bg-success">{{ trans('invoices.Paid Invoice') }}</span>
+                                            @elseif($invoice->Value_Status == 2)
+                                                <span class="badge bg-danger">{{ trans('invoices.Unpaid Invoice') }}</span>
+                                            @else
+                                                <span class="badge bg-warning text-dark">{{ trans('invoices.Partially Paid Invoice') }}</span>
+                                            @endif
+                                        </td>
+                                        
+                                        <td>{{ $invoice->note }}</td>
+                                        <td>
+                                            <form action="{{ route('invoices.edit', $invoice->id) }}" method="GET">
                                                 @csrf
                                                 <button class="modal-effect btn btn-sm btn-info">
                                                     <i class="fas fa-pencil-alt"></i>
@@ -102,16 +104,24 @@
                                             </form>
 
                                             <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                data-id="{{ $section->id }}" data-name="{{ $section->name }}"
+                                                data-id="{{ $invoice->id }}" data-name="{{ $invoice->name }}"
                                                 data-toggle="modal" href="#ModalDelete">
                                                 <i class="fas fa-trash"></i>
                                                 {{ trans('invoices.Delete') }}
                                             </a>
 
-                                        </td> --}}
-                            </tr>
-                            {{-- @endforeach
-                            @endif --}}
+                                            <form action="{{ route('invoice.details', $invoice->id) }}" method="GET">
+                                                @csrf
+                                                <button class="modal-effect btn btn-sm btn-light">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                    {{ trans('invoices.Show Details') }}
+                                                </button>
+                                            </form>
+
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>

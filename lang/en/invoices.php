@@ -30,10 +30,12 @@ return [
     'Operations' => 'Operations',
     // 'Description' => 'Description',
     // 'Description' => 'Description',
-    // 'Operations' => 'Operations',
-    // 'Edit' => 'Edit',
-    // 'Delete' => 'Delete',
-    // 'No sections available' => 'No sections available',
+    'Edit' => 'Edit',
+    'Delete' => 'Delete',
+    'Paid Invoice' => 'Paid Invoice',
+    'Unpaid Invoice' => 'Unpaid Invoice',
+    'Partially Paid Invoice' => 'Partially Paid Invoice',
+    'Show Details' => 'Show Details',
 
     //create + edit invoices 
     'invoices' => 'invoices',
@@ -48,5 +50,8 @@ return [
     //delete
     // 'Are you sure you want to delete this Section?' => 'Are you sure you want to delete this Section?',
     // 'Delete Section' => 'Delete Section',
+    
+    //details
+    'Invoice details' => 'Invoice details',
 
 ];
