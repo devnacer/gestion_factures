@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
 use App\Models\Invoices_details;
 use Illuminate\Http\Request;
 
@@ -36,8 +37,11 @@ class InvoicesDetailsController extends Controller
      */
     public function show(Invoices_details $invoices_details, $invoices_id)
     {
-        return $invoices_id;
-        // return view('invoices.details');
+        $invoice = Invoice::where('id', $invoices_id)->first();
+        $invoice_details = Invoices_details::where('id_invoice', $invoices_id)->get();
+        // return view('invoices.details', compact('invoice','invoice_details'));
+        return view('invoices.details', compact('invoice', 'invoice_details'));
+
     }
 
     /**

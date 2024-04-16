@@ -53,5 +53,11 @@ return [
     
     //details
     'Invoice details' => 'Invoice details',
+    'Payment Date' => 'Payment Date',
+    'Created by' => 'Created by',
+    'Added Date' => 'Added Date',
+    'Invoice information' => 'Invoice information',
+    'Payment statuses' => 'Payment statuses',
+    'Attachments' => 'ََAttachments',
 
 ];
