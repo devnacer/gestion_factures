@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
-use App\Models\Invoices_details;
 use Illuminate\Http\Request;
+use App\Models\Invoices_details;
+use App\Models\Invoices_attachments;
+use Illuminate\Support\Facades\Storage;
 
 class InvoicesDetailsController extends Controller
 {
@@ -38,10 +40,9 @@ class InvoicesDetailsController extends Controller
     public function show(Invoices_details $invoices_details, $invoices_id)
     {
         $invoice = Invoice::where('id', $invoices_id)->first();
-        $invoice_details = Invoices_details::where('id_invoice', $invoices_id)->get();
-        // return view('invoices.details', compact('invoice','invoice_details'));
-        return view('invoices.details', compact('invoice', 'invoice_details'));
-
+        $invoices_details = Invoices_details::where('id_invoice', $invoices_id)->get();
+        $invoices_attachments = Invoices_attachments::where('invoice_id', $invoices_id)->get();
+        return view('invoices.details', compact('invoice', 'invoices_details', 'invoices_attachments'));
     }
 
     /**
@@ -63,8 +64,26 @@ class InvoicesDetailsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Invoices_details $invoices_details)
+    public function destroy(Request $request)
     {
-        //
+        $invoices_file = Invoices_attachments::findOrFail($request->id_file);
+        $invoices_file->delete();
+        Storage::disk('public_path_invoice')->delete($request->invoice_number.'/'.$request->file_name);
+        return back()->with('success', trans('messages.delete'));
     }
+
+    public function open_file($invoice_num, $file_name)
+
+    {
+        $filePath = Storage::disk('public_path_invoice')->path($invoice_num . '/' . $file_name);
+        return response()->file($filePath);
+    }
+
+    public function download_file($invoice_num, $file_name)
+
+    {
+        $filePath = Storage::disk('public_path_invoice')->path($invoice_num . '/' . $file_name);
+        return response()->download($filePath);
+    }
+
 }

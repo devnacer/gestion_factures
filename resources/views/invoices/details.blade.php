@@ -29,6 +29,8 @@
 
         <!-- Main content -->
         <section class="content">
+            @include('layouts.alert')
+
 
             <div class="card card-primary card-outline card-tabs">
                 <div class="card-header p-0 pt-1 border-bottom-0">
@@ -52,10 +54,9 @@
                 </div>
                 <div class="card-body">
                     <div class="tab-content" id="custom-tabs-three-tabContent">
+                        {{-- Invoice information --}}
                         <div class="tab-pane fade show active" id="custom-tabs-three-home" role="tabpanel"
                             aria-labelledby="custom-tabs-three-home-tab">
-
-
                             <div class="card">
 
                                 <!-- /.card-header -->
@@ -98,87 +99,167 @@
                                 <!-- /.card-body -->
                             </div>
                             <!-- /.card -->
-
-
-
                         </div>
 
-
-
-
-
+                        {{-- Payment statuses --}}
                         <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel"
                             aria-labelledby="custom-tabs-three-profile-tab">
-
                             <div class="card">
-                   
                                 <!-- /.card-header -->
                                 <div class="card-body table-responsive p-0">
-                                  <table class="table table-hover text-nowrap">
-                                    <thead>
-                                      <tr>
-                                        <th>{{ trans('invoices.Invoice Number') }}</th>
-                                        <th>{{ trans('invoices.Invoice Date') }}</th>
-                                        <th>{{ trans('invoices.Due Date') }}</th>
-                                        <th>{{ trans('invoices.Status') }}</th>
-                                        <th>{{ trans('invoices.Payment Date') }}</th>
-                                        <th>{{ trans('invoices.Notes') }}</th>
-                                        <th>{{ trans('invoices.Added Date') }}</th>
-                                        <th>{{ trans('invoices.Created by') }}</th>
-
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <td>{{ $invoice->invoice_number }}</td>
-                                        <td>{{ $invoice->invoice_Date }}</td>
-                                        <td>{{ $invoice->Due_date }}</td>
-                                        <td> @if ($invoice->Value_Status == 1)
-                                            <span class="badge bg-success">{{ trans('invoices.Paid Invoice') }}</span>
-                                        @elseif($invoice->Value_Status == 2)
-                                            <span class="badge bg-danger">{{ trans('invoices.Unpaid Invoice') }}</span>
-                                        @else
-                                            <span
-                                                class="badge bg-warning text-dark">{{ trans('invoices.Partially Paid Invoice') }}</span>
-                                        @endif</td>
-                                        <td>{{ $invoice->payment_date }}</td>
-                                        <td>{{ $invoice->note }}</td>
-                                        {{-- <td>{{ $invoice_details->created_at }}</td>
-                                        <td>{{ $invoice_details->user }}</td> --}}
-                                      </tr>
-
-                                    </tbody>
-                                  </table>
+                                    <table class="table table-hover text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>{{ trans('invoices.Invoice Number') }}</th>
+                                                <th>{{ trans('invoices.Invoice Date') }}</th>
+                                                <th>{{ trans('invoices.Due Date') }}</th>
+                                                <th>{{ trans('invoices.Status') }}</th>
+                                                <th>{{ trans('invoices.Payment Date') }}</th>
+                                                <th>{{ trans('invoices.Notes') }}</th>
+                                                <th>{{ trans('invoices.Added Date') }}</th>
+                                                <th>{{ trans('invoices.Created by') }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($invoices_details as $invoice_detail)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $invoice->invoice_number }}</td>
+                                                    <td>{{ $invoice->invoice_Date }}</td>
+                                                    <td>{{ $invoice_detail->Due_date }}</td>
+                                                    <td>
+                                                        @if ($invoice->Value_Status == 1)
+                                                            <span
+                                                                class="badge bg-success">{{ trans('invoices.Paid Invoice') }}</span>
+                                                        @elseif($invoice->Value_Status == 2)
+                                                            <span
+                                                                class="badge bg-danger">{{ trans('invoices.Unpaid Invoice') }}</span>
+                                                        @else
+                                                            <span
+                                                                class="badge bg-warning text-dark">{{ trans('invoices.Partially Paid Invoice') }}</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $invoice_detail->payment_date }}</td>
+                                                    <td>{{ $invoice_detail->note }}</td>
+                                                    <td>{{ $invoice_detail->created_at }}</td>
+                                                    <td>{{ $invoice_detail->user }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <!-- /.card-body -->
-                              </div>
-                              <!-- /.card -->
-
-
+                            </div>
+                            <!-- /.card -->
                         </div>
-
-
-
-
-
 
                         <div class="tab-pane fade" id="custom-tabs-three-messages" role="tabpanel"
                             aria-labelledby="custom-tabs-three-messages-tab">
-                            Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue
-                            id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac
-                            tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit
-                            condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit finibus
-                            tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet
-                            sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus ipsum
-                            gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt eleifend
-                            ac ornare magna.
+                            <div class="card">
+                                <!-- /.card-header -->
+                                <div class="card-body table-responsive p-0">
+                                    <table class="table table-hover text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>{{ trans('invoices.File name') }}</th>
+                                                <th>{{ trans('invoices.Created by') }}</th>
+                                                <th>{{ trans('invoices.Added Date') }}</th>
+                                                <th>{{ trans('invoices.Payment Date') }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($invoices_attachments as $invoice_attach)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $invoice_attach->file_name }}</td>
+                                                    <td>{{ $invoice_attach->Created_by }}</td>
+                                                    <td>{{ $invoice_attach->created_at }}</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <form
+                                                            action="{{ route('open_file', [$invoice_attach->invoice_number, $invoice_attach->file_name]) }}"
+                                                            method="GET" target="_blank">
+                                                            @csrf
+                                                            <button class="modal-effect btn btn-sm btn-primary">
+                                                                <i class="fas fa-folder"></i>
+                                                                {{ trans('invoices.View') }}
+                                                            </button>
+                                                        </form>
+
+                                                        <form
+                                                            action="{{ route('download_file', [$invoice_attach->invoice_number, $invoice_attach->file_name]) }}"
+                                                            method="GET">
+                                                            @csrf
+                                                            <button class="modal-effect btn btn-sm btn-info">
+                                                                <i class="fas fa-download"></i>
+                                                                {{ trans('invoices.Download') }}
+                                                            </button>
+                                                        </form>
+
+                                                        <a class="modal-effect btn btn-sm btn-danger"
+                                                            data-effect="effect-scale"
+                                                            data-id_file="{{ $invoice_attach->id }}"
+                                                            data-file_name="{{ $invoice_attach->file_name }}"
+                                                            data-toggle="modal" href="#ModalDelete">
+                                                            <i class="fas fa-trash"></i>
+                                                            {{ trans('sections.Delete') }}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+
                         </div>
+
                     </div>
                 </div>
                 <!-- /.card -->
+
+                <!--modal Delete-->
+                <div class="modal fade" id="ModalDelete">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">{{ trans('invoices.Delete File') }}</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <form action="{{ route('delete_file') }}" method="post" autocomplete="off">
+                                @method('delete')
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <input type="hidden" name="id_file" id="id_file" value="">
+                                        <p>{{ trans('invoices.Are you sure you want to delete this File?') }}</p>
+                                        <input class="form-control" name="file_name" id="file_name" value=""
+                                            readonly>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="submit" class="btn btn-danger">{{ trans('invoices.Delete') }}</button>
+                                    <button type="button" class="btn btn-default"
+                                        data-dismiss="modal">{{ trans('invoices.Close') }}</button>
+                                </div>
+                            </form>
+
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+
             </div>
-
-
 
         </section>
         <!-- /.content -->
@@ -200,4 +281,14 @@
     <script src="{{ URL::asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ URL::asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <script>
+        $('#ModalDelete').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var id_file = button.data('id_file')
+            var file_name = button.data('file_name')
+            var modal = $(this)
+            modal.find('.modal-body #id_file').val(id_file);
+            modal.find('.modal-body #file_name').val(file_name);
+        })
+    </script>
 @endsection

@@ -48,8 +48,8 @@ return [
     'Save' => 'Save',
     
     //delete
-    // 'Are you sure you want to delete this Section?' => 'Are you sure you want to delete this Section?',
-    // 'Delete Section' => 'Delete Section',
+     'Are you sure you want to delete this File?' => 'Are you sure you want to delete this File?',
+     'Delete File' => 'Delete File',
     
     //details
     'Invoice details' => 'Invoice details',
@@ -59,5 +59,8 @@ return [
     'Invoice information' => 'Invoice information',
     'Payment statuses' => 'Payment statuses',
     'Attachments' => 'ََAttachments',
+    'File name' => 'ََFile name',
+    'View' => 'ََView',
+    'Download' => 'Download',
 
 ];

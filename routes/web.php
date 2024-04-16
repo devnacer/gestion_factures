@@ -55,10 +55,17 @@ Route::group(
 
         //section select
         Route::get('/section/{id}', [InvoiceController::class, 'getproducts']);
-
+        //invoice details
         Route::get('/invoice/details/{id}', [InvoicesDetailsController::class, 'show'])->name('invoice.details');
+        // view invoice files
+        Route::get('View_file/{invoice_num}/{file_name}', [InvoicesDetailsController::class, 'open_file'])->name('open_file');
+        // download invoice files
+        Route::get('download/{invoice_num}/{file_name}', [InvoicesDetailsController::class, 'download_file'])->name('download_file');
+        // delete invoice files
+        Route::delete('delete/file', [InvoicesDetailsController::class, 'destroy'])->name('delete_file');
 
 
+        
 
         Route::middleware('auth')->group(function () {
             Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
