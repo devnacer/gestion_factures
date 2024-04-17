@@ -58,7 +58,7 @@
                         <tbody>
                             @if ($products->isEmpty())
                                 <tr>
-                                    <td colspan="5">{{ trans('No products available') }}</td>
+                                    <td colspan="5">{{ trans('products.No products available') }}</td>
                                 </tr>
                             @else
                                 @foreach ($products as $product)
@@ -103,7 +103,7 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                         
+
                         <form action="{{ route('products.destroy', 0) }}" method="post" autocomplete="off">
                             @method('delete')
                             @csrf
@@ -119,7 +119,7 @@
                                 <button type="button" class="btn btn-default"
                                     data-dismiss="modal">{{ trans('products.Close') }}</button>
                             </div>
-                        </form> 
+                        </form>
                     </div>
                     <!-- /.modal-content -->
                 </div>

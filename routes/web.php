@@ -58,7 +58,7 @@ Route::group(
         //invoice details
         Route::get('/invoice/details/{id}', [InvoicesDetailsController::class, 'show'])->name('invoice.details');
         // view invoice files
-        Route::get('View_file/{invoice_num}/{file_name}', [InvoicesDetailsController::class, 'open_file'])->name('open_file');
+        Route::get('file/{invoice_num}/{file_name}', [InvoicesDetailsController::class, 'open_file'])->name('open_file');
         // download invoice files
         Route::get('download/{invoice_num}/{file_name}', [InvoicesDetailsController::class, 'download_file'])->name('download_file');
         // delete invoice files

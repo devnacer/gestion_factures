@@ -68,7 +68,7 @@
                         <tbody>
                             @if ($invoices->isEmpty())
                                 <tr>
-                                    <td colspan="4">{{ trans('No invoices available') }}</td>
+                                    <td colspan="4">{{ trans('invoices.No invoices available') }}</td>
                                 </tr>
                             @else
                                 @foreach ($invoices as $invoice)
@@ -84,15 +84,16 @@
                                         <td>{{ $invoice->Value_VAT }}</td>
                                         <td>{{ $invoice->Total }}</td>
                                         <td>
-                                            @if($invoice->Value_Status == 1)
+                                            @if ($invoice->Value_Status == 1)
                                                 <span class="badge bg-success">{{ trans('invoices.Paid Invoice') }}</span>
                                             @elseif($invoice->Value_Status == 2)
                                                 <span class="badge bg-danger">{{ trans('invoices.Unpaid Invoice') }}</span>
                                             @else
-                                                <span class="badge bg-warning text-dark">{{ trans('invoices.Partially Paid Invoice') }}</span>
+                                                <span
+                                                    class="badge bg-warning text-dark">{{ trans('invoices.Partially Paid Invoice') }}</span>
                                             @endif
                                         </td>
-                                        
+
                                         <td>{{ $invoice->note }}</td>
                                         <td>
                                             <form action="{{ route('invoices.edit', $invoice->id) }}" method="GET">

@@ -154,6 +154,7 @@
                             <!-- /.card -->
                         </div>
 
+                        {{-- Attachments --}}
                         <div class="tab-pane fade" id="custom-tabs-three-messages" role="tabpanel"
                             aria-labelledby="custom-tabs-three-messages-tab">
                             <div class="card">
@@ -170,45 +171,52 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($invoices_attachments as $invoice_attach)
+                                            @if ($invoices_attachments->isEmpty())
                                                 <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $invoice_attach->file_name }}</td>
-                                                    <td>{{ $invoice_attach->Created_by }}</td>
-                                                    <td>{{ $invoice_attach->created_at }}</td>
-                                                    <td></td>
-                                                    <td>
-                                                        <form
-                                                            action="{{ route('open_file', [$invoice_attach->invoice_number, $invoice_attach->file_name]) }}"
-                                                            method="GET" target="_blank">
-                                                            @csrf
-                                                            <button class="modal-effect btn btn-sm btn-primary">
-                                                                <i class="fas fa-folder"></i>
-                                                                {{ trans('invoices.View') }}
-                                                            </button>
-                                                        </form>
-
-                                                        <form
-                                                            action="{{ route('download_file', [$invoice_attach->invoice_number, $invoice_attach->file_name]) }}"
-                                                            method="GET">
-                                                            @csrf
-                                                            <button class="modal-effect btn btn-sm btn-info">
-                                                                <i class="fas fa-download"></i>
-                                                                {{ trans('invoices.Download') }}
-                                                            </button>
-                                                        </form>
-
-                                                        <a class="modal-effect btn btn-sm btn-danger"
-                                                            data-effect="effect-scale"
-                                                            data-id_file="{{ $invoice_attach->id }}"
-                                                            data-file_name="{{ $invoice_attach->file_name }}"
-                                                            data-toggle="modal" href="#ModalDelete">
-                                                            <i class="fas fa-trash"></i>
-                                                            {{ trans('sections.Delete') }}
-                                                        </a>
-                                                    </td>
+                                                    <td colspan="4">{{ trans('invoices.No attachments available') }}</td>
                                                 </tr>
-                                            @endforeach
+                                            @else
+                                                @foreach ($invoices_attachments as $invoice_attach)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $invoice_attach->file_name }}</td>
+                                                        <td>{{ $invoice_attach->Created_by }}</td>
+                                                        <td>{{ $invoice_attach->created_at }}</td>
+                                                        <td></td>
+                                                        <td>
+                                                            <form
+                                                                action="{{ route('open_file', [$invoice_attach->invoice_number, $invoice_attach->file_name]) }}"
+                                                                method="GET" target="_blank">
+                                                                @csrf
+                                                                <button class="modal-effect btn btn-sm btn-primary">
+                                                                    <i class="fas fa-folder"></i>
+                                                                    {{ trans('invoices.View') }}
+                                                                </button>
+                                                            </form>
+
+                                                            <form
+                                                                action="{{ route('download_file', [$invoice_attach->invoice_number, $invoice_attach->file_name]) }}"
+                                                                method="GET">
+                                                                @csrf
+                                                                <button class="modal-effect btn btn-sm btn-info">
+                                                                    <i class="fas fa-download"></i>
+                                                                    {{ trans('invoices.Download') }}
+                                                                </button>
+                                                            </form>
+
+                                                            <a class="modal-effect btn btn-sm btn-danger"
+                                                                data-effect="effect-scale"
+                                                                data-id_file="{{ $invoice_attach->id }}"
+                                                                data-file_name="{{ $invoice_attach->file_name }}"
+                                                                data-invoice_number="{{ $invoice_attach->invoice_number }}"
+                                                                data-toggle="modal" href="#ModalDelete">
+                                                                <i class="fas fa-trash"></i>
+                                                                {{ trans('sections.Delete') }}
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
@@ -239,6 +247,7 @@
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <input type="hidden" name="id_file" id="id_file" value="">
+                                        <input type="hidden" name="invoice_number" id="invoice_number" value="">
                                         <p>{{ trans('invoices.Are you sure you want to delete this File?') }}</p>
                                         <input class="form-control" name="file_name" id="file_name" value=""
                                             readonly>
@@ -286,9 +295,11 @@
             var button = $(event.relatedTarget)
             var id_file = button.data('id_file')
             var file_name = button.data('file_name')
+            var invoice_number = button.data('invoice_number')
             var modal = $(this)
             modal.find('.modal-body #id_file').val(id_file);
             modal.find('.modal-body #file_name').val(file_name);
+            modal.find('.modal-body #invoice_number').val(invoice_number);
         })
     </script>
 @endsection

@@ -57,7 +57,7 @@
                         <tbody>
                             @if ($sections->isEmpty())
                                 <tr>
-                                    <td colspan="4">{{ trans('No sections available') }}</td>
+                                    <td colspan="5">{{ trans('sections.No sections available') }}</td>
                                 </tr>
                             @else
                                 @foreach ($sections as $section)

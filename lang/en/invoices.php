@@ -62,5 +62,6 @@ return [
     'File name' => 'ََFile name',
     'View' => 'ََView',
     'Download' => 'Download',
+    'No attachments available' => 'No attachments available',
 
 ];
