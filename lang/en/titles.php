@@ -18,4 +18,5 @@ return [
     'Product Update' => 'Product Update',
     'Create new Invoice' => 'Create new Invoice',
     'Invoice details' => 'Invoice details',
+    'Invoice Update' => 'Invoice Update',
 ];

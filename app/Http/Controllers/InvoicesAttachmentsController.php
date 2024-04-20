@@ -38,10 +38,10 @@ class InvoicesAttachmentsController extends Controller
             $invoice_id = $request->invoice_id;
 
             $attachments = new Invoices_attachments();
-            $attachments->file_name = $file_name; //yess
-            $attachments->invoice_number = $invoice_number; //yes yesssssss
-            $attachments->invoice_id = $invoice_id; // yessssssss
-            $attachments->Created_by = Auth::user()->name; //yes
+            $attachments->file_name = $file_name; 
+            $attachments->invoice_number = $invoice_number;
+            $attachments->invoice_id = $invoice_id; 
+            $attachments->Created_by = Auth::user()->name; 
             $attachments->save();
 
             // move invoice_files
@@ -49,7 +49,7 @@ class InvoicesAttachmentsController extends Controller
             $request->invoice_files->move(public_path('Attachments/' . $invoice_number), $invoice_files_name);
         }
 
-        return back()->with('success', trans('messages.delete'));
+        return back()->with('success', trans('messages.add'));
 
     }
 

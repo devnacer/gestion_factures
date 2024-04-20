@@ -41,7 +41,7 @@ return [
     'invoices' => 'invoices',
     // 'Setting' => 'Setting',
     'Create new Invoice' => 'Create new Invoice',
-    // 'Section Update' => 'Section Update',
+    'invoice Update' => 'invoice Update',
     // 'Name' => 'Name',
     // 'Description' => 'Description',
     'Close' => 'Close',
@@ -49,7 +49,10 @@ return [
     
     //delete
      'Are you sure you want to delete this File?' => 'Are you sure you want to delete this File?',
+     'Are you sure you want to delete this Invoice?' => 'Are you sure you want to delete this Invoice?',
      'Delete File' => 'Delete File',
+     'Delete Invoice' => 'Delete Invoice',
+     'Delete' => 'Delete',
     
     //details
     'Invoice details' => 'Invoice details',

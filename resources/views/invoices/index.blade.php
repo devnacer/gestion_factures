@@ -105,7 +105,7 @@
                                             </form>
 
                                             <a class="modal-effect btn btn-sm btn-danger mr-1 mb-1" data-effect="effect-scale"
-                                                data-id="{{ $invoice->id }}" data-name="{{ $invoice->name }}"
+                                                data-id="{{ $invoice->id }}" data-invoice_number="{{ $invoice->invoice_number }}"
                                                 data-toggle="modal" href="#ModalDelete">
                                                 <i class="fas fa-trash"></i>
                                                 {{ trans('invoices.Delete') }}
@@ -132,28 +132,28 @@
             <!-- /.card -->
 
             <!--modal Delete-->
-            {{-- <div class="modal fade" id="ModalDelete">
+            <div class="modal fade" id="ModalDelete">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">{{ trans('invoices.Delete Section') }}</h4>
+                            <h4 class="modal-title">{{ trans('invoices.Delete Invoice') }}</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
 
-                        <form action="{{ route('invoices.destroy', 0) }}" method="post" autocomplete="off">
+                        <form action="invoices/destroy" method="post" autocomplete="off">
                             @method('delete')
                             @csrf
                             <div class="modal-body">
                                 <div class="form-group">
                                     <input type="hidden" name="id" id="id" value="">
-                                    <p>{{ trans('invoices.Are you sure you want to delete this Section?') }}</p>
-                                    <input class="form-control" name="name" id="name" type="text" readonly>
+                                    <p>{{ trans('invoices.Are you sure you want to delete this Invoice?') }}</p>
+                                    <input class="form-control" name="invoice_number" id="invoice_number" type="text" readonly>
                                 </div>
                             </div>
                             <div class="modal-footer justify-content-between">
-                                <button type="submit" class="btn btn-secondary">{{ trans('invoices.Validate') }}</button>
+                                <button type="submit" class="btn btn-secondary">{{ trans('invoices.Delete') }}</button>
                                 <button type="button" class="btn btn-default"
                                     data-dismiss="modal">{{ trans('invoices.Close') }}</button>
                             </div>
@@ -163,7 +163,7 @@
                     <!-- /.modal-content -->
                 </div>
                 <!-- /.modal-dialog -->
-            </div> --}}
+            </div> 
             <!-- /.modal -->
 
 
@@ -208,13 +208,13 @@
         });
     </script>
     <script>
-        // $('#ModalDelete').on('show.bs.modal', function(event) {
-        //     var button = $(event.relatedTarget)
-        //     var id = button.data('id')
-        //     var name = button.data('name')
-        //     var modal = $(this)
-        //     modal.find('.modal-body #id').val(id);
-        //     modal.find('.modal-body #name').val(name);
-        // })
+        $('#ModalDelete').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('id')
+            var invoice_number = button.data('invoice_number')
+            var modal = $(this)
+            modal.find('.modal-body #id').val(id);
+            modal.find('.modal-body #invoice_number').val(invoice_number);
+        })
     </script>
 @endsection

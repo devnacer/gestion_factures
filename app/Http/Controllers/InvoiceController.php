@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
-use App\Models\Invoices_attachments;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use App\Models\Invoices_details;
 use Illuminate\Support\Facades\DB;
+use App\Models\Invoices_attachments;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
 {
@@ -87,7 +88,6 @@ class InvoiceController extends Controller
         }
 
         return to_route('invoices.index')->with('success', trans('messages.add'));
-
     }
 
     /**
@@ -103,7 +103,8 @@ class InvoiceController extends Controller
      */
     public function edit(Invoice $invoice)
     {
-        //
+        $sections = Section::all();
+        return view('invoices.edit', compact('sections', 'invoice'));
     }
 
     /**
@@ -111,15 +112,44 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, Invoice $invoice)
     {
-        //
+        $invoice->update([
+            'invoice_number' => $request->invoice_number,
+            'invoice_Date' => $request->invoice_Date,
+            'Due_date' => $request->Due_date,
+            'product' => $request->product,
+            'section_id' => $request->Section,
+            'Amount_collection' => $request->Amount_collection,
+            'Amount_Commission' => $request->Amount_Commission,
+            'Discount' => $request->Discount,
+            'Value_VAT' => $request->Value_VAT,
+            'Rate_VAT' => $request->Rate_VAT,
+            'Total' => $request->Total,
+            'note' => $request->note,
+        ]);
+
+        return to_route('invoices.index')->with('success', trans('messages.edit'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Invoice $invoice)
+    public function destroy(Request $request)
     {
-        //
+  
+        $id = $request->id;
+        $invoice = Invoice::where('id', $id)->first();
+        $invoices_attachments = Invoices_attachments::where('invoice_id', $id)->first();
+  
+        if (!empty($invoices_attachments->invoice_number)) {
+
+            Storage::disk('public_path_invoice')->deleteDirectory($invoices_attachments->invoice_number);
+        }
+
+        $invoice->forceDelete();
+
+        // $invoice->delete();
+        return back()->with('success', trans('messages.delete'));
+
     }
 
     public function getproducts($id)
