@@ -5,6 +5,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\InvoicesAttachmentsController;
 use App\Http\Controllers\InvoicesDetailsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SectionsController;
@@ -63,7 +64,9 @@ Route::group(
         Route::get('download/{invoice_num}/{file_name}', [InvoicesDetailsController::class, 'download_file'])->name('download_file');
         // delete invoice files
         Route::delete('delete/file', [InvoicesDetailsController::class, 'destroy'])->name('delete_file');
-
+        
+        // Add another attachment file
+        Route::post('attachment/add', [InvoicesAttachmentsController::class, 'store'])->name('another_attachment_store');
 
         
 

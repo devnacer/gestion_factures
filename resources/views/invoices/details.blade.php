@@ -157,6 +157,32 @@
                         {{-- Attachments --}}
                         <div class="tab-pane fade" id="custom-tabs-three-messages" role="tabpanel"
                             aria-labelledby="custom-tabs-three-messages-tab">
+
+                            {{-- add file --}}
+                            <form action="{{ route('another_attachment_store') }}" method="post"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="card p-2">
+                                    <label for="exampleInputFile">{{ trans('invoices.Add another attachment') }}</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="hidden" name="invoice_id" value="{{ $invoice->id }}">
+                                            <input type="hidden" name="invoice_number"
+                                                value="{{ $invoice->invoice_number }}">
+                                            <input name="invoice_files" accept=".pdf,.jpg, .png, image/jpeg, image/png"
+                                                type="file" class="custom-file-input" id="exampleInputFile" multiple>
+                                            <label class="custom-file-label"
+                                                for="exampleInputFile">{{ trans('invoices.Choose file') }}</label>
+                                        </div>
+                                        <button type="submit"
+                                            class="btn btn-secondary">{{ trans('invoices.Save') }}</button>
+                                    </div>
+                                    <p class="text-danger">
+                                        {{ trans('invoices.The attachment format is pdf, jpeg, .jpg, png.') }}</p>
+                                </div>
+                            </form>
+                            <br>
+
                             <div class="card">
                                 <!-- /.card-header -->
                                 <div class="card-body table-responsive p-0">
@@ -173,7 +199,8 @@
                                         <tbody>
                                             @if ($invoices_attachments->isEmpty())
                                                 <tr>
-                                                    <td colspan="4">{{ trans('invoices.No attachments available') }}</td>
+                                                    <td colspan="4">{{ trans('invoices.No attachments available') }}
+                                                    </td>
                                                 </tr>
                                             @else
                                                 @foreach ($invoices_attachments as $invoice_attach)
@@ -301,5 +328,13 @@
             modal.find('.modal-body #file_name').val(file_name);
             modal.find('.modal-body #invoice_number').val(invoice_number);
         })
+    </script>
+    <!-- bs-custom-file-input -->
+    <script src="{{ URL::asset('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+    <!-- Page specific script -->
+    <script>
+        $(function() {
+            bsCustomFileInput.init();
+        });
     </script>
 @endsection

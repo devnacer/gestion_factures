@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Invoices_attachments;
 use Illuminate\Http\Request;
+use App\Models\Invoices_attachments;
+use Illuminate\Support\Facades\Auth;
 
 class InvoicesAttachmentsController extends Controller
 {
@@ -28,7 +29,28 @@ class InvoicesAttachmentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //insert into Invoices_attachements
+        if ($request->hasFile('invoice_files')) {
+
+            $my_invoice_files = $request->file('invoice_files');
+            $file_name = $my_invoice_files->getClientOriginalName();
+            $invoice_number = $request->invoice_number;
+            $invoice_id = $request->invoice_id;
+
+            $attachments = new Invoices_attachments();
+            $attachments->file_name = $file_name; //yess
+            $attachments->invoice_number = $invoice_number; //yes yesssssss
+            $attachments->invoice_id = $invoice_id; // yessssssss
+            $attachments->Created_by = Auth::user()->name; //yes
+            $attachments->save();
+
+            // move invoice_files
+            $invoice_files_name = $request->invoice_files->getClientOriginalName();
+            $request->invoice_files->move(public_path('Attachments/' . $invoice_number), $invoice_files_name);
+        }
+
+        return back()->with('success', trans('messages.delete'));
+
     }
 
     /**

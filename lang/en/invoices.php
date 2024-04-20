@@ -63,5 +63,8 @@ return [
     'View' => 'ََView',
     'Download' => 'Download',
     'No attachments available' => 'No attachments available',
+    'Add another attachment' => 'Add another attachment',
+    'The attachment format is pdf, jpeg, .jpg, png.' => 'The attachment format is pdf, jpeg, .jpg, png.',
+    'Choose file' => 'Choose file',
 
 ];

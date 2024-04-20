@@ -39,7 +39,7 @@
                     <h3 class="card-title mr-auto">{{ trans('invoices.Invoices list') }}</h3>
                     <form action="{{ route('invoices.create') }}" method="GET">
                         @csrf
-                        <button class="btn btn-default">{{ trans('invoices.Create new Invoice') }}</button>
+                        <button class="btn btn-secondary">{{ trans('invoices.Create new Invoice') }}</button>
                     </form>
                 </div>
 
@@ -95,8 +95,8 @@
                                         </td>
 
                                         <td>{{ $invoice->note }}</td>
-                                        <td>
-                                            <form action="{{ route('invoices.edit', $invoice->id) }}" method="GET">
+                                        <td class="row">
+                                            <form action="{{ route('invoices.edit', $invoice->id) }}" method="GET" class="mr-1 mb-1">
                                                 @csrf
                                                 <button class="modal-effect btn btn-sm btn-info">
                                                     <i class="fas fa-pencil-alt"></i>
@@ -104,7 +104,7 @@
                                                 </button>
                                             </form>
 
-                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                            <a class="modal-effect btn btn-sm btn-danger mr-1 mb-1" data-effect="effect-scale"
                                                 data-id="{{ $invoice->id }}" data-name="{{ $invoice->name }}"
                                                 data-toggle="modal" href="#ModalDelete">
                                                 <i class="fas fa-trash"></i>
@@ -113,8 +113,8 @@
 
                                             <form action="{{ route('invoice.details', $invoice->id) }}" method="GET">
                                                 @csrf
-                                                <button class="modal-effect btn btn-sm btn-light">
-                                                    <i class="fas fa-pencil-alt"></i>
+                                                <button class="modal-effect btn btn-sm btn-primary">
+                                                    <i class="fas fa-folder"></i>
                                                     {{ trans('invoices.Show Details') }}
                                                 </button>
                                             </form>
