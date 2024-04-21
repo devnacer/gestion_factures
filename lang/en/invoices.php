@@ -73,4 +73,12 @@ return [
     
     //statut
     'Change the payment status of the invoice' => 'Change the payment status of the invoice',
+    'Update the payment status' => 'Update the payment status',
+    'Select Payment Status' => 'Select Payment Status',
+    'Payment Status' => 'Payment Status',
+    'Paid' => 'Paid',
+    'Update' => 'Update',
+    'Partially Paid' => 'Partially Paid',
+    'Payment Date' => 'Payment Date',
+
 ];

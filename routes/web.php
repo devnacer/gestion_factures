@@ -71,7 +71,7 @@ Route::group(
         //invoice Payment Status Show
         Route::get('/invoice/payment/status/{id}', [InvoiceController::class, 'show'])->name('invoicePaymentStatusShow');
 
-        // Route::post('/invoice/payment/status/update/{id}', [InvoiceController::class, 'statusUpdate'])->name('InvoicePaymentStatusUpdate');
+        Route::post('/invoice/payment/status/update/{id}', [InvoiceController::class, 'statusUpdate'])->name('InvoicePaymentStatusUpdate');
 
 
 

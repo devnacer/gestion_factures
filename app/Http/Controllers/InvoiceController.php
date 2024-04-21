@@ -55,13 +55,13 @@ class InvoiceController extends Controller
         ]);
 
         // insert into Invoices_details
-        $invoice_id = Invoice::latest()->first()->id;
+        $invoice = Invoice::latest()->first();
         Invoices_details::create([
-            'id_Invoice' => $invoice_id,
+            'id_Invoice' => $invoice->id,
             'invoice_number' => $request->invoice_number,
             'product' => $request->product,
-            'Section' => $request->Section,
-            'Status' => 'غير مدفوعة',
+            'Section' => $invoice->section->name,
+            'Status' => 'inpaid',
             'Value_Status' => 2,
             'note' => $request->note,
             'user' => Auth::user()->name,
@@ -97,7 +97,6 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::where('id', $id)->first();
         return view('invoices.status_update', compact('invoice'));
-
     }
 
     /**
@@ -137,11 +136,11 @@ class InvoiceController extends Controller
      */
     public function destroy(Request $request)
     {
-  
+
         $id = $request->id;
         $invoice = Invoice::where('id', $id)->first();
         $invoices_attachments = Invoices_attachments::where('invoice_id', $id)->first();
-  
+
         if (!empty($invoices_attachments->invoice_number)) {
 
             Storage::disk('public_path_invoice')->deleteDirectory($invoices_attachments->invoice_number);
@@ -151,12 +150,58 @@ class InvoiceController extends Controller
 
         // $invoice->delete();
         return back()->with('success', trans('messages.delete'));
-
     }
 
     public function getproducts($id)
     {
         $products = DB::table("products")->where("section_id", $id)->pluck("name", "id");
         return json_encode($products);
+    }
+
+    public function statusUpdate(Request $request, $id)
+    {
+        $invoice = Invoice::findOrFail($id);
+
+        if ($request->value_status === '1') {
+
+            $invoice->update([
+                'value_status' => 1,
+                'status' => 'paid',
+                'payment_date' => $request->payment_date,
+            ]);
+
+            Invoices_details::create([
+                'id_Invoice' => $invoice->id,
+                'invoice_number' => $request->invoice_number,
+                'product' => $request->product,
+                'Section' => $invoice->section->name,
+                'Status' => "paid",
+                'Value_Status' => 1,
+                //  'payment_date' => $request->payment_date,
+                'payment_date' => date('Y-m-d', strtotime($request->payment_date)),
+                'note' => $request->note,
+                'user' => Auth::user()->name,
+            ]);
+        } else {
+            $invoice->update([
+                'value_status' => 3,
+                'status' => 'paid',
+                'payment_date' => $request->payment_date,
+            ]);
+    
+            Invoices_details::create([
+                'id_Invoice' => $invoice->id,
+                'invoice_number' => $request->invoice_number,
+                'product' => $request->product,
+                'Section' => $invoice->section->name,
+                'Status' => "partially paid",
+                'Value_Status' => 3,
+                'payment_date' => date('Y-m-d', strtotime($request->payment_date)),
+                'note' => $request->note,
+                'user' => Auth::user()->name,
+            ]);
+
+        }
+        return to_route('invoices.index')->with('success', trans('messages.add'));
     }
 }

@@ -129,10 +129,10 @@
                                                     <td>{{ $invoice->invoice_Date }}</td>
                                                     <td>{{ $invoice_detail->Due_date }}</td>
                                                     <td>
-                                                        @if ($invoice->Value_Status == 1)
+                                                        @if ($invoice_detail->value_status == 1)
                                                             <span
                                                                 class="badge bg-success">{{ trans('invoices.Paid Invoice') }}</span>
-                                                        @elseif($invoice->Value_Status == 2)
+                                                        @elseif($invoice_detail->value_status == 2)
                                                             <span
                                                                 class="badge bg-danger">{{ trans('invoices.Unpaid Invoice') }}</span>
                                                         @else
