@@ -36,6 +36,7 @@ return [
     'Unpaid Invoice' => 'Unpaid Invoice',
     'Partially Paid Invoice' => 'Partially Paid Invoice',
     'Show Details' => 'Show Details',
+    'Modify the payment status' => 'Modify the payment status',
 
     //create + edit invoices 
     'invoices' => 'invoices',
@@ -69,5 +70,7 @@ return [
     'Add another attachment' => 'Add another attachment',
     'The attachment format is pdf, jpeg, .jpg, png.' => 'The attachment format is pdf, jpeg, .jpg, png.',
     'Choose file' => 'Choose file',
-
+    
+    //statut
+    'Change the payment status of the invoice' => 'Change the payment status of the invoice',
 ];

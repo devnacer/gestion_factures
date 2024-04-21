@@ -95,29 +95,57 @@
                                         </td>
 
                                         <td>{{ $invoice->note }}</td>
-                                        <td class="row">
-                                            <form action="{{ route('invoices.edit', $invoice->id) }}" method="GET" class="mr-1 mb-1">
-                                                @csrf
-                                                <button class="modal-effect btn btn-sm btn-info">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                    {{ trans('invoices.Edit') }}
+                           
+                                        <td>
+                                            <div class="input-group-prepend">
+                                                <button type="button" class="btn btn-default dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    {{ trans('invoices.Operations') }}
                                                 </button>
-                                            </form>
+                                                <div class="dropdown-menu">
 
-                                            <a class="modal-effect btn btn-sm btn-danger mr-1 mb-1" data-effect="effect-scale"
-                                                data-id="{{ $invoice->id }}" data-invoice_number="{{ $invoice->invoice_number }}"
-                                                data-toggle="modal" href="#ModalDelete">
-                                                <i class="fas fa-trash"></i>
-                                                {{ trans('invoices.Delete') }}
-                                            </a>
+                                                    {{-- details --}}
+                                                    <form action="{{ route('invoice.details', $invoice->id) }}"
+                                                        method="GET" class="dropdown-item">
+                                                        @csrf
+                                                        <button class="modal-effect btn btn-sm btn-primary">
+                                                            <i class="fas fa-folder"></i>
+                                                            {{ trans('invoices.Show Details') }}
+                                                        </button>
+                                                    </form>
 
-                                            <form action="{{ route('invoice.details', $invoice->id) }}" method="GET">
-                                                @csrf
-                                                <button class="modal-effect btn btn-sm btn-primary">
-                                                    <i class="fas fa-folder"></i>
-                                                    {{ trans('invoices.Show Details') }}
-                                                </button>
-                                            </form>
+                                                    {{-- edit --}}
+                                                    <form action="{{ route('invoices.edit', $invoice->id) }}"
+                                                        method="GET" class="dropdown-item">
+                                                        @csrf
+                                                        <button class="modal-effect btn btn-sm btn-info">
+                                                            <i class="fas fa-pencil-alt"></i>
+                                                            {{ trans('invoices.Edit') }}
+                                                        </button>
+                                                    </form>
+
+                                                    {{-- Modify the payment status --}}
+                                                    <form action="{{ route('invoicePaymentStatusShow', $invoice->id) }}"
+                                                        method="GET" class="dropdown-item">
+                                                        @csrf
+                                                        <button class="modal-effect btn btn-sm btn-secondary">
+                                                            <i class="fas fa-pencil-alt"></i>
+                                                            {{ trans('invoices.Modify the payment status') }}
+                                                        </button>
+                                                    </form>
+
+                                                    {{-- delete --}}
+                                                    <div class="dropdown-item">
+                                                        <a class="modal-effect btn btn-sm btn-danger"
+                                                            data-effect="effect-scale" data-id="{{ $invoice->id }}"
+                                                            data-invoice_number="{{ $invoice->invoice_number }}"
+                                                            data-toggle="modal" href="#ModalDelete">
+                                                            <i class="fas fa-trash"></i>
+                                                            {{ trans('invoices.Delete') }}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                         </td>
                                     </tr>
@@ -149,7 +177,8 @@
                                 <div class="form-group">
                                     <input type="hidden" name="id" id="id" value="">
                                     <p>{{ trans('invoices.Are you sure you want to delete this Invoice?') }}</p>
-                                    <input class="form-control" name="invoice_number" id="invoice_number" type="text" readonly>
+                                    <input class="form-control" name="invoice_number" id="invoice_number" type="text"
+                                        readonly>
                                 </div>
                             </div>
                             <div class="modal-footer justify-content-between">
@@ -163,7 +192,7 @@
                     <!-- /.modal-content -->
                 </div>
                 <!-- /.modal-dialog -->
-            </div> 
+            </div>
             <!-- /.modal -->
 
 

@@ -68,6 +68,14 @@ Route::group(
         // Add another attachment file
         Route::post('attachment/add', [InvoicesAttachmentsController::class, 'store'])->name('another_attachment_store');
 
+        //invoice Payment Status Show
+        Route::get('/invoice/payment/status/{id}', [InvoiceController::class, 'show'])->name('invoicePaymentStatusShow');
+
+        // Route::post('/invoice/payment/status/update/{id}', [InvoiceController::class, 'statusUpdate'])->name('InvoicePaymentStatusUpdate');
+
+
+
+
         
 
         Route::middleware('auth')->group(function () {

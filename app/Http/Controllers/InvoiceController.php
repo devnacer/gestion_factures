@@ -93,9 +93,11 @@ class InvoiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Invoice $invoice)
+    public function show(Invoice $invoice, $id)
     {
-        //
+        $invoice = Invoice::where('id', $id)->first();
+        return view('invoices.status_update', compact('invoice'));
+
     }
 
     /**

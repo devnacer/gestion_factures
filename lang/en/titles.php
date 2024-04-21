@@ -19,4 +19,5 @@ return [
     'Create new Invoice' => 'Create new Invoice',
     'Invoice details' => 'Invoice details',
     'Invoice Update' => 'Invoice Update',
+    'Change the payment status of the invoice' => 'Change the payment status of the invoice',
 ];
