@@ -165,9 +165,9 @@ class InvoiceController extends Controller
         if ($request->value_status === '1') {
 
             $invoice->update([
-                'value_status' => 1,
-                'status' => 'paid',
-                'payment_date' => $request->payment_date,
+                'Value_Status' => 1,
+                'Status' => 'paid',
+                'Payment_Date' => $request->payment_date,
             ]);
 
             Invoices_details::create([
@@ -177,16 +177,15 @@ class InvoiceController extends Controller
                 'Section' => $invoice->section->name,
                 'Status' => "paid",
                 'Value_Status' => 1,
-                //  'payment_date' => $request->payment_date,
-                'payment_date' => date('Y-m-d', strtotime($request->payment_date)),
+                'Payment_Date' => $request->payment_date,
                 'note' => $request->note,
                 'user' => Auth::user()->name,
             ]);
         } else {
             $invoice->update([
-                'value_status' => 3,
-                'status' => 'paid',
-                'payment_date' => $request->payment_date,
+                'Value_Status' => 3,
+                'Status' => 'partially paid',
+                'Payment_Date' => $request->payment_date,
             ]);
     
             Invoices_details::create([
@@ -196,7 +195,7 @@ class InvoiceController extends Controller
                 'Section' => $invoice->section->name,
                 'Status' => "partially paid",
                 'Value_Status' => 3,
-                'payment_date' => date('Y-m-d', strtotime($request->payment_date)),
+                'Payment_Date' => date('Y-m-d', strtotime($request->payment_date)),
                 'note' => $request->note,
                 'user' => Auth::user()->name,
             ]);

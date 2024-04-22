@@ -127,7 +127,7 @@
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $invoice->invoice_number }}</td>
                                                     <td>{{ $invoice->invoice_Date }}</td>
-                                                    <td>{{ $invoice_detail->Due_date }}</td>
+                                                    <td>{{ $invoice->Due_date }}</td>
                                                     <td>
                                                         @if ($invoice_detail->value_status == 1)
                                                             <span
