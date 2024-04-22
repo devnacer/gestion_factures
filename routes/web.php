@@ -70,8 +70,16 @@ Route::group(
 
         //invoice Payment Status Show
         Route::get('/invoice/payment/status/{id}', [InvoiceController::class, 'show'])->name('invoicePaymentStatusShow');
-
         Route::post('/invoice/payment/status/update/{id}', [InvoiceController::class, 'statusUpdate'])->name('InvoicePaymentStatusUpdate');
+        
+        //index invoices paid
+        Route::get('/invoice/paid', [InvoiceController::class, 'showPaidInvoices'])->name('invoices.paid');
+        //index invoices unpaid
+        Route::get('/invoice/unpaid', [InvoiceController::class, 'showUnpaidInvoices'])->name('invoices.unpaid');
+        //index invoices partially-paid
+        Route::get('/invoice/partially-paid', [InvoiceController::class, 'showPartiallyPaidInvoices'])->name('invoices.partially_paid');
+
+
 
 
 

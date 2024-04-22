@@ -59,19 +59,19 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                    <a href="{{ route('invoices.paid')}}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>{{ trans('main-sidebar.Paid invoices') }}</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/layout/boxed.html" class="nav-link">
+                    <a href="{{ route('invoices.unpaid')}}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>{{ trans('main-sidebar.Unpaid invoices') }}</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/layout/fixed-sidebar.html" class="nav-link">
+                    <a href="{{ route('invoices.partially_paid')}}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>{{ trans('main-sidebar.Partially paid invoices') }}</p>
                     </a>

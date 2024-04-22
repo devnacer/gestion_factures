@@ -80,5 +80,10 @@ return [
     'Update' => 'Update',
     'Partially Paid' => 'Partially Paid',
     'Payment Date' => 'Payment Date',
+    
+    //Paid invoices
+    'Paid invoices' => 'Paid invoices',
+    'Unpaid invoices' => 'Unpaid invoices',
+    'Partially paid invoices' => 'Partially paid invoices',
 
 ];

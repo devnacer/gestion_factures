@@ -49,7 +49,7 @@ class InvoiceController extends Controller
             'Value_VAT' => $request->Value_VAT,
             'Rate_VAT' => $request->Rate_VAT,
             'Total' => $request->Total,
-            'Status' => 'غير مدفوعة',
+            'Status' => 'unpaid',
             'Value_Status' => 2,
             'note' => $request->note,
         ]);
@@ -203,4 +203,25 @@ class InvoiceController extends Controller
         }
         return to_route('invoices.index')->with('success', trans('messages.add'));
     }
+
+    
+    public function showPaidInvoices()
+    {
+       $invoices = Invoice::where("Value_Status", 1)->get();
+       return view('invoices.invoices_paid', compact('invoices'));
+    }
+    
+    public function showUnpaidInvoices()
+    {
+       $invoices = Invoice::where("Value_Status", 2)->get();
+       return view('invoices.invoices_unpaid', compact('invoices'));
+    }
+    
+    public function showPartiallyPaidInvoices()
+    {
+       $invoices = Invoice::where("Value_Status", 3)->get();
+       return view('invoices.invoices_partially', compact('invoices'));
+    }
+
+
 }

@@ -20,4 +20,7 @@ return [
     'Invoice details' => 'Invoice details',
     'Invoice Update' => 'Invoice Update',
     'Change the payment status of the invoice' => 'Change the payment status of the invoice',
+    'Paid Invoices' => 'Paid Invoices',
+    'Unpaid Invoices' => 'Unpaid Invoices',
+    'Partially Paid Invoices' => 'Partially Paid Invoices',
 ];
