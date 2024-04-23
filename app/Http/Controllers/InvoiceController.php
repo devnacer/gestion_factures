@@ -136,7 +136,6 @@ class InvoiceController extends Controller
      */
     public function destroy(Request $request)
     {
-
         $id = $request->id;
         $invoice = Invoice::where('id', $id)->first();
         $invoices_attachments = Invoices_attachments::where('invoice_id', $id)->first();
@@ -148,7 +147,6 @@ class InvoiceController extends Controller
 
         $invoice->forceDelete();
 
-        // $invoice->delete();
         return back()->with('success', trans('messages.delete'));
     }
 

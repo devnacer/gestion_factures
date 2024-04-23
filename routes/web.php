@@ -5,6 +5,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\InvoiceArchiveController;
 use App\Http\Controllers\InvoicesAttachmentsController;
 use App\Http\Controllers\InvoicesDetailsController;
 use App\Http\Controllers\ProductController;
@@ -79,7 +80,11 @@ Route::group(
         //index invoices partially-paid
         Route::get('/invoice/partially-paid', [InvoiceController::class, 'showPartiallyPaidInvoices'])->name('invoices.partially_paid');
 
+        // archive invoice 
+        Route::delete('invoice/archive', [InvoiceArchiveController::class, 'archive'])->name('invoice_archive');
 
+        //archive
+        Route::resource('archive', InvoiceArchiveController::class);
 
 
 

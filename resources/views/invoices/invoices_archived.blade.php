@@ -24,7 +24,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">{{ trans('invoices.Invoices') }}</a></li>
-                            <li class="breadcrumb-item active">{{ trans('invoices.Invoices list') }}</li>
+                            <li class="breadcrumb-item active">{{ trans('invoices.Archived invoices') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
 
             <div class="card">
                 <div class="card-header d-flex">
-                    <h3 class="card-title mr-auto">{{ trans('invoices.Invoices list') }}</h3>
+                    <h3 class="card-title mr-auto">{{ trans('invoices.Archived invoices') }}</h3>
                     <form action="{{ route('invoices.create') }}" method="GET">
                         @csrf
                         <button class="btn btn-secondary">{{ trans('invoices.Create new Invoice') }}</button>
@@ -68,7 +68,7 @@
                         <tbody>
                             @if ($invoices->isEmpty())
                                 <tr>
-                                    <td colspan="4">{{ trans('invoices.No invoices available') }}</td>
+                                    <td colspan="13">{{ trans('invoices.No invoices available') }}</td>                    
                                 </tr>
                             @else
                                 @foreach ($invoices as $invoice)
@@ -114,34 +114,14 @@
                                                         </button>
                                                     </form>
 
-                                                    {{-- edit --}}
-                                                    <form action="{{ route('invoices.edit', $invoice->id) }}"
-                                                        method="GET" class="dropdown-item">
-                                                        @csrf
-                                                        <button class="modal-effect btn btn-sm btn-info">
-                                                            <i class="fas fa-pencil-alt"></i>
-                                                            {{ trans('invoices.Edit') }}
-                                                        </button>
-                                                    </form>
-
-                                                    {{-- Modify the payment status --}}
-                                                    <form action="{{ route('invoicePaymentStatusShow', $invoice->id) }}"
-                                                        method="GET" class="dropdown-item">
-                                                        @csrf
-                                                        <button class="modal-effect btn btn-sm btn-secondary">
-                                                            <i class="fas fa-pencil-alt"></i>
-                                                            {{ trans('invoices.Modify the payment status') }}
-                                                        </button>
-                                                    </form>
-
-                                                    {{-- archive --}}
+                                                    {{-- unarchive --}}
                                                     <div class="dropdown-item">
                                                         <a class="modal-effect btn btn-sm btn-warning"
                                                             data-effect="effect-scale" data-id="{{ $invoice->id }}"
                                                             data-invoice_number="{{ $invoice->invoice_number }}"
-                                                            data-toggle="modal" href="#ModalArchive">
+                                                            data-toggle="modal" href="#ModalUnarchive">
                                                             <i class="fas fa-archive"></i>
-                                                            {{ trans('invoices.Archive') }}
+                                                            {{ trans('invoices.Unarchive') }}
                                                         </a>
                                                     </div>
 
@@ -171,8 +151,8 @@
             </div>
             <!-- /.card -->
 
-            <!--modal Archive-->
-            <div class="modal fade" id="ModalArchive">
+            <!--modal Unarchive-->
+            <div class="modal fade" id="ModalUnarchive">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -182,19 +162,19 @@
                             </button>
                         </div>
 
-                        <form action="{{ route('invoice_archive')}}" method="post" autocomplete="off">
-                            @method('delete')
+                        <form action="{{ route('archive.update', 'test')}}" method="post" autocomplete="off">
+                            @method('put')
                             @csrf
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <input type="hidden" name="id_archive" id="id" value="">
-                                    <p>{{ trans('invoices.Are you sure you want to archive this Invoice?') }}</p>
+                                    <input type="hidden" name="id_unarchive" id="id" value="">
+                                    <p>{{ trans('invoices.Are you sure you want to unarchive this invoice and move it to the list of invoices?') }}</p>
                                     <input class="form-control" name="invoice_number" id="invoice_number" type="text"
                                         readonly>
                                 </div>
                             </div>
                             <div class="modal-footer justify-content-between">
-                                <button type="submit" class="btn btn-secondary">{{ trans('invoices.Archive') }}</button>
+                                <button type="submit" class="btn btn-secondary">{{ trans('invoices.Unarchive') }}</button>
                                 <button type="button" class="btn btn-default"
                                     data-dismiss="modal">{{ trans('invoices.Close') }}</button>
                             </div>
@@ -218,7 +198,7 @@
                             </button>
                         </div>
 
-                        <form action="invoices/destroy" method="post" autocomplete="off">
+                        <form action="archive/destroy" method="post" autocomplete="off">
                             @method('delete')
                             @csrf
                             <div class="modal-body">
@@ -293,7 +273,7 @@
         })
     </script>
     <script>
-        $('#ModalArchive').on('show.bs.modal', function(event) {
+        $('#ModalUnarchive').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var id = button.data('id')
             var invoice_number = button.data('invoice_number')

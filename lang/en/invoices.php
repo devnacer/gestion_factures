@@ -37,6 +37,9 @@ return [
     'Partially Paid Invoice' => 'Partially Paid Invoice',
     'Show Details' => 'Show Details',
     'Modify the payment status' => 'Modify the payment status',
+    'Archive' => 'Archive',
+    'Are you sure you want to archive this Invoice?' => 'Are you sure you want to archive this Invoice?',
+    'Archive Invoice' => 'Archive Invoice',
 
     //create + edit invoices 
     'invoices' => 'invoices',
@@ -85,5 +88,10 @@ return [
     'Paid invoices' => 'Paid invoices',
     'Unpaid invoices' => 'Unpaid invoices',
     'Partially paid invoices' => 'Partially paid invoices',
+    
+    //Archived invoices
+    'Archived invoices' => 'Archived invoices',
+    'Unarchive' => 'Unarchive',
+    'Are you sure you want to unarchive this invoice and move it to the list of invoices?' => 'Are you sure you want to unarchive this invoice and move it to the list of invoices?',
 
 ];

@@ -17,5 +17,6 @@ return [
     'Paid invoices' => 'Paid invoices',
     'Unpaid invoices' => 'Unpaid invoices',
     'Partially paid invoices' => 'Partially paid invoices',
+    'Archived invoices' => 'Archived invoices',
 
 ];
