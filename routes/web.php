@@ -86,6 +86,10 @@ Route::group(
         //archive
         Route::resource('archive', InvoiceArchiveController::class);
 
+        //print
+        Route::get('invoice/print/{id}',[InvoiceController::class, 'print_invoice'])->name('invoice_print');
+        
+
 
 
 

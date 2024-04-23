@@ -220,6 +220,15 @@ class InvoiceController extends Controller
        $invoices = Invoice::where("Value_Status", 3)->get();
        return view('invoices.invoices_partially', compact('invoices'));
     }
+    
+    public function print_invoice($id)
+    {
+        $invoice = Invoice::where('id', $id)->first();
+        return view('invoices.invoice_print',compact('invoice'));
+
+    //    $invoice = Invoice::where("Value_Status", 3)->get();
+    //    return view('invoices.invoices_partially', compact('invoices'));
+    }
 
 
 }

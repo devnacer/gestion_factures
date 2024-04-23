@@ -145,6 +145,16 @@
                                                         </a>
                                                     </div>
 
+                                                    {{-- print --}}
+                                                    <form action="{{ route('invoice_print', $invoice->id) }}"
+                                                        method="GET" class="dropdown-item">
+                                                        @csrf
+                                                        <button class="modal-effect btn btn-sm btn-light">
+                                                            <i class="fas fa-print"></i>
+                                                            {{ trans('invoices.Print') }}
+                                                        </button>
+                                                    </form>
+
                                                     {{-- delete --}}
                                                     <div class="dropdown-item">
                                                         <a class="modal-effect btn btn-sm btn-danger"

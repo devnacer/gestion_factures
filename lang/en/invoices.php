@@ -40,6 +40,7 @@ return [
     'Archive' => 'Archive',
     'Are you sure you want to archive this Invoice?' => 'Are you sure you want to archive this Invoice?',
     'Archive Invoice' => 'Archive Invoice',
+    'Print' => 'Print',
 
     //create + edit invoices 
     'invoices' => 'invoices',
@@ -93,5 +94,13 @@ return [
     'Archived invoices' => 'Archived invoices',
     'Unarchive' => 'Unarchive',
     'Are you sure you want to unarchive this invoice and move it to the list of invoices?' => 'Are you sure you want to unarchive this invoice and move it to the list of invoices?',
+    
+    //print
+    'Print invoice' => 'Print invoice',
+    'Note:' => 'Note:',
+    
+    'This page has been enhanced for printing.' => 'This page has been enhanced for printing.',
+    'Click the print button at the bottom of the invoice to test.' => 'Click the print button at the bottom of the invoice to test.',
+
 
 ];
