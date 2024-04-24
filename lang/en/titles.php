@@ -24,4 +24,5 @@ return [
     'Unpaid Invoices' => 'Unpaid Invoices',
     'Partially Paid Invoices' => 'Partially Paid Invoices',
     'Print invoice' => 'Print invoice',
+    'List of users' => 'List of users',
 ];

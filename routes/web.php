@@ -1,15 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SectionsController;
+use App\Http\Controllers\InvoiceArchiveController;
+use App\Http\Controllers\InvoicesDetailsController;
+use App\Http\Controllers\InvoicesAttachmentsController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\InvoiceArchiveController;
-use App\Http\Controllers\InvoicesAttachmentsController;
-use App\Http\Controllers\InvoicesDetailsController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\SectionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +92,13 @@ Route::group(
         Route::get('invoice/print/{id}',[InvoiceController::class, 'print_invoice'])->name('invoice_print');
         
 
+
+
+        //Spatie
+        Route::group(['middleware' => ['auth']], function() {
+            Route::resource('roles', RoleController::class);
+            Route::resource('users', UserController::class);
+            });
 
 
 

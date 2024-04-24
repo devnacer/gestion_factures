@@ -112,21 +112,21 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
               <p>
-                Utilisateurs
+                {{ trans('users.Users') }}
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/UI/general.html" class="nav-link">
+                <a href="{{ route('users.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Liste des utilisateurs</p>
+                  <p>{{ trans('users.List of Users') }}</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="pages/UI/icons.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Droits des utilisateurs</p>
+                  <p>{{ trans('users.User Rights') }}</p>
                 </a>
               </li>
             </ul>
