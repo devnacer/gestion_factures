@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    {{ trans('titles.List of users') }}
+    {{ trans('titles.User Rights') }}
 @endsection
 
 @section('css')
@@ -19,12 +19,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>{{ trans('users.Users') }}</h1>
+                        <h1>{{ trans('roles.Users') }}</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">{{ trans('users.Users') }}</a></li>
-                            <li class="breadcrumb-item active">{{ trans('users.List of Users') }}</li>
+                            <li class="breadcrumb-item"><a href="#">{{ trans('roles.Users') }}</a></li>
+                            <li class="breadcrumb-item active">{{ trans('roles.User Rights') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -35,10 +35,10 @@
         <section class="content">
             <div class="card">
                 <div class="card-header d-flex">
-                    <h3 class="card-title mr-auto">{{ trans('users.List of Users') }}</h3>
-                    <form action="{{ route('users.create') }}" method="GET">
+                    <h3 class="card-title mr-auto">{{ trans('roles.User Rights') }}</h3>
+                    <form action="{{ route('roles.create') }}" method="GET">
                         @csrf
-                        <button class="btn btn-default">{{ trans('users.Create new User') }}</button>
+                        <button class="btn btn-default">{{ trans('roles.Create new Role') }}</button>
                     </form>
                 </div>
 
@@ -49,28 +49,26 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>{{ trans('users.Name') }}</th>
-                                <th>{{ trans('users.Email') }}</th>
-                                <th>{{ trans('users.Operations') }}</th>
+                                <th>{{ trans('roles.Name') }}</th>
+                                <th>{{ trans('roles.Operations') }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($users->isEmpty())
+                            @if ($roles->isEmpty())
                                 <tr>
-                                    <td colspan="5">{{ trans('users.No users available') }}</td>
+                                    <td colspan="5">{{ trans('roles.No roles available') }}</td>
                                 </tr>
                             @else
-                                @foreach ($users as $user)
+                                @foreach ($roles as $role)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $role->name }}</td>
                                         <td>
-                                            {{-- <form action="{{ route('users.edit', $user->id) }}" method="GET">
+                                            {{-- <form action="{{ route('roles.edit', $user->id) }}" method="GET">
                                                 @csrf
                                                 <button class="modal-effect btn btn-sm btn-info">
                                                     <i class="fas fa-pencil-alt"></i>
-                                                    {{ trans('users.Edit') }}
+                                                    {{ trans('roles.Edit') }}
                                                 </button>
                                             </form>
 
@@ -78,7 +76,7 @@
                                                 data-id="{{ $user->id }}" data-name="{{ $user->name }}"
                                                 data-toggle="modal" href="#ModalDelete">
                                                 <i class="fas fa-trash"></i>
-                                                {{ trans('users.Delete') }}
+                                                {{ trans('roles.Delete') }}
                                             </a> --}}
 
                                         </td>
@@ -98,26 +96,26 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">{{ trans('users.Delete Section') }}</h4>
+                            <h4 class="modal-title">{{ trans('roles.Delete Section') }}</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
 
-                        <form action="{{ route('users.destroy', 0) }}" method="post" autocomplete="off">
+                        <form action="{{ route('roles.destroy', 0) }}" method="post" autocomplete="off">
                             @method('delete')
                             @csrf
                             <div class="modal-body">
                                 <div class="form-group">
                                     <input type="hidden" name="id" id="id" value="">
-                                    <p>{{ trans('users.Are you sure you want to delete this Section?') }}</p>
+                                    <p>{{ trans('roles.Are you sure you want to delete this Role?') }}</p>
                                     <input class="form-control" name="name" id="name" type="text" readonly>
                                 </div>
                             </div>
                             <div class="modal-footer justify-content-between">
-                                <button type="submit" class="btn btn-secondary">{{ trans('users.Validate') }}</button>
+                                <button type="submit" class="btn btn-secondary">{{ trans('roles.Validate') }}</button>
                                 <button type="button" class="btn btn-default"
-                                    data-dismiss="modal">{{ trans('users.Close') }}</button>
+                                    data-dismiss="modal">{{ trans('roles.Close') }}</button>
                             </div>
                         </form>
 

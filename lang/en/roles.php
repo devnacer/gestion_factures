@@ -9,16 +9,15 @@ return [
 
     */
     //index
-    'List of Users' => 'List of Users',
+    'User Rights' => 'User Rights',
     // 'Add Section' => 'Add Section',
     'Operations' => 'Operations',
     // 'Edit' => 'Edit',
     // 'Delete' => 'Delete',
-    'No users available' => 'No users available',
+    'No roles available' => 'No roles available',
     'Users' => 'Users',
-    'Create new User' => 'Create new User',
+    'Create new Role' => 'Create new Role',
     'Name' => 'Name',
-    'Email' => 'Email',
     //create + edit section 
     // 'Sections' => 'Sections',
     // 'Setting' => 'Setting',
@@ -26,11 +25,11 @@ return [
     // 'Section Update' => 'Section Update',
     // 'Name' => 'Name',
     // 'Description' => 'Description',
-    // 'Close' => 'Close',
-    // 'Validate' => 'Validate',
+    'Close' => 'Close',
+    'Validate' => 'Validate',
     
     //delete
-    // 'Are you sure you want to delete this Section?' => 'Are you sure you want to delete this Section?',
+    // 'Are you sure you want to delete this Role?' => 'Are you sure you want to delete this Role?',
     // 'Delete Section' => 'Delete Section',
 
 ];

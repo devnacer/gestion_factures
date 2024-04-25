@@ -22,4 +22,5 @@ return [
     'List of Users' => 'List of Users',
     'User Rights' => 'User Rights',
 
+
 ];

@@ -112,7 +112,7 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
               <p>
-                {{ trans('users.Users') }}
+                {{ trans('main-sidebar.Users') }}
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -120,13 +120,13 @@
               <li class="nav-item">
                 <a href="{{ route('users.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>{{ trans('users.List of Users') }}</p>
+                  <p>{{ trans('main-sidebar.List of Users') }}</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/UI/icons.html" class="nav-link">
+                <a href="{{ route('roles.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>{{ trans('users.User Rights') }}</p>
+                  <p>{{ trans('main-sidebar.User Rights') }}</p>
                 </a>
               </li>
             </ul>
