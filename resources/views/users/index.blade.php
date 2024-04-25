@@ -51,6 +51,8 @@
                                 <th>#</th>
                                 <th>{{ trans('users.Name') }}</th>
                                 <th>{{ trans('users.Email') }}</th>
+                                <th>{{ trans('users.Roles') }}</th>
+                                <th>{{ trans('users.Status') }}</th>
                                 <th>{{ trans('users.Operations') }}</th>
                             </tr>
                         </thead>
@@ -66,20 +68,38 @@
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
-                                            {{-- <form action="{{ route('users.edit', $user->id) }}" method="GET">
+                                            @if (!empty($user->getRoleNames()))
+                                                @foreach ($user->getRoleNames() as $roleName)
+                                                    <label class="badge badge-info">{{ $roleName }}</label>
+                                                @endforeach
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($user->status == 'Active')
+                                            <span class="badge badge-success">
+                                               {{ $user->status }}
+                                            </span>
+                                        @else
+                                            <span class="badge badge-danger">
+                                                {{ $user->status }}
+                                            </span>
+                                        @endif
+                                        </td>
+                                        <td>
+                                             <form action="{{ route('users.edit', $user->id) }}" method="GET">
                                                 @csrf
                                                 <button class="modal-effect btn btn-sm btn-info">
                                                     <i class="fas fa-pencil-alt"></i>
                                                     {{ trans('users.Edit') }}
                                                 </button>
-                                            </form>
+                                            </form> 
 
                                             <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
                                                 data-id="{{ $user->id }}" data-name="{{ $user->name }}"
                                                 data-toggle="modal" href="#ModalDelete">
                                                 <i class="fas fa-trash"></i>
                                                 {{ trans('users.Delete') }}
-                                            </a> --}}
+                                            </a> 
 
                                         </td>
                                     </tr>
@@ -94,23 +114,23 @@
             <!-- /.card -->
 
             <!--modal Delete-->
-            {{-- <div class="modal fade" id="ModalDelete">
+            <div class="modal fade" id="ModalDelete">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">{{ trans('users.Delete Section') }}</h4>
+                            <h4 class="modal-title">{{ trans('users.Delete User') }}</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
 
-                        <form action="{{ route('users.destroy', 0) }}" method="post" autocomplete="off">
+                        <form action="{{ route('users.destroy', 'test') }}" method="post" autocomplete="off">
                             @method('delete')
                             @csrf
                             <div class="modal-body">
                                 <div class="form-group">
                                     <input type="hidden" name="id" id="id" value="">
-                                    <p>{{ trans('users.Are you sure you want to delete this Section?') }}</p>
+                                    <p>{{ trans('users.Are you sure you want to delete this User?') }}</p>
                                     <input class="form-control" name="name" id="name" type="text" readonly>
                                 </div>
                             </div>
@@ -126,7 +146,7 @@
                 </div>
                 <!-- /.modal-dialog -->
             </div>
-            <!-- /.modal --> --}}
+            <!-- /.modal --> 
 
         </section>
         <!-- /.content -->

@@ -43,15 +43,15 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'password' => 'required|min:3|confirmed',
+            'roles_name' => 'required'
         ]);
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
-        $user->assignRole($request->input('roles'));
+        $user->assignRole($request->input('roles_name'));
         return redirect()->route('users.index')
-            ->with('success', 'User created successfully');
+        ->with('success', trans('messages.add'));
     }
     /**
      * Display the specified resource.
@@ -59,11 +59,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $user = User::find($id);
-        return view('users.show', compact('user'));
-    }
+    // public function show($id)
+    // {
+    //     $user = User::find($id);
+    //     return view('users.show', compact('user'));
+    // }
     /**
      * Show the form for editing the specified resource.
      *
@@ -88,10 +88,11 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'same:confirm-password',
-            'roles' => 'required'
+            'email' => 'required|email|unique:users,email'. $id,
+            'password' => 'required|min:3|confirmed',
+            'roles_name' => 'required'
         ]);
+        dd($request);
         $input = $request->all();
         if (!empty($input['password'])) {
             $input['password'] = Hash::make($input['password']);
@@ -111,10 +112,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+        $id = $request->id;
         User::find($id)->delete();
-        return redirect()->route('users.index')
-            ->with('success', 'User deleted successfully');
+        return redirect()->route('users.index')->with('success', trans('messages.delete'));
     }
+
+
 }

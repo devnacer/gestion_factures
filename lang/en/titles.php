@@ -26,4 +26,6 @@ return [
     'Print invoice' => 'Print invoice',
     'List of users' => 'List of users',
     'User Rights' => 'User Rights',
+    'Create new User' => 'Create new User',
+    'User Update' => 'User Update',
 ];
