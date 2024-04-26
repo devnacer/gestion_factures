@@ -33,6 +33,7 @@ return [
     'User Permissions' => 'User Permissions',
     'User Update' => 'User Update',
     'New Password' => 'New Password',
+    'Leave this field blank if you do not wish to change the current password.' => 'Leave this field blank if you do not wish to change the current password.',
     
     //delete
     'Are you sure you want to delete this User?' => 'Are you sure you want to delete this User?',

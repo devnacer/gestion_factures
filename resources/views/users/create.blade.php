@@ -94,7 +94,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">{{ trans('users.User Permissions') }}</label>
                             <div class="col-sm-10">
-                                {!! Form::select('roles[]', $roles, $userRole, ['class' => 'form-control', 'multiple']) !!}
+                                {!! Form::select('roles_name[]', $roles,[], array('class' => 'form-control','multiple')) !!}
                                 @error('roles_name')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror

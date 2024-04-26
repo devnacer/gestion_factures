@@ -36,7 +36,8 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" action="{{ route('users.update', $user->id) }}" method="post" autocomplete="off">
+                <form class="form-horizontal" action="{{ route('users.update', $user->id) }}" method="post"
+                    autocomplete="off">
                     @method('put')
                     @csrf
                     <div class="card-body">
@@ -65,7 +66,8 @@
                         <div class="form-group row">
                             <label for="password" class="col-sm-2 col-form-label">{{ trans('users.New Password') }}</label>
                             <div class="col-sm-10">
-                                <input name="password" type="password" class="form-control" id="password" required>
+                                <input name="password" type="password" class="form-control" id="password"
+                                    placeholder="{{ trans('users.Leave this field blank if you do not wish to change the current password.') }}">
                             </div>
                             @error('password')
                                 <small class="text-danger">{{ $message }}</small>
@@ -73,10 +75,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password"
+                            <label for="password_confirmation"
                                 class="col-sm-2 col-form-label">{{ trans('users.Confirm Password') }}</label>
                             <div class="col-sm-10">
-                                <input name="password_confirmation" type="password" class="form-control" id="password" required>
+                                <input name="password_confirmation" type="password" class="form-control"
+                                    id="password_confirmation"
+                                    placeholder="Entrez à nouveau votre nouveau mot de passe si vous l'avez modifié.">
                             </div>
                         </div>
 
@@ -84,26 +88,25 @@
                             <label for="status" class="col-sm-2 col-form-label">{{ trans('users.User Status') }}</label>
                             <div class="col-sm-10">
                                 <select name="status" class="form-control">
-                                    <option value="Active" {{ (old('status', $user->status) == 'Active') ? 'selected' : '' }}>Active</option>
-                                    <option value="Inactive" {{ (old('status', $user->status) == 'Inactive') ? 'selected' : '' }}>Inactive</option>
+                                    <option value="Active"
+                                        {{ old('status', $user->status) == 'Active' ? 'selected' : '' }}>Active</option>
+                                    <option value="Inactive"
+                                        {{ old('status', $user->status) == 'Inactive' ? 'selected' : '' }}>Inactive
+                                    </option>
                                 </select>
                             </div>
                         </div>
-                        
 
                         <div class="form-group row @error('roles_name[]') is-invalid @enderror">
                             <label class="col-sm-2 col-form-label">{{ trans('users.User Permissions') }}</label>
                             <div class="col-sm-10">
-                                {!! Form::select('roles_name[]', $roles,[], array('class' => 'form-control','multiple')) !!}
+                                {{-- {!! Form::select('roles_name[]', $roles,[], array('class' => 'form-control','multiple')) !!} --}}
+                                {!! Form::select('roles_name[]', $roles, $userRole, ['class' => 'form-control', 'multiple']) !!}
                                 @error('roles_name')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>
-                        
-
-                        
-
 
                     </div>
                     <!-- /.card-body -->
