@@ -26,7 +26,6 @@ return [
     // 'Setting' => 'Setting',
     // 'Create new Section' => 'Create new Section',
     // 'Section Update' => 'Section Update',
-    // 'Name' => 'Name',
     'Update Role' => 'Update Role',
     'Close' => 'Close',
     'Validate' => 'Validate',

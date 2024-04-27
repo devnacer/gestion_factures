@@ -28,7 +28,7 @@ class PermissionTableSeeder extends Seeder
             'Users Permissions',
             'Settings',
             'Products',
-            'Categories',
+            'Sections',
             
             'Add Invoice',
             'Delete Invoice',

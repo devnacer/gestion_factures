@@ -97,16 +97,30 @@
                             </div>
                         </div>
 
-                        <div class="form-group row @error('roles_name[]') is-invalid @enderror">
-                            <label class="col-sm-2 col-form-label">{{ trans('users.User Permissions') }}</label>
+                        {{-- <div class="form-group row @error('roles_name[]') is-invalid @enderror">
+                            <label class="col-sm-2 col-form-label">{{ trans('users.User Roles') }}</label>
                             <div class="col-sm-10">
                                 {{-- {!! Form::select('roles_name[]', $roles,[], array('class' => 'form-control','multiple')) !!} --}}
-                                {!! Form::select('roles_name[]', $roles, $userRole, ['class' => 'form-control', 'multiple']) !!}
+                                {{-- {!! Form::select('roles_name[]', $roles, $userRole, ['class' => 'form-control', 'multiple']) !!}
                                 @error('roles_name')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}} 
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">{{ trans('users.User Roles') }}</label>
+                            <div class="col-sm-10">
+                                <select name="roles_name[]" class="form-control" multiple>
+                                    @foreach($roles as $role)
+                                        <option value="{{ $role->id }}" {{ in_array($role->id, $user->roles()->pluck('id')->all()) ? 'selected' : '' }}>{{ $role->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('roles_name')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>                        
+
 
                     </div>
                     <!-- /.card-body -->

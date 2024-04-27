@@ -76,30 +76,51 @@
                                         </td>
                                         <td>
                                             @if ($user->status == 'Active')
-                                            <span class="badge badge-success">
-                                               {{ $user->status }}
-                                            </span>
-                                        @else
-                                            <span class="badge badge-danger">
-                                                {{ $user->status }}
-                                            </span>
-                                        @endif
+                                                <span class="badge badge-success">
+                                                    {{ $user->status }}
+                                                </span>
+                                            @else
+                                                <span class="badge badge-danger">
+                                                    {{ $user->status }}
+                                                </span>
+                                            @endif
                                         </td>
                                         <td>
-                                             <form action="{{ route('users.edit', $user->id) }}" method="GET">
-                                                @csrf
-                                                <button class="modal-effect btn btn-sm btn-info">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                    {{ trans('users.Edit') }}
+                                            <div class="input-group-prepend">
+                                                <button type="button" class="btn btn-default dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    {{ trans('invoices.Operations') }}
                                                 </button>
-                                            </form> 
+                                                <div class="dropdown-menu">
 
-                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                data-id="{{ $user->id }}" data-name="{{ $user->name }}"
-                                                data-toggle="modal" href="#ModalDelete">
-                                                <i class="fas fa-trash"></i>
-                                                {{ trans('users.Delete') }}
-                                            </a> 
+                                                    {{-- edit --}}
+                                                    <form action="{{ route('users.edit', $user->id) }}" method="GET"
+                                                        class="dropdown-item">
+                                                        @csrf
+                                                        <button class="modal-effect btn btn-sm btn-info">
+                                                            <i class="fas fa-pencil-alt"></i>
+                                                            {{ trans('users.Edit') }}
+                                                        </button>
+                                                    </form>
+
+                                                    {{-- delete --}}
+                                                    <div class="dropdown-item">
+                                                        <a class="modal-effect btn btn-sm btn-danger"
+                                                            data-effect="effect-scale" data-id="{{ $user->id }}"
+                                                            data-name="{{ $user->name }}" data-toggle="modal"
+                                                            href="#ModalDelete">
+                                                            <i class="fas fa-trash"></i>
+                                                            {{ trans('users.Delete') }}
+                                                        </a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+
+
+
 
                                         </td>
                                     </tr>
@@ -146,7 +167,7 @@
                 </div>
                 <!-- /.modal-dialog -->
             </div>
-            <!-- /.modal --> 
+            <!-- /.modal -->
 
         </section>
         <!-- /.content -->

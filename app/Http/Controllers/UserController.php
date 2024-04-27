@@ -29,7 +29,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::pluck('name', 'name')->all();
+        // $roles = Role::pluck('name', 'name')->all();
+        $roles = Role::all();
         return view('users.create', compact('roles'));
     }
     /**
@@ -49,7 +50,15 @@ class UserController extends Controller
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
-        $user->assignRole($request->input('roles_name'));
+
+        $rolesNameArray = $request->input('roles_name');
+        //convert to array in int values
+        $rolesNameArray = array_map('intval', $rolesNameArray);
+        $user->assignRole($rolesNameArray);
+
+
+
+        // $user->assignRole($request->input('roles_name'));
         return redirect()->route('users.index')
             ->with('success', trans('messages.add'));
     }
@@ -73,7 +82,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $roles = Role::pluck('name', 'name')->all();
+        // $roles = Role::pluck('name', 'name')->all();
+        $roles = Role::all();
         $userRole = $user->roles->pluck('name', 'name')->all();
         return view('users.edit', compact('user', 'roles', 'userRole'));
     }
@@ -102,9 +112,14 @@ class UserController extends Controller
         $user = User::find($id);
         $user->update($input);
         DB::table('model_has_roles')->where('model_id', $id)->delete();
-        $user->assignRole($request->input('roles'));
+
+        $rolesNameArray = $request->input('roles_name');
+        //convert to array in int values
+        $rolesNameArray = array_map('intval', $rolesNameArray);
+        $user->assignRole($rolesNameArray);
+
         return redirect()->route('users.index')
-            ->with('success', trans('messages.add'));
+            ->with('success', trans('messages.edit'));
     }
     /**
      * Remove the specified resource from storage.

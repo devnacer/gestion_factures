@@ -30,7 +30,7 @@ return [
     'Close' => 'Close',
     'Validate' => 'Validate',
     'User Status' => 'User Status',
-    'User Permissions' => 'User Permissions',
+    'User Roles' => 'User Roles',
     'User Update' => 'User Update',
     'New Password' => 'New Password',
     'Leave this field blank if you do not wish to change the current password.' => 'Leave this field blank if you do not wish to change the current password.',
