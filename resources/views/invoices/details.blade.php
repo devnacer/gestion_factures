@@ -257,6 +257,12 @@
                 </div>
                 <!-- /.card -->
 
+                <div class="card-footer">
+                    <button id="btnClose" type="submit"
+                        class="btn btn-default float-right">{{ trans('users.Close') }}</button>
+                </div>
+                <!-- /.card-footer -->
+
                 <!--modal Delete-->
                 <div class="modal fade" id="ModalDelete">
                     <div class="modal-dialog modal-lg">
@@ -335,6 +341,15 @@
     <script>
         $(function() {
             bsCustomFileInput.init();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Capture click event on the Close button
+            $('#btnClose').click(function(e) {
+                e.preventDefault(); // Prevent default button behavior (form submission)
+                history.back(); // Redirect the user to the previous page
+            });
         });
     </script>
 @endsection

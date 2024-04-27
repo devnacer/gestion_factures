@@ -64,20 +64,46 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $role->name }}</td>
                                         <td>
-                                            {{-- <form action="{{ route('roles.edit', $user->id) }}" method="GET">
-                                                @csrf
-                                                <button class="modal-effect btn btn-sm btn-info">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                    {{ trans('roles.Edit') }}
+                                            <div class="input-group-prepend">
+                                                <button type="button" class="btn btn-default dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    {{ trans('invoices.Operations') }}
                                                 </button>
-                                            </form>
+                                                <div class="dropdown-menu">
 
-                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                data-id="{{ $user->id }}" data-name="{{ $user->name }}"
-                                                data-toggle="modal" href="#ModalDelete">
-                                                <i class="fas fa-trash"></i>
-                                                {{ trans('roles.Delete') }}
-                                            </a> --}}
+                                                    {{-- details --}}
+                                                    <form action="{{ route('roles.show', $role->id) }}" method="GET"
+                                                        class="dropdown-item">
+                                                        @csrf
+                                                        <button class="modal-effect btn btn-sm btn-primary">
+                                                            <i class="fas fa-folder"></i>
+                                                            {{ trans('roles.Show Permissions') }}
+                                                        </button>
+                                                    </form>
+
+                                                    {{-- edit --}}
+                                                    {{-- <form action="{{ route('roles.edit', $role->id) }}" method="GET">
+                                                        @csrf
+                                                        <button class="modal-effect btn btn-sm btn-info">
+                                                            <i class="fas fa-pencil-alt"></i>
+                                                            {{ trans('roles.Edit') }}
+                                                        </button>
+                                                    </form> --}}
+
+                                                    {{-- delete --}}
+                                                    <div class="dropdown-item">
+                                                        <a class="modal-effect btn btn-sm btn-danger"
+                                                            data-effect="effect-scale" data-id="{{ $role->id }}"
+                                                            data-name="{{ $role->name }}" data-toggle="modal"
+                                                            href="#ModalDelete">
+                                                            <i class="fas fa-trash"></i>
+                                                            {{ trans('roles.Delete') }}
+                                                        </a>
+                                                        </a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
 
                                         </td>
                                     </tr>
@@ -92,11 +118,11 @@
             <!-- /.card -->
 
             <!--modal Delete-->
-            {{-- <div class="modal fade" id="ModalDelete">
+            <div class="modal fade" id="ModalDelete">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">{{ trans('roles.Delete Section') }}</h4>
+                            <h4 class="modal-title">{{ trans('roles.Delete Role') }}</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -124,7 +150,7 @@
                 </div>
                 <!-- /.modal-dialog -->
             </div>
-            <!-- /.modal --> --}}
+            <!-- /.modal -->
 
         </section>
         <!-- /.content -->

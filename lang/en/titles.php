@@ -28,4 +28,7 @@ return [
     'User Rights' => 'User Rights',
     'Create new User' => 'Create new User',
     'User Update' => 'User Update',
+    'Create new Role' => 'Create new Role',
+    'Archived invoices' => 'Archived invoices',
+    'Role details' => 'Role details',
 ];

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    {{ trans('titles.List of invoices') }}
+    {{ trans('titles.Archived invoices') }}
 @endsection
 
 @section('css')
