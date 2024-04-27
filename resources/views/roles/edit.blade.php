@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    {{ trans('titles.Create new Role') }}
+    {{ trans('titles.Update Role') }}
 @endsection
 
 @section('css')
@@ -38,18 +38,20 @@
 
             <div class="card card-secondary">
                 <div class="card-header">
-                    <h3 class="card-title">{{ trans('roles.Create new Role') }}</h3>
+                    <h3 class="card-title">{{ trans('roles.Update Role') }}</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" action="{{ route('roles.store') }}" method="post" autocomplete="off">
+                <form class="form-horizontal" action="{{ route('roles.update', $role->id) }}" method="post"
+                    autocomplete="off">
                     @csrf
+                    @method('put')
                     <div class="card-body">
                         <div class="form-group row">
                             <label for="name" class="col-sm-2 col-form-label">{{ trans('roles.Name Role') }}</label>
                             <div class="col-sm-10">
                                 <input name="name" type="text" class="form-control" id="name"
-                                    value="{{ old('name') }}" required>
+                                    value="{{ old('name', $role->name) }}" required>
                             </div>
                             @error('name')
                                 <small class="text-danger">{{ $message }}</small>
@@ -60,13 +62,16 @@
                             <label for="name" class="col-sm-2 col-form-label">{{ trans('roles.Permissions') }}</label>
                             <div class="col-sm-10">
                                 <ul class="custom-list">
+
                                     @foreach ($permissions as $permission)
                                         <li>
                                             <input type="checkbox" name="permission[]" id="permi_{{ $permission->id }}"
-                                                value="{{ $permission->id }}">
+                                                value="{{ $permission->id }}"
+                                                {{ in_array($permission->id, $rolePermissions) ? 'checked' : '' }}>
                                             <label for="permi_{{ $permission->id }}">{{ $permission->name }}</label>
                                         </li>
                                     @endforeach
+
                                 </ul>
                                 @error('permission')
                                     <small class="text-danger">{{ $message }}</small>

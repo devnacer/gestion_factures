@@ -31,4 +31,5 @@ return [
     'Create new Role' => 'Create new Role',
     'Archived invoices' => 'Archived invoices',
     'Role details' => 'Role details',
+    'Update Role' => 'Update Role',
 ];

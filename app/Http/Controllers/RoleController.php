@@ -86,11 +86,12 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        $permission = Permission::get();
+        $permissions = Permission::get();
         $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $id)
             ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
             ->all();
-        return view('roles.edit', compact('role', 'permission', 'rolePermissions'));
+        return view('roles.edit', compact('role', 'permissions', 'rolePermissions'));
+        
     }
     /**
      * Update the specified resource in storage.
@@ -101,16 +102,34 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // $this->validate($request, [
+        //     // 'name' => 'required',
+        //     'name' => 'required|name|unique:roles,name,' . $id,
+        //     'permission' => 'required',
+        // ]);
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|unique:roles,name,' . $id,
             'permission' => 'required',
         ]);
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
-        $role->syncPermissions($request->input('permission'));
-        return redirect()->route('roles.index')
-            ->with('success', 'Role updated successfully');
+        $permissionArray = $request->input('permission');
+        //convert to array in int values
+        $permissionArray = array_map('intval', $permissionArray);
+        $role->syncPermissions($permissionArray);
+        return to_route('roles.index')->with('success', trans('messages.edit'));
+
+    }
+    public function stoddsre(Request $request)
+    {
+
+        $role = Role::create(['name' => $request->input('name')]);
+        $permissionArray = $request->input('permission');
+        //convert to array in int values
+        $permissionArray = array_map('intval', $permissionArray);
+        $role->syncPermissions($permissionArray);
+        return to_route('roles.index')->with('success', trans('messages.edit'));
     }
     /**
      * Remove the specified resource from storage.

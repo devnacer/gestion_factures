@@ -82,13 +82,13 @@
                                                     </form>
 
                                                     {{-- edit --}}
-                                                    {{-- <form action="{{ route('roles.edit', $role->id) }}" method="GET">
+                                                    <form action="{{ route('roles.edit', $role->id) }}" method="GET" class="dropdown-item">
                                                         @csrf
                                                         <button class="modal-effect btn btn-sm btn-info">
                                                             <i class="fas fa-pencil-alt"></i>
                                                             {{ trans('roles.Edit') }}
                                                         </button>
-                                                    </form> --}}
+                                                    </form> 
 
                                                     {{-- delete --}}
                                                     <div class="dropdown-item">
@@ -98,7 +98,6 @@
                                                             href="#ModalDelete">
                                                             <i class="fas fa-trash"></i>
                                                             {{ trans('roles.Delete') }}
-                                                        </a>
                                                         </a>
                                                     </div>
 
