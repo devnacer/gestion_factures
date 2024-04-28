@@ -25,7 +25,7 @@ return [
     'Partially Paid Invoices' => 'Partially Paid Invoices',
     'Print invoice' => 'Print invoice',
     'List of users' => 'List of users',
-    'User Rights' => 'User Rights',
+    'Users Rights' => 'Users Rights',
     'Create new User' => 'Create new User',
     'User Update' => 'User Update',
     'Create new Role' => 'Create new Role',

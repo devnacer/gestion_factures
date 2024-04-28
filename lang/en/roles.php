@@ -29,7 +29,7 @@ return [
     'Update Role' => 'Update Role',
     'Close' => 'Close',
     'Validate' => 'Validate',
-    'User Rights' => 'User Rights',
+    'Users Rights' => 'Users Rights',
     'Create new Role' => 'Create new Role',
     'Permissions' => 'Permissions',
     'Name Role' => 'Name Role',

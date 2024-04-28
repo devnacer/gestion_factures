@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    {{ trans('titles.User Rights') }}
+    {{ trans('titles.Users Rights') }}
 @endsection
 
 @section('css')
@@ -24,7 +24,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">{{ trans('roles.Users') }}</a></li>
-                            <li class="breadcrumb-item active">{{ trans('roles.User Rights') }}</li>
+                            <li class="breadcrumb-item active">{{ trans('roles.Users Rights') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
         <section class="content">
             <div class="card">
                 <div class="card-header d-flex">
-                    <h3 class="card-title mr-auto">{{ trans('roles.User Rights') }}</h3>
+                    <h3 class="card-title mr-auto">{{ trans('roles.Users Rights') }}</h3>
                     <form action="{{ route('roles.create') }}" method="GET">
                         @csrf
                         <button class="btn btn-default">{{ trans('roles.Create new Role') }}</button>

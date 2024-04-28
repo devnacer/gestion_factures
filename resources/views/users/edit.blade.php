@@ -79,8 +79,7 @@
                                 class="col-sm-2 col-form-label">{{ trans('users.Confirm Password') }}</label>
                             <div class="col-sm-10">
                                 <input name="password_confirmation" type="password" class="form-control"
-                                    id="password_confirmation"
-                                    placeholder="Entrez à nouveau votre nouveau mot de passe si vous l'avez modifié.">
+                                    id="password_confirmation">
                             </div>
                         </div>
 

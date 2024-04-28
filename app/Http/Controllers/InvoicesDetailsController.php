@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Storage;
 
 class InvoicesDetailsController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:View Invoice', ['only' => ['show']]);
+        $this->middleware('permission:Delete Attachment', ['only' => ['destroy']]);
+        $this->middleware('permission:Delete User', ['only' => ['open_file']]);
+        $this->middleware('permission:Download File Invoice', ['only' => ['download_file']]);
+    }
     /**
      * Display a listing of the resource.
      */

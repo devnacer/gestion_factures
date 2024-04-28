@@ -14,48 +14,63 @@ class PermissionTableSeeder extends Seeder
     public function run(): void
     {
         $permissions = [
-            'Invoices',
-            'Invoices List',
-            'Paid Invoices',
-            'Partially Paid Invoices',
-            'Unpaid Invoices',
-            'Invoices Archive',
+            'Invoices', //sidebar
+
+            'Invoices List', //sidebar
+            'Paid Invoices', //sidebar
+            'Partially Paid Invoices', //sidebar
+            'Unpaid Invoices', //sidebar 
+            'Invoices Archive', //sidebar
+
             'Reports',
             'Invoices Report',
             'Clients Report',
-            'Users',
-            'Users List',
-            'Users Permissions',
-            'Settings',
-            'Products',
-            'Sections',
+
+            'Users', //sidebar
+            'Users List', //sidebar
+            'Users Permissions', //sidebar
+
+            'Settings',//sidebar
+            'Products',//sidebar
+            'Sections',// sidebar
             
-            'Add Invoice',
-            'Delete Invoice',
-            'Export to Excel',
-            'Change Payment Status',
-            'Edit Invoice',
-            'Archive Invoice',
+            'Add Invoice', //
+            'Edit Invoice', //
+            'View Invoice',  //
+            'Delete Invoice', //
+            'Archive Invoice', //
+            'Restore Invoice', //
             'Print Invoice',
-            'Add Attachment',
+                  
+            'Open File Invoice', //
+            'Download File Invoice', //
+
+            'Export to Excel',
+            'Change Payment Status', //
+            'Add Attachment', //
             'Delete Attachment',
+      
+            'Users List', //yes
+            'Add User', //
+            'Edit User', //
+            'Delete User', //
             
-            'Add User',
-            'Edit User',
-            'Delete User',
+            'Users Rights List', //yes
+            'View Role', //yes
+            'Add Role', //yes
+            'Edit Role', //yes
+            'Delete Role', //yes
             
-            'View Permission',
-            'Add Permission',
-            'Edit Permission',
-            'Delete Permission',
+            'Product List', //
+            'Add Product', //
+            'Edit Product', //
+            'Delete Product', //
             
-            'Add Product',
-            'Edit Product',
-            'Delete Product',
-            
-            'Add Category',
-            'Edit Category',
-            'Delete Category',
+            'Section List', //
+            'Add Section', //
+            'Edit Section', //
+            'Delete Section', //
+
             'Notifications',            
             ];
             

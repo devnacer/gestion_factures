@@ -20,7 +20,7 @@ return [
     'Archived invoices' => 'Archived invoices',
     'Users' => 'Users',
     'List of Users' => 'List of Users',
-    'User Rights' => 'User Rights',
+    'Users Rights' => 'Users Rights',
 
 
 ];

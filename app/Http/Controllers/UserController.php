@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:Users List|Add User|Edit User|Delete User', ['only' => ['index']]);
+        $this->middleware('permission:Add User', ['only' => ['create', 'store']]);
+        $this->middleware('permission:Edit User', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:Delete User', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -99,7 +106,7 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'same:confirm-password',
+            'password' => 'min:3|confirmed',
             'roles_name' => 'required'
         ]);
         $input = $request->all();

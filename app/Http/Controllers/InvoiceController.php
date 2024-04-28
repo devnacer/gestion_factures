@@ -13,6 +13,19 @@ use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:Invoices List|Add Invoice|Edit Invoice|Delete Invoice|View Invoice', ['only' => ['index']]);
+        $this->middleware('permission:Add Invoice', ['only' => ['create', 'store']]);
+        $this->middleware('permission:Edit Invoice', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:Delete Invoice', ['only' => ['destroy']]);
+        $this->middleware('permission:View Invoice', ['only' => ['show']]);
+        $this->middleware('permission:Change Payment Status', ['only' => ['statusUpdate']]);
+        $this->middleware('permission:Paid Invoices', ['only' => ['showPaidInvoices']]);
+        $this->middleware('permission:Unpaid Invoices', ['only' => ['showUnpaidInvoices']]);
+        $this->middleware('permission:Partially Paid Invoices', ['only' => ['showPartiallyPaidInvoices']]);
+        $this->middleware('permission:Print Invoice', ['only' => ['print_invoice']]);
+    }
     /**
      * Display a listing of the resource.
      */

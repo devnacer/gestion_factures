@@ -15,13 +15,14 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // function __construct()
-    // {
-    // $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
-    // $this->middleware('permission:role-create', ['only' => ['create','store']]);
-    // $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-    // $this->middleware('permission:role-delete', ['only' => ['destroy']]);
-    // }
+    function __construct()
+    {
+        $this->middleware('permission:Users Rights List|Add Role|Edit Role|Delete Role|View Role', ['only' => ['index']]);
+        $this->middleware('permission:Add Role', ['only' => ['create', 'store']]);
+        $this->middleware('permission:Edit Role', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:Delete Role', ['only' => ['destroy']]);
+        $this->middleware('permission:View Role', ['only' => ['show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -91,7 +92,6 @@ class RoleController extends Controller
             ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
             ->all();
         return view('roles.edit', compact('role', 'permissions', 'rolePermissions'));
-        
     }
     /**
      * Update the specified resource in storage.
@@ -119,7 +119,6 @@ class RoleController extends Controller
         $permissionArray = array_map('intval', $permissionArray);
         $role->syncPermissions($permissionArray);
         return to_route('roles.index')->with('success', trans('messages.edit'));
-
     }
     public function stoddsre(Request $request)
     {

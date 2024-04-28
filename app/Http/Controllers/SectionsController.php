@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class SectionsController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:Section List|Add Section|Edit Section|Delete Section', ['only' => ['index']]);
+        $this->middleware('permission:Add Section', ['only' => ['create', 'store']]);
+        $this->middleware('permission:Edit Section', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:Delete Section', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

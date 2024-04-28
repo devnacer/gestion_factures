@@ -159,7 +159,7 @@
                                   <li class="nav-item">
                                       <a href="{{ route('roles.index') }}" class="nav-link">
                                           <i class="far fa-circle nav-icon"></i>
-                                          <p>{{ trans('main-sidebar.User Rights') }}</p>
+                                          <p>{{ trans('main-sidebar.Users Rights') }}</p>
                                       </a>
                                   </li>
                               @endcan

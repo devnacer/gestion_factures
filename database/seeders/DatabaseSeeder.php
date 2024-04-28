@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
             // UserSeeder::class,
             SectionSeeder::class,
             ProductSeeder::class,
-            CreateAdminUserSeeder::class,
             PermissionTableSeeder::class,
+            CreateAdminUserSeeder::class,
         ]);
 
     }

@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Storage;
 
 class InvoiceArchiveController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:Invoices Archive', ['only' => ['index']]);
+        $this->middleware('permission:Restore Invoice', ['only' => ['update']]);
+        $this->middleware('permission:Delete Invoice', ['only' => ['destroy']]);
+        $this->middleware('permission:Archive Invoice', ['only' => ['archive']]);
+    }
+
     /**
      * Display a listing of the resource.
      */
