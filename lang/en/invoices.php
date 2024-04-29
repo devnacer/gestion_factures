@@ -101,6 +101,22 @@ return [
     
     'This page has been enhanced for printing.' => 'This page has been enhanced for printing.',
     'Click the print button at the bottom of the invoice to test.' => 'Click the print button at the bottom of the invoice to test.',
-
+    
+    
+    //reports
+    'Reports' => 'Reports',
+    'Invoices Reports' => 'Invoices Reports',
+    'Search by invoice type' => 'Search by invoice type',
+    'Search by invoice number' => 'Search by invoice number',
+    'Select Invoice Type' => 'Select Invoice Type',
+    'Paid Invoices' => 'Paid Invoices',
+    'Unpaid Invoices' => 'Unpaid Invoices',
+    'Partially Paid Invoices' => 'Partially Paid Invoices',
+    'From Date' => 'From Date',
+    'To Date' => 'To Date',
+    'Search' => 'Search',
+    'Please enter the number.' => 'Please enter the number.',
+    'Search by invoice type' => 'Search by invoice type',
+    'Search by invoice number' => 'Search by invoice number',
 
 ];

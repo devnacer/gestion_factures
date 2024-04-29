@@ -32,4 +32,5 @@ return [
     'Archived invoices' => 'Archived invoices',
     'Role details' => 'Role details',
     'Update Role' => 'Update Role',
+    'Invoices Reports' => 'Invoices Reports',
 ];

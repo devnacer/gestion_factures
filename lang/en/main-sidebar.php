@@ -21,6 +21,8 @@ return [
     'Users' => 'Users',
     'List of Users' => 'List of Users',
     'Users Rights' => 'Users Rights',
-
+    'Reports' => 'Reports',
+    'Invoices Reports' => 'Invoices Reports',
+    'Customers Reports' => 'Customers Reports',
 
 ];

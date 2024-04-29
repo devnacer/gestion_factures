@@ -50,7 +50,6 @@ class PermissionTableSeeder extends Seeder
             'Add Attachment', //
             'Delete Attachment',
       
-            'Users List', //yes
             'Add User', //
             'Edit User', //
             'Delete User', //

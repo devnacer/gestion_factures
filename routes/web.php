@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionsController;
 use App\Http\Controllers\InvoiceArchiveController;
+use App\Http\Controllers\InvoicesReportController;
 use App\Http\Controllers\InvoicesDetailsController;
 use App\Http\Controllers\InvoicesAttachmentsController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -67,14 +68,14 @@ Route::group(
         Route::get('download/{invoice_num}/{file_name}', [InvoicesDetailsController::class, 'download_file'])->name('download_file');
         // delete invoice files
         Route::delete('delete/file', [InvoicesDetailsController::class, 'destroy'])->name('delete_file');
-        
+
         // Add another attachment file
         Route::post('attachment/add', [InvoicesAttachmentsController::class, 'store'])->name('another_attachment_store');
 
         //invoice Payment Status Show
         Route::get('/invoice/payment/status/{id}', [InvoiceController::class, 'show'])->name('invoicePaymentStatusShow');
         Route::post('/invoice/payment/status/update/{id}', [InvoiceController::class, 'statusUpdate'])->name('InvoicePaymentStatusUpdate');
-        
+
         //index invoices paid
         Route::get('/invoice/paid', [InvoiceController::class, 'showPaidInvoices'])->name('invoices.paid');
         //index invoices unpaid
@@ -89,20 +90,22 @@ Route::group(
         Route::resource('archive', InvoiceArchiveController::class);
 
         //print
-        Route::get('invoice/print/{id}',[InvoiceController::class, 'print_invoice'])->name('invoice_print');
-        
-
-
+        Route::get('invoice/print/{id}', [InvoiceController::class, 'print_invoice'])->name('invoice_print');
 
         //Spatie
-        Route::group(['middleware' => ['auth']], function() {
+        Route::group(['middleware' => ['auth']], function () {
             Route::resource('roles', RoleController::class);
             Route::resource('users', UserController::class);
-            });
+        });
+
+        //invoices-report
+        Route::get('invoices-report', [InvoicesReportController::class, 'index'])->name('invoices_report');
+        //change le ,om de controlleur
+        Route::post('invoices-report', [InvoicesReportController::class, 'search_invoices'])->name('invoices_report_post');
 
 
 
-        
+
 
         Route::middleware('auth')->group(function () {
             Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
