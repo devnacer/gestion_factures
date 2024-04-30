@@ -36,31 +36,31 @@
             <div class="card">
                 <div class="card-header d-flex">
                     <h3 class="card-title mr-auto">{{ trans('products.List of Products') }}</h3>
+                    @can('Add Product')
                     <form action="{{ route('products.create') }}" method="GET">
                         @csrf
                         <button class="btn btn-default">{{ trans('products.Create new Product') }}</button>
-                    </form>
+                    </form>  
+                    @endcan
                 </div>
 
                 <!-- /.card-header -->
                 <div class="card-body">
                     @include('layouts.alert')
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>{{ trans('products.Name') }}</th>
-                                <th>{{ trans('products.Section name') }}</th>
-                                <th>{{ trans('products.Description') }}</th>
-                                <th>{{ trans('products.Operations') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($products->isEmpty())
+                    @if ($products->isEmpty())
+                        <p class="text-primary">{{ trans('products.No products available') }}</p>
+                    @else
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
                                 <tr>
-                                    <td colspan="5">{{ trans('products.No products available') }}</td>
+                                    <th>#</th>
+                                    <th>{{ trans('products.Name') }}</th>
+                                    <th>{{ trans('products.Section name') }}</th>
+                                    <th>{{ trans('products.Description') }}</th>
+                                    <th>{{ trans('products.Operations') }}</th>
                                 </tr>
-                            @else
+                            </thead>
+                            <tbody>
                                 @foreach ($products as $product)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
@@ -68,26 +68,47 @@
                                         <td>{{ $product->section->name }}</td>
                                         <td>{{ $product->description }}</td>
                                         <td>
-                                            <form action="{{ route('products.edit', $product->id) }}" method="GET">
-                                                @csrf
-                                                <button class="modal-effect btn btn-sm btn-info">
-                                                    <i class="fas fa-pencil-alt">
-                                                    </i>
-                                                    {{ trans('products.Edit') }}</button>
-                                            </form>
+                                            <div class="input-group-prepend">
+                                                <button type="button" class="btn btn-default dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    {{ trans('invoices.Operations') }}
+                                                </button>
+                                                <div class="dropdown-menu">
 
-                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                data-id="{{ $product->id }}" data-name="{{ $product->name }}"
-                                                data-toggle="modal" href="#ModalDelete">
-                                                <i class="fas fa-trash">
-                                                </i>
-                                                {{ trans('products.Delete') }}</a>
+                                                    {{-- edit --}}
+                                                    @can('Edit Product')
+                                                        <form action="{{ route('products.edit', $product->id) }}"
+                                                            method="GET" class="dropdown-item">
+                                                            @csrf
+                                                            <button class="modal-effect btn btn-sm btn-info">
+                                                                <i class="fas fa-pencil-alt">
+                                                                </i>
+                                                                {{ trans('products.Edit') }}</button>
+                                                        </form>
+                                                    @endcan
+
+                                                    {{-- delete --}}
+                                                    @can('Delete Product')
+                                                        <div class="dropdown-item">
+                                                            <a class="modal-effect btn btn-sm btn-danger"
+                                                                data-effect="effect-scale" data-id="{{ $product->id }}"
+                                                                data-name="{{ $product->name }}" data-toggle="modal"
+                                                                href="#ModalDelete">
+                                                                <i class="fas fa-trash">
+                                                                </i>
+                                                                {{ trans('products.Delete') }}</a>
+                                                        </div>
+                                                    @endcan
+
+                                                </div>
+                                            </div>
+
                                         </td>
                                     </tr>
                                 @endforeach
-                            @endif
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
                 <!-- /.card-body -->
             </div>

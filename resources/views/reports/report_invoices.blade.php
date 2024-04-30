@@ -149,31 +149,29 @@
                     </form>
 
                     @if (isset($details))
-                        <table id="example1" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>{{ trans('invoices.#') }}</th>
-                                    <th>{{ trans('invoices.Invoice Number') }}</th>
-                                    <th>{{ trans('invoices.Invoice Date') }}</th>
-                                    <th>{{ trans('invoices.Due Date') }}</th>
-                                    <th>{{ trans('invoices.Product') }}</th>
-                                    <th>{{ trans('invoices.Section') }}</th>
-                                    <th>{{ trans('invoices.Discount') }}</th>
-                                    <th>{{ trans('invoices.Tax Rate') }}</th>
-                                    <th>{{ trans('invoices.Tax Amount') }}</th>
-                                    <th>{{ trans('invoices.Total') }}</th>
-                                    <th>{{ trans('invoices.Status') }}</th>
-                                    <th>{{ trans('invoices.Notes') }}</th>
-                                    <th>{{ trans('invoices.Operations') }}</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if ($invoices->isEmpty())
+                        @if ($invoices->isEmpty())
+                            <p class="text-primary">{{ trans('invoices.No invoices available') }}</p>
+                        @else
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
                                     <tr>
-                                        <td colspan="4">{{ trans('invoices.No invoices available') }}</td>
+                                        <th>{{ trans('invoices.#') }}</th>
+                                        <th>{{ trans('invoices.Invoice Number') }}</th>
+                                        <th>{{ trans('invoices.Invoice Date') }}</th>
+                                        <th>{{ trans('invoices.Due Date') }}</th>
+                                        <th>{{ trans('invoices.Product') }}</th>
+                                        <th>{{ trans('invoices.Section') }}</th>
+                                        <th>{{ trans('invoices.Discount') }}</th>
+                                        <th>{{ trans('invoices.Tax Rate') }}</th>
+                                        <th>{{ trans('invoices.Tax Amount') }}</th>
+                                        <th>{{ trans('invoices.Total') }}</th>
+                                        <th>{{ trans('invoices.Status') }}</th>
+                                        <th>{{ trans('invoices.Notes') }}</th>
+                                        <th>{{ trans('invoices.Operations') }}</th>
+
                                     </tr>
-                                @else
+                                </thead>
+                                <tbody>
                                     @foreach ($invoices as $invoice)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
@@ -210,47 +208,53 @@
                                                     <div class="dropdown-menu">
 
                                                         {{-- details --}}
-                                                        <form action="{{ route('invoice.details', $invoice->id) }}"
-                                                            method="GET" class="dropdown-item">
-                                                            @csrf
-                                                            <button class="modal-effect btn btn-sm btn-primary">
-                                                                <i class="fas fa-folder"></i>
-                                                                {{ trans('invoices.Show Details') }}
-                                                            </button>
-                                                        </form>
+                                                        @can('View Invoice')
+                                                            <form action="{{ route('invoice.details', $invoice->id) }}"
+                                                                method="GET" class="dropdown-item">
+                                                                @csrf
+                                                                <button class="modal-effect btn btn-sm btn-primary">
+                                                                    <i class="fas fa-folder"></i>
+                                                                    {{ trans('invoices.Show Details') }}
+                                                                </button>
+                                                            </form>
+                                                        @endcan
 
                                                         {{-- edit --}}
-                                                        <form action="{{ route('invoices.edit', $invoice->id) }}"
-                                                            method="GET" class="dropdown-item">
-                                                            @csrf
-                                                            <button class="modal-effect btn btn-sm btn-info">
-                                                                <i class="fas fa-pencil-alt"></i>
-                                                                {{ trans('invoices.Edit') }}
-                                                            </button>
-                                                        </form>
+                                                        @can('Edit Invoice')
+                                                            <form action="{{ route('invoices.edit', $invoice->id) }}"
+                                                                method="GET" class="dropdown-item">
+                                                                @csrf
+                                                                <button class="modal-effect btn btn-sm btn-info">
+                                                                    <i class="fas fa-pencil-alt"></i>
+                                                                    {{ trans('invoices.Edit') }}
+                                                                </button>
+                                                            </form>
+                                                        @endcan
 
                                                         {{-- Modify the payment status --}}
-                                                        <form
-                                                            action="{{ route('invoicePaymentStatusShow', $invoice->id) }}"
-                                                            method="GET" class="dropdown-item">
-                                                            @csrf
-                                                            <button class="modal-effect btn btn-sm btn-secondary">
-                                                                <i class="fas fa-pencil-alt"></i>
-                                                                {{ trans('invoices.Modify the payment status') }}
-                                                            </button>
-                                                        </form>
-
+                                                        @can('Change Payment Status')
+                                                            <form
+                                                                action="{{ route('invoicePaymentStatusShow', $invoice->id) }}"
+                                                                method="GET" class="dropdown-item">
+                                                                @csrf
+                                                                <button class="modal-effect btn btn-sm btn-secondary">
+                                                                    <i class="fas fa-pencil-alt"></i>
+                                                                    {{ trans('invoices.Modify the payment status') }}
+                                                                </button>
+                                                            </form>
+                                                        @endcan
 
                                                         {{-- print --}}
-                                                        <form action="{{ route('invoice_print', $invoice->id) }}"
-                                                            method="GET" class="dropdown-item">
-                                                            @csrf
-                                                            <button class="modal-effect btn btn-sm btn-light">
-                                                                <i class="fas fa-print"></i>
-                                                                {{ trans('invoices.Print') }}
-                                                            </button>
-                                                        </form>
-
+                                                        @can('Print Invoice')
+                                                            <form action="{{ route('invoice_print', $invoice->id) }}"
+                                                                method="GET" class="dropdown-item">
+                                                                @csrf
+                                                                <button class="modal-effect btn btn-sm btn-light">
+                                                                    <i class="fas fa-print"></i>
+                                                                    {{ trans('invoices.Print') }}
+                                                                </button>
+                                                            </form>
+                                                        @endcan
 
                                                     </div>
                                                 </div>
@@ -258,9 +262,9 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                @endif
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        @endif
                     @endif
 
                 </div>

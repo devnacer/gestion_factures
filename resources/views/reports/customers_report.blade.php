@@ -166,46 +166,53 @@
                                                     <div class="dropdown-menu">
 
                                                         {{-- details --}}
-                                                        <form action="{{ route('invoice.details', $invoice->id) }}"
-                                                            method="GET" class="dropdown-item">
-                                                            @csrf
-                                                            <button class="modal-effect btn btn-sm btn-primary">
-                                                                <i class="fas fa-folder"></i>
-                                                                {{ trans('invoices.Show Details') }}
-                                                            </button>
-                                                        </form>
+                                                        @can('View Invoice')
+                                                            <form action="{{ route('invoice.details', $invoice->id) }}"
+                                                                method="GET" class="dropdown-item">
+                                                                @csrf
+                                                                <button class="modal-effect btn btn-sm btn-primary">
+                                                                    <i class="fas fa-folder"></i>
+                                                                    {{ trans('invoices.Show Details') }}
+                                                                </button>
+                                                            </form>
+                                                        @endcan
 
                                                         {{-- edit --}}
-                                                        <form action="{{ route('invoices.edit', $invoice->id) }}"
-                                                            method="GET" class="dropdown-item">
-                                                            @csrf
-                                                            <button class="modal-effect btn btn-sm btn-info">
-                                                                <i class="fas fa-pencil-alt"></i>
-                                                                {{ trans('invoices.Edit') }}
-                                                            </button>
-                                                        </form>
+                                                        @can('Edit Invoice')
+                                                            <form action="{{ route('invoices.edit', $invoice->id) }}"
+                                                                method="GET" class="dropdown-item">
+                                                                @csrf
+                                                                <button class="modal-effect btn btn-sm btn-info">
+                                                                    <i class="fas fa-pencil-alt"></i>
+                                                                    {{ trans('invoices.Edit') }}
+                                                                </button>
+                                                            </form>
+                                                        @endcan
 
                                                         {{-- Modify the payment status --}}
-                                                        <form
-                                                            action="{{ route('invoicePaymentStatusShow', $invoice->id) }}"
-                                                            method="GET" class="dropdown-item">
-                                                            @csrf
-                                                            <button class="modal-effect btn btn-sm btn-secondary">
-                                                                <i class="fas fa-pencil-alt"></i>
-                                                                {{ trans('invoices.Modify the payment status') }}
-                                                            </button>
-                                                        </form>
-
+                                                        @can('Change Payment Status')
+                                                            <form
+                                                                action="{{ route('invoicePaymentStatusShow', $invoice->id) }}"
+                                                                method="GET" class="dropdown-item">
+                                                                @csrf
+                                                                <button class="modal-effect btn btn-sm btn-secondary">
+                                                                    <i class="fas fa-pencil-alt"></i>
+                                                                    {{ trans('invoices.Modify the payment status') }}
+                                                                </button>
+                                                            </form>
+                                                        @endcan
 
                                                         {{-- print --}}
-                                                        <form action="{{ route('invoice_print', $invoice->id) }}"
-                                                            method="GET" class="dropdown-item">
-                                                            @csrf
-                                                            <button class="modal-effect btn btn-sm btn-light">
-                                                                <i class="fas fa-print"></i>
-                                                                {{ trans('invoices.Print') }}
-                                                            </button>
-                                                        </form>
+                                                        @can('Print Invoice')
+                                                            <form action="{{ route('invoice_print', $invoice->id) }}"
+                                                                method="GET" class="dropdown-item">
+                                                                @csrf
+                                                                <button class="modal-effect btn btn-sm btn-light">
+                                                                    <i class="fas fa-print"></i>
+                                                                    {{ trans('invoices.Print') }}
+                                                                </button>
+                                                            </form>
+                                                        @endcan
 
                                                     </div>
                                                 </div>

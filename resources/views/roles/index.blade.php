@@ -36,29 +36,31 @@
             <div class="card">
                 <div class="card-header d-flex">
                     <h3 class="card-title mr-auto">{{ trans('roles.Users Rights') }}</h3>
-                    <form action="{{ route('roles.create') }}" method="GET">
-                        @csrf
-                        <button class="btn btn-default">{{ trans('roles.Create new Role') }}</button>
-                    </form>
+                    @can('Add Role')
+                        <form action="{{ route('roles.create') }}" method="GET">
+                            @csrf
+                            <button class="btn btn-default">{{ trans('roles.Create new Role') }}</button>
+                        </form>
+                    @endcan
                 </div>
 
                 <!-- /.card-header -->
                 <div class="card-body">
                     @include('layouts.alert')
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>{{ trans('roles.Name') }}</th>
-                                <th>{{ trans('roles.Operations') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($roles->isEmpty())
+                    @if ($roles->isEmpty())
+                        <tr>
+                            <p class="text-primary">{{ trans('roles.No roles available') }}</p>
+                        </tr>
+                    @else
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
                                 <tr>
-                                    <td colspan="5">{{ trans('roles.No roles available') }}</td>
+                                    <th>#</th>
+                                    <th>{{ trans('roles.Name') }}</th>
+                                    <th>{{ trans('roles.Operations') }}</th>
                                 </tr>
-                            @else
+                            </thead>
+                            <tbody>
                                 @foreach ($roles as $role)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
@@ -72,34 +74,41 @@
                                                 <div class="dropdown-menu">
 
                                                     {{-- details --}}
-                                                    <form action="{{ route('roles.show', $role->id) }}" method="GET"
-                                                        class="dropdown-item">
-                                                        @csrf
-                                                        <button class="modal-effect btn btn-sm btn-primary">
-                                                            <i class="fas fa-folder"></i>
-                                                            {{ trans('roles.Show Permissions') }}
-                                                        </button>
-                                                    </form>
+                                                    @can('Users Rights List')
+                                                        <form action="{{ route('roles.show', $role->id) }}" method="GET"
+                                                            class="dropdown-item">
+                                                            @csrf
+                                                            <button class="modal-effect btn btn-sm btn-primary">
+                                                                <i class="fas fa-folder"></i>
+                                                                {{ trans('roles.Show Permissions') }}
+                                                            </button>
+                                                        </form>
+                                                    @endcan
 
                                                     {{-- edit --}}
-                                                    <form action="{{ route('roles.edit', $role->id) }}" method="GET" class="dropdown-item">
-                                                        @csrf
-                                                        <button class="modal-effect btn btn-sm btn-info">
-                                                            <i class="fas fa-pencil-alt"></i>
-                                                            {{ trans('roles.Edit') }}
-                                                        </button>
-                                                    </form> 
+                                                    @can('Edit Role')
+                                                        <form action="{{ route('roles.edit', $role->id) }}" method="GET"
+                                                            class="dropdown-item">
+                                                            @csrf
+                                                            <button class="modal-effect btn btn-sm btn-info">
+                                                                <i class="fas fa-pencil-alt"></i>
+                                                                {{ trans('roles.Edit') }}
+                                                            </button>
+                                                        </form>
+                                                    @endcan
 
                                                     {{-- delete --}}
-                                                    <div class="dropdown-item">
-                                                        <a class="modal-effect btn btn-sm btn-danger"
-                                                            data-effect="effect-scale" data-id="{{ $role->id }}"
-                                                            data-name="{{ $role->name }}" data-toggle="modal"
-                                                            href="#ModalDelete">
-                                                            <i class="fas fa-trash"></i>
-                                                            {{ trans('roles.Delete') }}
-                                                        </a>
-                                                    </div>
+                                                    @can('Delete Role')
+                                                        <div class="dropdown-item">
+                                                            <a class="modal-effect btn btn-sm btn-danger"
+                                                                data-effect="effect-scale" data-id="{{ $role->id }}"
+                                                                data-name="{{ $role->name }}" data-toggle="modal"
+                                                                href="#ModalDelete">
+                                                                <i class="fas fa-trash"></i>
+                                                                {{ trans('roles.Delete') }}
+                                                            </a>
+                                                        </div>
+                                                    @endcan
 
                                                 </div>
                                             </div>
@@ -107,9 +116,9 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            @endif
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
 
                 <!-- /.card-body -->

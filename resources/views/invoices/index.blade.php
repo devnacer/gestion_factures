@@ -37,10 +37,12 @@
             <div class="card">
                 <div class="card-header d-flex">
                     <h3 class="card-title mr-auto">{{ trans('invoices.Invoices list') }}</h3>
-                    <form action="{{ route('invoices.create') }}" method="GET">
-                        @csrf
-                        <button class="btn btn-secondary">{{ trans('invoices.Create new Invoice') }}</button>
-                    </form>
+                    @can('Add Invoice')
+                        <form action="{{ route('invoices.create') }}" method="GET">
+                            @csrf
+                            <button class="btn btn-secondary">{{ trans('invoices.Create new Invoice') }}</button>
+                        </form>
+                    @endcan
                 </div>
                 <!-- /.card-header -->
 
@@ -104,66 +106,78 @@
                                                 <div class="dropdown-menu">
 
                                                     {{-- details --}}
-                                                    <form action="{{ route('invoice.details', $invoice->id) }}"
-                                                        method="GET" class="dropdown-item">
-                                                        @csrf
-                                                        <button class="modal-effect btn btn-sm btn-primary">
-                                                            <i class="fas fa-folder"></i>
-                                                            {{ trans('invoices.Show Details') }}
-                                                        </button>
-                                                    </form>
+                                                    @can('View Invoice')
+                                                        <form action="{{ route('invoice.details', $invoice->id) }}"
+                                                            method="GET" class="dropdown-item">
+                                                            @csrf
+                                                            <button class="modal-effect btn btn-sm btn-primary">
+                                                                <i class="fas fa-folder"></i>
+                                                                {{ trans('invoices.Show Details') }}
+                                                            </button>
+                                                        </form>
+                                                    @endcan
 
                                                     {{-- edit --}}
-                                                    <form action="{{ route('invoices.edit', $invoice->id) }}"
-                                                        method="GET" class="dropdown-item">
-                                                        @csrf
-                                                        <button class="modal-effect btn btn-sm btn-info">
-                                                            <i class="fas fa-pencil-alt"></i>
-                                                            {{ trans('invoices.Edit') }}
-                                                        </button>
-                                                    </form>
+                                                    @can('Edit Invoice')
+                                                        <form action="{{ route('invoices.edit', $invoice->id) }}"
+                                                            method="GET" class="dropdown-item">
+                                                            @csrf
+                                                            <button class="modal-effect btn btn-sm btn-info">
+                                                                <i class="fas fa-pencil-alt"></i>
+                                                                {{ trans('invoices.Edit') }}
+                                                            </button>
+                                                        </form>
+                                                    @endcan
 
                                                     {{-- Modify the payment status --}}
-                                                    <form action="{{ route('invoicePaymentStatusShow', $invoice->id) }}"
-                                                        method="GET" class="dropdown-item">
-                                                        @csrf
-                                                        <button class="modal-effect btn btn-sm btn-secondary">
-                                                            <i class="fas fa-pencil-alt"></i>
-                                                            {{ trans('invoices.Modify the payment status') }}
-                                                        </button>
-                                                    </form>
+                                                    @can('Change Payment Status')
+                                                        <form action="{{ route('invoicePaymentStatusShow', $invoice->id) }}"
+                                                            method="GET" class="dropdown-item">
+                                                            @csrf
+                                                            <button class="modal-effect btn btn-sm btn-secondary">
+                                                                <i class="fas fa-pencil-alt"></i>
+                                                                {{ trans('invoices.Modify the payment status') }}
+                                                            </button>
+                                                        </form>
+                                                    @endcan
 
                                                     {{-- archive --}}
-                                                    <div class="dropdown-item">
-                                                        <a class="modal-effect btn btn-sm btn-warning"
-                                                            data-effect="effect-scale" data-id="{{ $invoice->id }}"
-                                                            data-invoice_number="{{ $invoice->invoice_number }}"
-                                                            data-toggle="modal" href="#ModalArchive">
-                                                            <i class="fas fa-archive"></i>
-                                                            {{ trans('invoices.Archive') }}
-                                                        </a>
-                                                    </div>
+                                                    @can('Archive Invoice')
+                                                        <div class="dropdown-item">
+                                                            <a class="modal-effect btn btn-sm btn-warning"
+                                                                data-effect="effect-scale" data-id="{{ $invoice->id }}"
+                                                                data-invoice_number="{{ $invoice->invoice_number }}"
+                                                                data-toggle="modal" href="#ModalArchive">
+                                                                <i class="fas fa-archive"></i>
+                                                                {{ trans('invoices.Archive') }}
+                                                            </a>
+                                                        </div>
+                                                    @endcan
 
                                                     {{-- print --}}
-                                                    <form action="{{ route('invoice_print', $invoice->id) }}"
-                                                        method="GET" class="dropdown-item">
-                                                        @csrf
-                                                        <button class="modal-effect btn btn-sm btn-light">
-                                                            <i class="fas fa-print"></i>
-                                                            {{ trans('invoices.Print') }}
-                                                        </button>
-                                                    </form>
+                                                    @can('Print Invoice')
+                                                        <form action="{{ route('invoice_print', $invoice->id) }}"
+                                                            method="GET" class="dropdown-item">
+                                                            @csrf
+                                                            <button class="modal-effect btn btn-sm btn-light">
+                                                                <i class="fas fa-print"></i>
+                                                                {{ trans('invoices.Print') }}
+                                                            </button>
+                                                        </form>
+                                                    @endcan
 
                                                     {{-- delete --}}
-                                                    <div class="dropdown-item">
-                                                        <a class="modal-effect btn btn-sm btn-danger"
-                                                            data-effect="effect-scale" data-id="{{ $invoice->id }}"
-                                                            data-invoice_number="{{ $invoice->invoice_number }}"
-                                                            data-toggle="modal" href="#ModalDelete">
-                                                            <i class="fas fa-trash"></i>
-                                                            {{ trans('invoices.Delete') }}
-                                                        </a>
-                                                    </div>
+                                                    @can('Delete Invoice')
+                                                        <div class="dropdown-item">
+                                                            <a class="modal-effect btn btn-sm btn-danger"
+                                                                data-effect="effect-scale" data-id="{{ $invoice->id }}"
+                                                                data-invoice_number="{{ $invoice->invoice_number }}"
+                                                                data-toggle="modal" href="#ModalDelete">
+                                                                <i class="fas fa-trash"></i>
+                                                                {{ trans('invoices.Delete') }}
+                                                            </a>
+                                                        </div>
+                                                    @endcan
 
                                                 </div>
                                             </div>

@@ -36,57 +36,77 @@
             <div class="card">
                 <div class="card-header d-flex">
                     <h3 class="card-title mr-auto">{{ trans('sections.List of Sections') }}</h3>
+                    @can('Add Section')
                     <form action="{{ route('sections.create') }}" method="GET">
                         @csrf
                         <button class="btn btn-default">{{ trans('sections.Create new Section') }}</button>
-                    </form>
+                    </form> 
+                    @endcan
                 </div>
 
                 <!-- /.card-header -->
                 <div class="card-body">
                     @include('layouts.alert')
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>{{ trans('sections.Name') }}</th>
-                                <th>{{ trans('sections.Description') }}</th>
-                                <th>{{ trans('sections.Operations') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($sections->isEmpty())
+                    @if ($sections->isEmpty())
+                        <p class="text-primary">{{ trans('sections.No sections available') }}</p>
+                    @else
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
                                 <tr>
-                                    <td colspan="5">{{ trans('sections.No sections available') }}</td>
+                                    <th>#</th>
+                                    <th>{{ trans('sections.Name') }}</th>
+                                    <th>{{ trans('sections.Description') }}</th>
+                                    <th>{{ trans('sections.Operations') }}</th>
                                 </tr>
-                            @else
+                            </thead>
+                            <tbody>
                                 @foreach ($sections as $section)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $section->name }}</td>
                                         <td>{{ $section->description }}</td>
                                         <td>
-                                            <form action="{{ route('sections.edit', $section->id) }}" method="GET">
-                                                @csrf
-                                                <button class="modal-effect btn btn-sm btn-info">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                    {{ trans('sections.Edit') }}
+                                            <div class="input-group-prepend">
+                                                <button type="button" class="btn btn-default dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                    {{ trans('invoices.Operations') }}
                                                 </button>
-                                            </form>
+                                                <div class="dropdown-menu">
 
-                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                data-id="{{ $section->id }}" data-name="{{ $section->name }}"
-                                                data-toggle="modal" href="#ModalDelete">
-                                                <i class="fas fa-trash"></i>
-                                                {{ trans('sections.Delete') }}
-                                            </a>
+                                                    {{-- edit --}}
+                                                    @can('Edit Section')
+                                                    <form action="{{ route('sections.edit', $section->id) }}"
+                                                        method="GET" class="dropdown-item">
+                                                        @csrf
+                                                        <button class="modal-effect btn btn-sm btn-info">
+                                                            <i class="fas fa-pencil-alt"></i>
+                                                            {{ trans('sections.Edit') }}
+                                                        </button>
+                                                    </form>
+                                                    @endcan
 
+                                                    {{-- delete --}}
+                                                    @can('Delete Section')
+                                                    <div class="dropdown-item">
+                                                        <a class="modal-effect btn btn-sm btn-danger"
+                                                            data-effect="effect-scale" data-id="{{ $section->id }}"
+                                                            data-name="{{ $section->name }}" data-toggle="modal"
+                                                            href="#ModalDelete">
+                                                            <i class="fas fa-trash"></i>
+                                                            {{ trans('sections.Delete') }}
+                                                        </a>
+                                                    </div>
+                                                    @endcan
+                                                    
+                                                </div>
+                                            </div>
                                         </td>
+                                        
                                     </tr>
                                 @endforeach
-                            @endif
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
 
                 <!-- /.card-body -->

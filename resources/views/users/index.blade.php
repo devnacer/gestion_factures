@@ -36,32 +36,32 @@
             <div class="card">
                 <div class="card-header d-flex">
                     <h3 class="card-title mr-auto">{{ trans('users.List of Users') }}</h3>
+                    @can('Add User')
                     <form action="{{ route('users.create') }}" method="GET">
                         @csrf
                         <button class="btn btn-default">{{ trans('users.Create new User') }}</button>
                     </form>
+                    @endcan
                 </div>
 
                 <!-- /.card-header -->
                 <div class="card-body">
                     @include('layouts.alert')
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>{{ trans('users.Name') }}</th>
-                                <th>{{ trans('users.Email') }}</th>
-                                <th>{{ trans('users.Roles') }}</th>
-                                <th>{{ trans('users.Status') }}</th>
-                                <th>{{ trans('users.Operations') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($users->isEmpty())
+                    @if ($users->isEmpty())
+                        <p class="text-primary">{{ trans('users.No users available') }}</p>
+                    @else
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
                                 <tr>
-                                    <td colspan="5">{{ trans('users.No users available') }}</td>
+                                    <th>#</th>
+                                    <th>{{ trans('users.Name') }}</th>
+                                    <th>{{ trans('users.Email') }}</th>
+                                    <th>{{ trans('users.Roles') }}</th>
+                                    <th>{{ trans('users.Status') }}</th>
+                                    <th>{{ trans('users.Operations') }}</th>
                                 </tr>
-                            @else
+                            </thead>
+                            <tbody>
                                 @foreach ($users as $user)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
@@ -94,6 +94,7 @@
                                                 <div class="dropdown-menu">
 
                                                     {{-- edit --}}
+                                                    @can('Edit User')
                                                     <form action="{{ route('users.edit', $user->id) }}" method="GET"
                                                         class="dropdown-item">
                                                         @csrf
@@ -102,8 +103,10 @@
                                                             {{ trans('users.Edit') }}
                                                         </button>
                                                     </form>
+                                                    @endcan
 
                                                     {{-- delete --}}
+                                                    @can('Delete User')
                                                     <div class="dropdown-item">
                                                         <a class="modal-effect btn btn-sm btn-danger"
                                                             data-effect="effect-scale" data-id="{{ $user->id }}"
@@ -112,22 +115,18 @@
                                                             <i class="fas fa-trash"></i>
                                                             {{ trans('users.Delete') }}
                                                         </a>
-                                                    </div>
+                                                    </div> 
+                                                    @endcan
 
                                                 </div>
                                             </div>
 
-
-
-
-
-
                                         </td>
                                     </tr>
                                 @endforeach
-                            @endif
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
 
                 <!-- /.card-body -->

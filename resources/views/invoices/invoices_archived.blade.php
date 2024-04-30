@@ -37,40 +37,42 @@
             <div class="card">
                 <div class="card-header d-flex">
                     <h3 class="card-title mr-auto">{{ trans('invoices.Archived invoices') }}</h3>
-                    <form action="{{ route('invoices.create') }}" method="GET">
-                        @csrf
-                        <button class="btn btn-secondary">{{ trans('invoices.Create new Invoice') }}</button>
-                    </form>
+                    @can('Add Invoice')
+                        <form action="{{ route('invoices.create') }}" method="GET">
+                            @csrf
+                            <button class="btn btn-secondary">{{ trans('invoices.Create new Invoice') }}</button>
+                        </form>
+                    @endcan
                 </div>
 
                 <!-- /.card-header -->
                 <div class="card-body">
                     @include('layouts.alert')
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>{{ trans('invoices.#') }}</th>
-                                <th>{{ trans('invoices.Invoice Number') }}</th>
-                                <th>{{ trans('invoices.Invoice Date') }}</th>
-                                <th>{{ trans('invoices.Due Date') }}</th>
-                                <th>{{ trans('invoices.Product') }}</th>
-                                <th>{{ trans('invoices.Section') }}</th>
-                                <th>{{ trans('invoices.Discount') }}</th>
-                                <th>{{ trans('invoices.Tax Rate') }}</th>
-                                <th>{{ trans('invoices.Tax Amount') }}</th>
-                                <th>{{ trans('invoices.Total') }}</th>
-                                <th>{{ trans('invoices.Status') }}</th>
-                                <th>{{ trans('invoices.Notes') }}</th>
-                                <th>{{ trans('invoices.Operations') }}</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($invoices->isEmpty())
+                    @if ($invoices->isEmpty())
+                        <tr>
+                            <p class="text-primary">{{ trans('invoices.No invoices available') }}</p>
+                        </tr>
+                    @else
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
                                 <tr>
-                                    <td colspan="13">{{ trans('invoices.No invoices available') }}</td>                    
+                                    <th>{{ trans('invoices.#') }}</th>
+                                    <th>{{ trans('invoices.Invoice Number') }}</th>
+                                    <th>{{ trans('invoices.Invoice Date') }}</th>
+                                    <th>{{ trans('invoices.Due Date') }}</th>
+                                    <th>{{ trans('invoices.Product') }}</th>
+                                    <th>{{ trans('invoices.Section') }}</th>
+                                    <th>{{ trans('invoices.Discount') }}</th>
+                                    <th>{{ trans('invoices.Tax Rate') }}</th>
+                                    <th>{{ trans('invoices.Tax Amount') }}</th>
+                                    <th>{{ trans('invoices.Total') }}</th>
+                                    <th>{{ trans('invoices.Status') }}</th>
+                                    <th>{{ trans('invoices.Notes') }}</th>
+                                    <th>{{ trans('invoices.Operations') }}</th>
+
                                 </tr>
-                            @else
+                            </thead>
+                            <tbody>
                                 @foreach ($invoices as $invoice)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
@@ -95,7 +97,7 @@
                                         </td>
 
                                         <td>{{ $invoice->note }}</td>
-                           
+
                                         <td>
                                             <div class="input-group-prepend">
                                                 <button type="button" class="btn btn-default dropdown-toggle"
@@ -105,36 +107,54 @@
                                                 <div class="dropdown-menu">
 
                                                     {{-- details --}}
-                                                    <form action="{{ route('invoice.details', $invoice->id) }}"
-                                                        method="GET" class="dropdown-item">
-                                                        @csrf
-                                                        <button class="modal-effect btn btn-sm btn-primary">
-                                                            <i class="fas fa-folder"></i>
-                                                            {{ trans('invoices.Show Details') }}
-                                                        </button>
-                                                    </form>
+                                                    @can('View Invoice')
+                                                        <form action="{{ route('invoice.details', $invoice->id) }}"
+                                                            method="GET" class="dropdown-item">
+                                                            @csrf
+                                                            <button class="modal-effect btn btn-sm btn-primary">
+                                                                <i class="fas fa-folder"></i>
+                                                                {{ trans('invoices.Show Details') }}
+                                                            </button>
+                                                        </form>
+                                                    @endcan
 
                                                     {{-- unarchive --}}
-                                                    <div class="dropdown-item">
-                                                        <a class="modal-effect btn btn-sm btn-warning"
-                                                            data-effect="effect-scale" data-id="{{ $invoice->id }}"
-                                                            data-invoice_number="{{ $invoice->invoice_number }}"
-                                                            data-toggle="modal" href="#ModalUnarchive">
-                                                            <i class="fas fa-archive"></i>
-                                                            {{ trans('invoices.Unarchive') }}
-                                                        </a>
-                                                    </div>
+                                                    @can('Archive Invoice')
+                                                        <div class="dropdown-item">
+                                                            <a class="modal-effect btn btn-sm btn-warning"
+                                                                data-effect="effect-scale" data-id="{{ $invoice->id }}"
+                                                                data-invoice_number="{{ $invoice->invoice_number }}"
+                                                                data-toggle="modal" href="#ModalUnarchive">
+                                                                <i class="fas fa-archive"></i>
+                                                                {{ trans('invoices.Unarchive') }}
+                                                            </a>
+                                                        </div>
+                                                    @endcan
 
                                                     {{-- delete --}}
-                                                    <div class="dropdown-item">
-                                                        <a class="modal-effect btn btn-sm btn-danger"
-                                                            data-effect="effect-scale" data-id="{{ $invoice->id }}"
-                                                            data-invoice_number="{{ $invoice->invoice_number }}"
-                                                            data-toggle="modal" href="#ModalDelete">
-                                                            <i class="fas fa-trash"></i>
-                                                            {{ trans('invoices.Delete') }}
-                                                        </a>
-                                                    </div>
+                                                    @can('Delete Invoice')
+                                                        <div class="dropdown-item">
+                                                            <a class="modal-effect btn btn-sm btn-danger"
+                                                                data-effect="effect-scale" data-id="{{ $invoice->id }}"
+                                                                data-invoice_number="{{ $invoice->invoice_number }}"
+                                                                data-toggle="modal" href="#ModalDelete">
+                                                                <i class="fas fa-trash"></i>
+                                                                {{ trans('invoices.Delete') }}
+                                                            </a>
+                                                        </div>
+                                                    @endcan
+
+                                                    {{-- print --}}
+                                                    @can('Print Invoice')
+                                                        <form action="{{ route('invoice_print', $invoice->id) }}"
+                                                            method="GET" class="dropdown-item">
+                                                            @csrf
+                                                            <button class="modal-effect btn btn-sm btn-light">
+                                                                <i class="fas fa-print"></i>
+                                                                {{ trans('invoices.Print') }}
+                                                            </button>
+                                                        </form>
+                                                    @endcan
 
                                                 </div>
                                             </div>
@@ -142,9 +162,9 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            @endif
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
 
                 <!-- /.card-body -->
@@ -162,13 +182,14 @@
                             </button>
                         </div>
 
-                        <form action="{{ route('archive.update', 'test')}}" method="post" autocomplete="off">
+                        <form action="{{ route('archive.update', 'test') }}" method="post" autocomplete="off">
                             @method('put')
                             @csrf
                             <div class="modal-body">
                                 <div class="form-group">
                                     <input type="hidden" name="id_unarchive" id="id" value="">
-                                    <p>{{ trans('invoices.Are you sure you want to unarchive this invoice and move it to the list of invoices?') }}</p>
+                                    <p>{{ trans('invoices.Are you sure you want to unarchive this invoice and move it to the list of invoices?') }}
+                                    </p>
                                     <input class="form-control" name="invoice_number" id="invoice_number" type="text"
                                         readonly>
                                 </div>

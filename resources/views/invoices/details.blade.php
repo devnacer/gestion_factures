@@ -159,50 +159,49 @@
                             aria-labelledby="custom-tabs-three-messages-tab">
 
                             {{-- add file --}}
-                            <form action="{{ route('another_attachment_store') }}" method="post"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <div class="card p-2">
-                                    <label for="exampleInputFile">{{ trans('invoices.Add another attachment') }}</label>
-                                    <div class="input-group">
-                                        <div class="custom-file">
-                                            <input type="hidden" name="invoice_id" value="{{ $invoice->id }}">
-                                            <input type="hidden" name="invoice_number"
-                                                value="{{ $invoice->invoice_number }}">
-                                            <input name="invoice_files" accept=".pdf,.jpg, .png, image/jpeg, image/png"
-                                                type="file" class="custom-file-input" id="exampleInputFile" multiple>
-                                            <label class="custom-file-label"
-                                                for="exampleInputFile">{{ trans('invoices.Choose file') }}</label>
+                            @can('Add Attachment')
+                                <form action="{{ route('another_attachment_store') }}" method="post"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="card p-2">
+                                        <label for="exampleInputFile">{{ trans('invoices.Add another attachment') }}</label>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="hidden" name="invoice_id" value="{{ $invoice->id }}">
+                                                <input type="hidden" name="invoice_number"
+                                                    value="{{ $invoice->invoice_number }}">
+                                                <input name="invoice_files" accept=".pdf,.jpg, .png, image/jpeg, image/png"
+                                                    type="file" class="custom-file-input" id="exampleInputFile" multiple>
+                                                <label class="custom-file-label"
+                                                    for="exampleInputFile">{{ trans('invoices.Choose file') }}</label>
+                                            </div>
+                                            <button type="submit"
+                                                class="btn btn-secondary">{{ trans('invoices.Save') }}</button>
                                         </div>
-                                        <button type="submit"
-                                            class="btn btn-secondary">{{ trans('invoices.Save') }}</button>
+                                        <p class="text-danger">
+                                            {{ trans('invoices.The attachment format is pdf, jpeg, .jpg, png.') }}</p>
                                     </div>
-                                    <p class="text-danger">
-                                        {{ trans('invoices.The attachment format is pdf, jpeg, .jpg, png.') }}</p>
-                                </div>
-                            </form>
+                                </form>
+                            @endcan
                             <br>
 
                             <div class="card">
                                 <!-- /.card-header -->
                                 <div class="card-body table-responsive p-0">
-                                    <table class="table table-hover text-nowrap">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>{{ trans('invoices.File name') }}</th>
-                                                <th>{{ trans('invoices.Created by') }}</th>
-                                                <th>{{ trans('invoices.Added Date') }}</th>
-                                                <th>{{ trans('invoices.Payment Date') }}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @if ($invoices_attachments->isEmpty())
+                                    @if ($invoices_attachments->isEmpty())
+                                        <p class="text-primary">{{ trans('invoices.No attachments available') }}</p>
+                                    @else
+                                        <table class="table table-hover text-nowrap">
+                                            <thead>
                                                 <tr>
-                                                    <td colspan="4">{{ trans('invoices.No attachments available') }}
-                                                    </td>
+                                                    <th>#</th>
+                                                    <th>{{ trans('invoices.File name') }}</th>
+                                                    <th>{{ trans('invoices.Created by') }}</th>
+                                                    <th>{{ trans('invoices.Added Date') }}</th>
+                                                    <th>{{ trans('invoices.Payment Date') }}</th>
                                                 </tr>
-                                            @else
+                                            </thead>
+                                            <tbody>
                                                 @foreach ($invoices_attachments as $invoice_attach)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
@@ -243,9 +242,9 @@
                                                         </td>
                                                     </tr>
                                                 @endforeach
-                                            @endif
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    @endif
                                 </div>
                                 <!-- /.card-body -->
                             </div>

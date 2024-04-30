@@ -212,7 +212,7 @@ class InvoiceController extends Controller
             ]);
 
         }
-        return to_route('invoices.index')->with('success', trans('messages.add'));
+        return back()->with('success', trans('messages.add'));
     }
 
     
