@@ -3,12 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SectionsController;
 use App\Http\Controllers\InvoiceArchiveController;
-use App\Http\Controllers\InvoicesReportController;
 use App\Http\Controllers\InvoicesDetailsController;
 use App\Http\Controllers\InvoicesAttachmentsController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -99,10 +99,12 @@ Route::group(
         });
 
         //invoices-report
-        Route::get('invoices-report', [InvoicesReportController::class, 'index'])->name('invoices_report');
-        //change le ,om de controlleur
-        Route::post('invoices-report', [InvoicesReportController::class, 'search_invoices'])->name('invoices_report_post');
+        Route::get('invoices-report', [ReportController::class, 'index_invoices_report'])->name('invoices_report');
+        Route::post('invoices-report', [ReportController::class, 'search_invoices'])->name('invoices_report_post');
 
+        //customers-report
+        Route::get('customers-report', [ReportController::class, 'index_customers_report'])->name("customers_report");
+        Route::post('customers-report', [ReportController::class, 'Search_customers'])->name('customers_report_post');
 
 
 

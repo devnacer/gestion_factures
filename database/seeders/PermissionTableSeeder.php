@@ -22,9 +22,9 @@ class PermissionTableSeeder extends Seeder
             'Unpaid Invoices', //sidebar 
             'Invoices Archive', //sidebar
 
-            'Reports',
-            'Invoices Report',
-            'Clients Report',
+            'Reports', //sidebar
+            'Invoices Report', //sidebar
+            'Customers Report', //sidebar
 
             'Users', //sidebar
             'Users List', //sidebar

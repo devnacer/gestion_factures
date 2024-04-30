@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    {{ trans('titles.Invoices Reports') }}
+    {{ trans('titles.Customers Reports') }}
 @endsection
 
 @section('css')
@@ -24,7 +24,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">{{ trans('invoices.Reports') }}</a></li>
-                            <li class="breadcrumb-item active">{{ trans('invoices.Invoices Reports') }}</li>
+                            <li class="breadcrumb-item active">{{ trans('invoices.Customers Reports') }}</li>
                         </ol>
                     </div>
                 </div>
@@ -36,111 +36,69 @@
 
             <div class="card">
                 <div class="card-header d-flex">
-                    <h3 class="card-title mr-auto">{{ trans('invoices.Invoices Reports') }}</h3>
+                    <h3 class="card-title mr-auto">{{ trans('invoices.Customers Reports') }}</h3>
                 </div>
                 <!-- /.card-header -->
 
                 <div class="card-body">
                     @include('layouts.alert')
 
-
-                    <form action="{{ route('invoices_report_post') }}" method="POST" role="search" autocomplete="off">
+                    <form action="{{ route('customers_report_post') }}" method="POST" role="search" autocomplete="off">
                         @csrf
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <label class="rdiobox">
-                                    <input checked name="rdio" type="radio" value="1"
-                                        id="type_div"><span>{{ trans('invoices.Search by invoice type') }}</span>
-                                </label>
-                            </div>
-                            <div class="col-lg-3 mg-t-20 mg-lg-t-0">
-                                <label class="rdiobox"><input name="rdio" value="2" type="radio"
-                                        id="invoice_number_radio"><span>{{ trans('invoices.Search by invoice number') }}</span></label>
-                            </div>
-                        </div>
 
-                        <div class="col mb-3" id="byType">
-
-                            <div class="row mb-1">
+                        {{-- <div class="row mb-1">
                                 <h3 class="text-primary">
                                     {{ trans('invoices.Search by invoice type') }}
                                 </h3>
+                            </div> --}}
+
+                        {{-- Search by invoice type --}}
+                        <div class="row">
+
+                            <div class="form-group">
+                                <label for="inputName" class="control-label">{{ trans('invoices.Section') }}</label>
+                                <select name="Section" class="form-control" onclick="console.log($(this).val())"
+                                    onchange="console.log('change is firing')">
+                                    <!--placeholder-->
+                                    <option value="" selected disabled>{{ trans('invoices.Section') }}</option>
+                                    @foreach ($sections as $section)
+                                        <option value="{{ $section->id }}">{{ $section->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
-                            {{-- Search by invoice type --}}
-                            <div class="row">
+                            <div class="form-group ml-2">
+                                <label for="inputName" class="control-label">{{ trans('invoices.Product') }}</label>
+                                <select id="product" name="product" class="form-control">
+                                </select>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="type">{{ trans('invoices.Select Invoice Type') }}</label>
-                                    <select name="type" class="form-control custom-select" required>
-                                        <option value="{{ $type ?? 'Select Invoice Type' }}" selected disabled>
-                                            {{ $type ?? 'Select Invoice Type' }}
-                                        </option>
-
-                                        <option value="1">{{ trans('invoices.Paid Invoices') }}</option>
-                                        <option value="2">{{ trans('invoices.Unpaid Invoices') }}</option>
-                                        <option value="3">
-                                            {{ trans('invoices.Partially Paid Invoices') }}
-                                        </option>
-
-                                    </select>
-                                    @error('section_id')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group mx-2" id="start_at">
-                                    <label>{{ trans('invoices.From Date') }}</label>
-                                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input"
-                                            data-target="#reservationdate" placeholder="YYYY-MM-DD" name="start_at"
-                                            value="{{ $start_at ?? '' }}" />
-                                        <div class="input-group-append" data-target="#reservationdate"
-                                            data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                        </div>
+                            <div class="form-group mx-2" id="start_at">
+                                <label>{{ trans('invoices.From Date') }}</label>
+                                <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input"
+                                        data-target="#reservationdate" placeholder="YYYY-MM-DD" name="start_at"
+                                        value="{{ $start_at ?? '' }}" />
+                                    <div class="input-group-append" data-target="#reservationdate"
+                                        data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="form-group" id="end_at">
-                                    <label>{{ trans('invoices.To Date') }}</label>
-                                    <div class="input-group date" id="reservationdate2" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input"
-                                            data-target="#reservationdate2" placeholder="YYYY-MM-DD" name="end_at"
-                                            value="{{ $end_at ?? '' }}" />
-                                        <div class="input-group-append" data-target="#reservationdate2"
-                                            data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                        </div>
+                            <div class="form-group" id="end_at">
+                                <label>{{ trans('invoices.To Date') }}</label>
+                                <div class="input-group date" id="reservationdate2" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input"
+                                        data-target="#reservationdate2" placeholder="YYYY-MM-DD" name="end_at"
+                                        value="{{ $end_at ?? '' }}" />
+                                    <div class="input-group-append" data-target="#reservationdate2"
+                                        data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
                                 </div>
-
                             </div>
 
-                        </div>
-
-                        <div class="col mb-3" id="byNumber">
-
-                            <div class="row mb-1">
-                                <h3 class="text-primary">
-                                    {{ trans('invoices.Search by invoice number') }}
-                                </h3>
-                            </div>
-
-                            {{-- Search by invoice number --}}
-                            <div class="row">
-                                <div class="form-group">
-                                    <label for="inputName"
-                                        class="control-label">{{ trans('invoices.Invoice Number') }}</label>
-                                    <input type="text" class="form-control" id="invoice_number" name="invoice_number"
-                                        placeholder="{{ trans('invoices.Please enter the number.') }}"
-                                        value="{{ $invoice_number ?? '' }}">
-                                    @error('invoice_number')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-
-                            </div>
                         </div>
 
                         <div class="col mb-3">
@@ -149,6 +107,9 @@
                     </form>
 
                     @if (isset($details))
+                    @if ($invoices->isEmpty())
+                        <p class="text-primary">{{ trans('invoices.No invoices available') }}</p>
+                    @else
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -169,11 +130,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ($invoices->isEmpty())
-                                    <tr>
-                                        <td colspan="4">{{ trans('invoices.No invoices available') }}</td>
-                                    </tr>
-                                @else
                                     @foreach ($invoices as $invoice)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
@@ -251,7 +207,6 @@
                                                             </button>
                                                         </form>
 
-
                                                     </div>
                                                 </div>
 
@@ -327,20 +282,30 @@
             format: 'YYYY-MM-DD'
         });
     </script>
+
     <script>
         $(document).ready(function() {
+            $('select[name="Section"]').on('change', function() {
+                var SectionId = $(this).val();
+                if (SectionId) {
+                    $.ajax({
+                        url: "{{ URL::to('section') }}/" + SectionId,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            $('select[name="product"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="product"]').append('<option value="' +
+                                    value + '">' + value + '</option>');
+                            });
+                        },
+                    });
 
-            $('#byNumber').hide();
-
-            $('input[type="radio"]').click(function() {
-                if ($(this).attr('id') == 'type_div') {
-                    $('#byNumber').hide();
-                    $('#byType').show();
                 } else {
-                    $('#byNumber').show();
-                    $('#byType').hide();
+                    console.log('AJAX load did not work');
                 }
             });
+
         });
     </script>
 @endsection

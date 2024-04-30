@@ -43,34 +43,33 @@
                     </form>
                 </div>
                 <!-- /.card-header -->
-                
+
                 <div class="card-body">
                     @include('layouts.alert')
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>{{ trans('invoices.#') }}</th>
-                                <th>{{ trans('invoices.Invoice Number') }}</th>
-                                <th>{{ trans('invoices.Invoice Date') }}</th>
-                                <th>{{ trans('invoices.Due Date') }}</th>
-                                <th>{{ trans('invoices.Product') }}</th>
-                                <th>{{ trans('invoices.Section') }}</th>
-                                <th>{{ trans('invoices.Discount') }}</th>
-                                <th>{{ trans('invoices.Tax Rate') }}</th>
-                                <th>{{ trans('invoices.Tax Amount') }}</th>
-                                <th>{{ trans('invoices.Total') }}</th>
-                                <th>{{ trans('invoices.Status') }}</th>
-                                <th>{{ trans('invoices.Notes') }}</th>
-                                <th>{{ trans('invoices.Operations') }}</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($invoices->isEmpty())
+                    @if ($invoices->isEmpty())
+                        <p class="text-primary">{{ trans('invoices.No invoices available') }}</p>
+                    @else
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
                                 <tr>
-                                    <td colspan="4">{{ trans('invoices.No invoices available') }}</td>
+                                    <th>{{ trans('invoices.#') }}</th>
+                                    <th>{{ trans('invoices.Invoice Number') }}</th>
+                                    <th>{{ trans('invoices.Invoice Date') }}</th>
+                                    <th>{{ trans('invoices.Due Date') }}</th>
+                                    <th>{{ trans('invoices.Product') }}</th>
+                                    <th>{{ trans('invoices.Section') }}</th>
+                                    <th>{{ trans('invoices.Discount') }}</th>
+                                    <th>{{ trans('invoices.Tax Rate') }}</th>
+                                    <th>{{ trans('invoices.Tax Amount') }}</th>
+                                    <th>{{ trans('invoices.Total') }}</th>
+                                    <th>{{ trans('invoices.Status') }}</th>
+                                    <th>{{ trans('invoices.Notes') }}</th>
+                                    <th>{{ trans('invoices.Operations') }}</th>
+
                                 </tr>
-                            @else
+                            </thead>
+                            <tbody>
+
                                 @foreach ($invoices as $invoice)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
@@ -95,7 +94,7 @@
                                         </td>
 
                                         <td>{{ $invoice->note }}</td>
-                           
+
                                         <td>
                                             <div class="input-group-prepend">
                                                 <button type="button" class="btn btn-default dropdown-toggle"
@@ -172,9 +171,9 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            @endif
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
 
                 <!-- /.card-body -->
@@ -192,7 +191,7 @@
                             </button>
                         </div>
 
-                        <form action="{{ route('invoice_archive')}}" method="post" autocomplete="off">
+                        <form action="{{ route('invoice_archive') }}" method="post" autocomplete="off">
                             @method('delete')
                             @csrf
                             <div class="modal-body">

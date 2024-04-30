@@ -118,5 +118,7 @@ return [
     'Please enter the number.' => 'Please enter the number.',
     'Search by invoice type' => 'Search by invoice type',
     'Search by invoice number' => 'Search by invoice number',
+    'Invoices Reports' => 'Invoices Reports',
+    'Customers Reports' => 'Customers Reports',
 
 ];
