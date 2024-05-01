@@ -13,6 +13,7 @@ use App\Http\Controllers\InvoicesDetailsController;
 use App\Http\Controllers\InvoicesAttachmentsController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -105,9 +106,9 @@ Route::group(
         //customers-report
         Route::get('customers-report', [ReportController::class, 'index_customers_report'])->name("customers_report");
         Route::post('customers-report', [ReportController::class, 'Search_customers'])->name('customers_report_post');
-
-
-
+        
+        //dashboard  
+        Route::get('dashboard', [HomeController::class, 'index'])->name("dashboard");
 
         Route::middleware('auth')->group(function () {
             Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
             PermissionTableSeeder::class,
             CreateAdminUserSeeder::class,
+            InvoiceSeeder::class,
         ]);
 
     }

@@ -71,6 +71,7 @@ class PermissionTableSeeder extends Seeder
             'Delete Section', //
 
             'Notifications',            
+            'home Page show',            
             ];
             
             foreach ($permissions as $permission) {
