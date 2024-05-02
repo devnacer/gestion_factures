@@ -35,4 +35,5 @@ return [
     'Update Role' => 'Update Role',
     'Invoices Reports' => 'Invoices Reports',
     'Customers Reports' => 'Customers Reports',
+    'Profile' => 'Profile',
 ];

@@ -23,7 +23,11 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="../../index2.html"><b>Invoice</b>Master</a>
+            <div class="image">
+                <img src="{{ URL::asset('assets/img/AdminLTELogo.png') }}" class="elevation-2"
+                    alt="User Image" style="width: 80px">
+            </div>
+            {{-- <a href="../../index2.html"><b>Invoice</b>Master</a> --}}
         </div>
         <!-- /.login-logo -->
         <div class="card">
