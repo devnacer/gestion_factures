@@ -36,4 +36,5 @@ return [
     'Invoices Reports' => 'Invoices Reports',
     'Customers Reports' => 'Customers Reports',
     'Profile' => 'Profile',
+    'InvoiceMaster | Forgot your password?' => 'InvoiceMaster | Forgot your password?',
 ];

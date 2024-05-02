@@ -20,6 +20,9 @@ return [
     'Remember Me' => 'Remember Me',
     'I forgot my password' => 'I forgot my password',
     'Register a new membership' => 'Register a new membership',
+    'Email Password Reset Link' => 'Email Password Reset Link',
+    
+    'Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.' => 'Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.',
 
 ];
 
