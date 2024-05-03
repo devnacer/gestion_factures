@@ -98,11 +98,11 @@
                 <!-- /.social-auth-links -->
 
                 <p class="mb-1">
-                    <a href="forgot-password.html">{{ trans('login.I forgot my password') }}</a>
+                    <a href="forgot-password">{{ trans('login.I forgot my password') }}</a>
                 </p>
-                <p class="mb-0">
+                {{-- <p class="mb-0">
                     <a href="register.html" class="text-center">{{ trans('login.Register a new membership') }}</a>
-                </p>
+                </p> --}}
             </div>
             <!-- /.login-card-body -->
         </div>

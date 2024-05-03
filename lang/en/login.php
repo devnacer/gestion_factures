@@ -17,6 +17,8 @@ return [
     'Email' => 'Email',
     'Password' => 'Password',
     'Sign In' => 'Sign In',
+    'Reset Password' => 'Reset Password',
+    'Confirm Password' => 'Confirm Password',
     'Remember Me' => 'Remember Me',
     'I forgot my password' => 'I forgot my password',
     'Register a new membership' => 'Register a new membership',
