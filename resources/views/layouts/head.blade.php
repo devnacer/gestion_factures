@@ -24,4 +24,9 @@
 <!-- flag-icon-css -->
 <link rel="stylesheet" href="{{ URL::asset('assets/plugins/flag-icon-css/css/flag-icon.min.css') }}">
 
+<link rel="apple-touch-icon" sizes="180x180" href="{{ URL::asset('assets/img/favicon_io/apple-touch-icon.png') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ URL::asset('assets/img/favicon_io/favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ URL::asset('assets/img/favicon_io/favicon-16x16.png') }}">
+<link rel="manifest" href="{{ URL::asset('assets/img/favicon_io/site.webmanifest') }}">
+
 @yield('css')

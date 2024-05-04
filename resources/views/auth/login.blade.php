@@ -18,14 +18,21 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ URL::asset('assets/css/adminlte.min.css') }}">
 
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ URL::asset('assets/img/favicon_io/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+        href="{{ URL::asset('assets/img/favicon_io/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="{{ URL::asset('assets/img/favicon_io/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ URL::asset('assets/img/favicon_io/site.webmanifest') }}">
+
 </head>
 
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
             <div class="image">
-                <img src="{{ URL::asset('assets/img/AdminLTELogo.png') }}" class="elevation-2"
-                    alt="User Image" style="width: 80px">
+                <img src="{{ URL::asset('assets/img/logoInvoiceMaster_.png') }}" class="elevation-2" alt="User Image"
+                    style="width: 80px">
             </div>
             {{-- <a href="../../index2.html"><b>Invoice</b>Master</a> --}}
         </div>
@@ -39,8 +46,9 @@
 
                     <div class="input-group mb-3">
                         <input id="email" name="email" type="email"
-                            class="form-control @error('email') is-invalid @enderror" placeholder="{{ trans('login.Email') }}"
-                            value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            class="form-control @error('email') is-invalid @enderror"
+                            placeholder="{{ trans('login.Email') }}" value="{{ old('email') }}" required
+                            autocomplete="email" autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -56,8 +64,9 @@
 
                     <div class="input-group mb-3">
                         <input name="password" id="password" type="password"
-                            class="form-control @error('password') is-invalid @enderror" placeholder="{{ trans('login.Password') }}"
-                            name="password" required autocomplete="current-password">
+                            class="form-control @error('password') is-invalid @enderror"
+                            placeholder="{{ trans('login.Password') }}" name="password" required
+                            autocomplete="current-password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -72,7 +81,8 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                <input type="checkbox" name="remember" id="remember"
+                                    {{ old('remember') ? 'checked' : '' }}>
                                 <label for="remember">
                                     {{ trans('login.Remember Me') }}
                                 </label>
@@ -80,7 +90,8 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">{{ trans('login.Sign In') }}</button>
+                            <button type="submit"
+                                class="btn btn-primary btn-block">{{ trans('login.Sign In') }}</button>
                         </div>
                         <!-- /.col -->
                     </div>

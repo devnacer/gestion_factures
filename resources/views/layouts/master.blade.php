@@ -12,9 +12,9 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{{ URL::asset('assets/img/AdminLTELogo.png') }}" alt="AdminLTELogo"
-                height="60" width="60">
-        </div>
+            <img class="animation__shake" src="{{ URL::asset('assets/img/logoInvoiceMaster_.png') }}" alt="Invoice Master Logo"
+                height="86" width="60">
+        </div> 
 
         @include('layouts.main-header')
 

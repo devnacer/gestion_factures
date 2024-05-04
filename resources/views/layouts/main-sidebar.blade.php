@@ -2,7 +2,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="{{ route('dashboard')}}" class="brand-link">
-          <img src="{{ URL::asset('assets/img/logoInvoiceMasterV4.png') }}" alt="AdminLTE Logo"
+          <img src="{{ URL::asset('assets/img/logoInvoiceMaster.png') }}" alt="Invoice Master Logo"
               class="brand-image" style="opacity: .9" >
           <span class="brand-text font-weight-light"><b>Invoice</b>Master</span>
       </a>
