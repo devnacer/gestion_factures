@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:Invoices Report', ['only' => ['index_invoices_report', 'search_invoices']]);
+        $this->middleware('permission:Customers Report', ['only' => ['index_customers_report', 'Search_customers']]);
+   
+    }
+
     public function index_invoices_report()
     {
         return view('reports.report_invoices');

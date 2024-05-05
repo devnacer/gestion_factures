@@ -171,6 +171,8 @@ return [
         //spatie
         Spatie\Permission\PermissionServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        //chartJs
+        Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class
 
     ])->toArray(),
 

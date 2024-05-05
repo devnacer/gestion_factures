@@ -22,7 +22,7 @@ class InvoiceArchiveController extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::onlyTrashed()->get();
+        $invoices = Invoice::onlyTrashed()->latest()->get();
         return view('invoices.invoices_archived', compact('invoices'));
     }
 

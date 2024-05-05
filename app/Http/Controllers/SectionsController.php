@@ -21,7 +21,7 @@ class SectionsController extends Controller
      */
     public function index()
     {
-        $sections = Section::all();
+        $sections = Section::latest()->get();
         return view('sections.index', compact('sections'));
     }
 

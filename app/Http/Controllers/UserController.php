@@ -25,9 +25,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::orderBy('id', 'DESC')->paginate(5);
-        return view('users.index', compact('users'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        $users = User::latest()->get();
+        return view('users.index', compact('users'));
     }
     /**
      * Show the form for creating a new resource.
@@ -106,8 +105,9 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'min:3|confirmed',
-            'roles_name' => 'required'
+            'roles_name' => 'required',
+            'password' => 'nullable|min:7|confirmed'
+
         ]);
         $input = $request->all();
         if (!empty($input['password'])) {

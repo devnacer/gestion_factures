@@ -110,6 +110,8 @@ Route::group(
         //dashboard  
         Route::get('dashboard', [HomeController::class, 'index'])->name("dashboard");
 
+        // Route::get('dashboard', [HomeController::class, 'showChart']);
+
         Route::middleware('auth')->group(function () {
             Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
             Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
