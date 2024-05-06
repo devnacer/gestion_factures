@@ -28,5 +28,12 @@ return [
     'InvoiceMaster' => 'InvoiceMaster',
     'All rights reserved.' => 'All rights reserved.',
     'Version' => 'Version',
+    
+    //to do
+    'Add Todo' => 'Add Todo',
+    'Todo' => 'Todo',
+    'Enter Todo' => 'Enter Todo',
+    'Add' => 'Add',
+    'Close' => 'Close',
 
 ];

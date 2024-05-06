@@ -43,97 +43,55 @@
                     <i class="fas fa-trash-o"></i>
                 </div>
             </li>
-            <li>
-                <span class="handle">
-                    <i class="fas fa-ellipsis-v"></i>
-                    <i class="fas fa-ellipsis-v"></i>
-                </span>
-                <div class="icheck-primary d-inline ml-2">
-                    <input type="checkbox" value="" name="todo2" id="todoCheck2" checked>
-                    <label for="todoCheck2"></label>
-                </div>
-                <span class="text">Make the theme responsive</span>
-                <small class="badge badge-info"><i class="far fa-clock"></i> 4
-                    hours</small>
-                <div class="tools">
-                    <i class="fas fa-edit"></i>
-                    <i class="fas fa-trash-o"></i>
-                </div>
-            </li>
-            <li>
-                <span class="handle">
-                    <i class="fas fa-ellipsis-v"></i>
-                    <i class="fas fa-ellipsis-v"></i>
-                </span>
-                <div class="icheck-primary d-inline ml-2">
-                    <input type="checkbox" value="" name="todo3" id="todoCheck3">
-                    <label for="todoCheck3"></label>
-                </div>
-                <span class="text">Let theme shine like a star</span>
-                <small class="badge badge-warning"><i class="far fa-clock"></i> 1
-                    day</small>
-                <div class="tools">
-                    <i class="fas fa-edit"></i>
-                    <i class="fas fa-trash-o"></i>
-                </div>
-            </li>
-            <li>
-                <span class="handle">
-                    <i class="fas fa-ellipsis-v"></i>
-                    <i class="fas fa-ellipsis-v"></i>
-                </span>
-                <div class="icheck-primary d-inline ml-2">
-                    <input type="checkbox" value="" name="todo4" id="todoCheck4">
-                    <label for="todoCheck4"></label>
-                </div>
-                <span class="text">Let theme shine like a star</span>
-                <small class="badge badge-success"><i class="far fa-clock"></i> 3
-                    days</small>
-                <div class="tools">
-                    <i class="fas fa-edit"></i>
-                    <i class="fas fa-trash-o"></i>
-                </div>
-            </li>
-            <li>
-                <span class="handle">
-                    <i class="fas fa-ellipsis-v"></i>
-                    <i class="fas fa-ellipsis-v"></i>
-                </span>
-                <div class="icheck-primary d-inline ml-2">
-                    <input type="checkbox" value="" name="todo5" id="todoCheck5">
-                    <label for="todoCheck5"></label>
-                </div>
-                <span class="text">Check your messages and notifications</span>
-                <small class="badge badge-primary"><i class="far fa-clock"></i> 1
-                    week</small>
-                <div class="tools">
-                    <i class="fas fa-edit"></i>
-                    <i class="fas fa-trash-o"></i>
-                </div>
-            </li>
-            <li>
-                <span class="handle">
-                    <i class="fas fa-ellipsis-v"></i>
-                    <i class="fas fa-ellipsis-v"></i>
-                </span>
-                <div class="icheck-primary d-inline ml-2">
-                    <input type="checkbox" value="" name="todo6" id="todoCheck6">
-                    <label for="todoCheck6"></label>
-                </div>
-                <span class="text">Let theme shine like a star</span>
-                <small class="badge badge-secondary"><i class="far fa-clock"></i> 1
-                    month</small>
-                <div class="tools">
-                    <i class="fas fa-edit"></i>
-                    <i class="fas fa-trash-o"></i>
-                </div>
-            </li>
+
+
+
         </ul>
     </div>
     <!-- /.card-body -->
     <div class="card-footer clearfix">
-        <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i>
-            Add item</button>
+        <a  class="btn btn-primary float-right modal-effect" data-effect="effect-scale" data-toggle="modal" href="#ModalAddTodo"><i class="fas fa-plus"></i>
+            Add item</a>
+
+        {{-- <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale" data-toggle="modal"
+            href="#ModalAddTodo">
+        </a> --}}
+
+
     </div>
 </div>
 <!-- /.card -->
+
+
+
+<!-- Modal Add Todo -->
+<div class="modal fade" id="ModalAddTodo">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ trans('home.Add Todo') }}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form action="{{ route('todos.store') }}" method="post" autocomplete="off">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="task">{{ trans('home.Todo') }}</label>
+                        <input class="form-control" name="task" id="task" type="text" placeholder="{{ trans('home.Enter Todo') }}">
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="submit" class="btn btn-secondary">{{ trans('home.Add') }}</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('home.Close') }}</button>
+                </div>
+            </form>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

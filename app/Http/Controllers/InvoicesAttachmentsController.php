@@ -33,6 +33,11 @@ class InvoicesAttachmentsController extends Controller
      */
     public function store(Request $request)
     {
+        //validation
+        $request->validate([
+            'invoice_files' => 'nullable|file|mimes:pdf,jpeg,jpg,png|max:12048',
+        ]);
+
         //insert into Invoices_attachements
         if ($request->hasFile('invoice_files')) {
 

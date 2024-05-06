@@ -36,7 +36,8 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" action="{{ route('invoices.store') }}" method="post" enctype="multipart/form-data" autocomplete="off">
+                <form class="form-horizontal" action="{{ route('invoices.store') }}" method="post"
+                    enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     <div class="card-body">
 
@@ -45,7 +46,8 @@
                             <div class="col">
                                 <label for="inputName" class="control-label">{{ trans('invoices.Invoice Number') }}</label>
                                 <input type="text" class="form-control" id="inputName" name="invoice_number"
-                                    title="{{ trans('Please enter the invoice number.') }}" required>
+                                    placeholder="{{ trans('invoices.Please enter the invoice number.') }}"
+                                    value="{{ old('invoice_number') }}" required>
                                 @error('invoice_number')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -58,25 +60,32 @@
                                 <label>{{ trans('invoices.Invoice Date') }}</label>
                                 <div class="input-group date" id="reservationdate" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#reservationdate" placeholder="YYYY-MM-DD" name="invoice_Date" value="{{ date('Y-m-d') }}"
-                                        required />
+                                        data-target="#reservationdate" placeholder="YYYY-MM-DD" name="invoice_Date"
+                                        value="{{ date('Y-m-d') }}" required />
                                     <div class="input-group-append" data-target="#reservationdate"
                                         data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
                                 </div>
+                                @error('invoice_Date')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
 
                             <div class="col">
                                 <label>{{ trans('invoices.Due Date') }}</label>
                                 <div class="input-group date" id="reservationdate2" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
-                                        data-target="#reservationdate2" name="Due_date" placeholder="YYYY-MM-DD" value="{{ date('Y-m-d') }}" required />
+                                        data-target="#reservationdate2" name="Due_date" placeholder="YYYY-MM-DD"
+                                        value="{{ old('Due_date') }}" required />
                                     <div class="input-group-append" data-target="#reservationdate2"
                                         data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
                                 </div>
+                                @error('Due_date')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
 
                         </div>
@@ -93,64 +102,93 @@
                                         <option value="{{ $section->id }}">{{ $section->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('Section')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
 
                             <div class="col">
                                 <label for="inputName" class="control-label">{{ trans('invoices.Product') }}</label>
                                 <select id="product" name="product" class="form-control">
                                 </select>
+                                @error('product')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
 
                         {{-- 4 --}}
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="inputName" class="control-label">Collection Amount التحصيل</label>
+                                <label for="inputName"
+                                    class="control-label">{{ trans('invoices.Collection Amount') }}</label>
                                 <input type="text" class="form-control" id="inputName" name="Amount_collection"
-                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                    value="{{ old('Amount_collection') }}"
+                                    placeholder="{{ trans('invoices.Enter Collection Amount') }}">
+                                @error('Amount_collection')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
 
                             <div class="col">
-                                <label for="inputName" class="control-label">Commission Amount العمولة</label>
+                                <label for="inputName"
+                                    class="control-label">{{ trans('invoices.Commission Amount') }}</label>
                                 <input type="text" class="form-control form-control" id="Amount_Commission"
                                     name="Amount_Commission" title="Please enter the commission amount"
                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                    required>
+                                    value="{{ old('Amount_Commission') }}"
+                                    placeholder="{{ trans('invoices.Enter Commission Amount') }}" required>
+                                @error('Amount_Commission')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+
                             </div>
                         </div>
 
                         {{-- 5 --}}
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="inputName" class="control-label">Discountالخصم</label>
+                                <label for="inputName" class="control-label">{{ trans('invoices.Discount') }}</label>
                                 <input type="text" class="form-control" id="Discount" name="Discount"
                                     title="Please enter the discount amount"
                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                    value="0" required>
+                                    value="{{ old('Discount') }}"
+                                    placeholder="{{ trans('invoices.Enter Discount Amount') }}" value="0" required>
+                                @error('Discount')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
 
                             <div class="col">
-                                <label for="inputName" class="control-label">Value Added Tax (VAT) Rateنسبة ضريبة القيمة
-                                    المضافة</label>
+                                <label for="inputName"
+                                    class="control-label">{{ trans('invoices.Value Added Tax (VAT) Rate') }}</label>
                                 <select name="Rate_VAT" id="Rate_VAT" class="form-control" onchange="myFunction()">
-                                    <option value="" selected disabled>Select VAT rateحدد نسبة الضريبة</option>
-                                    <option value="5%">5%</option>
-                                    <option value="10%">10%</option>
+                                    <option value="" selected disabled>{{ trans('invoices.Select VAT rate') }}
+                                    </option>
+                                    @for ($i = 0; $i <= 100; $i++)
+                                        <option value="{{ $i }}"
+                                            @if (old('Rate_VAT') == $i) selected @endif>{{ $i }}%</option>
+                                    @endfor
                                 </select>
+                                @error('Rate_VAT')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
 
                         {{-- 6 --}}
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="inputName" class="control-label">Value Added Tax (VAT) Amountقيمة ضريبة القيمة
-                                    المضافة</label>
+                                <label for="inputName"
+                                    class="control-label">{{ trans('invoices.Value Added Tax (VAT) Amount') }}
+                                </label>
                                 <input type="text" class="form-control" id="Value_VAT" name="Value_VAT" readonly>
                             </div>
 
                             <div class="col">
-                                <label for="inputName" class="control-label">Total Including Taxالاجمالي شامل
-                                    الضريبة</label>
+                                <label for="inputName"
+                                    class="control-label">{{ trans('invoices.Total Including Tax') }}</label>
                                 <input type="text" class="form-control" id="Total" name="Total" readonly>
                             </div>
                         </div>
@@ -158,8 +196,9 @@
                         {{-- 7 --}}
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="exampleTextarea">ملاحظات</label>
-                                <textarea class="form-control" id="exampleTextarea" name="note" rows="3"></textarea>
+                                <label for="exampleTextarea">{{ trans('invoices.Notes') }}</label>
+                                <textarea class="form-control" id="exampleTextarea" name="note" rows="3"
+                                    placeholder="{{ trans('invoices.Enter Notes Here') }}"></textarea>
                             </div>
                         </div>
 
@@ -167,18 +206,20 @@
                         <div class="row mb-3">
 
                             <div class="col">
-                                <label for="exampleInputFile">File input المرفقات</label>
+                                <label for="exampleInputFile">{{ trans('invoices.File input') }}</label>
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input name="invoice_files" accept=".pdf,.jpg, .png, image/jpeg, image/png"
                                             type="file" class="custom-file-input" id="exampleInputFile" multiple>
-                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                        <label class="custom-file-label"
+                                            for="exampleInputFile">{{ trans('invoices.Choose file') }}</label>
                                     </div>
-                                    {{-- <div class="input-group-append">
-                                    <span class="input-group-text">Upload</span>
-                                </div> --}}
+
                                 </div>
-                                <p class="text-danger">* صيغة المرفق pdf, jpeg ,.jpg , png </p>
+                                <p class="text-danger">{{ trans('invoices.Attachment format pdf, jpeg, .jpg, png') }} </p>
+                                @error('invoice_files')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         </div>
 
@@ -263,7 +304,9 @@
 
             if (typeof Amount_Commission === 'undefined' || !Amount_Commission) {
 
-                alert('يرجي ادخال مبلغ العمولة ');
+                alert(
+                    '{{ __('يرجي ادخال مبلغ العمولة ') }} / {{ __('Please enter the commission amount') }} / {{ __('Veuillez saisir le montant de la commission') }}'
+                );
 
             } else {
                 var intResults = Amount_Commission2 * Rate_VAT / 100;

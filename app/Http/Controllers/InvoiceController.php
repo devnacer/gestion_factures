@@ -49,34 +49,50 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
+        //validation
+        $validatedData = $request->validate([
+            'invoice_number' => 'required',
+            'invoice_Date' => 'required|date',
+            'Due_date' => 'required|date|after_or_equal:invoice_Date',
+            'product' => 'required',
+            'Section' => 'required',
+            'Amount_collection' => 'required|numeric',
+            'Amount_Commission' => 'required|numeric',
+            'Discount' => 'required|numeric',
+            'Value_VAT' => 'required|numeric',
+            'Rate_VAT' => 'required|numeric',
+            'Total' => 'required|numeric',
+            'note' => 'nullable',
+            'invoice_files' => 'nullable|file|mimes:pdf,jpeg,jpg,png|max:12048',
+        ]);
         // insert into Invoice
         Invoice::create([
-            'invoice_number' => $request->invoice_number,
-            'invoice_Date' => $request->invoice_Date,
-            'Due_date' => $request->Due_date,
-            'product' => $request->product,
-            'section_id' => $request->Section,
-            'Amount_collection' => $request->Amount_collection,
-            'Amount_Commission' => $request->Amount_Commission,
-            'Discount' => $request->Discount,
-            'Value_VAT' => $request->Value_VAT,
-            'Rate_VAT' => $request->Rate_VAT,
-            'Total' => $request->Total,
+            'invoice_number' => $validatedData['invoice_number'],
+            'invoice_Date' => $validatedData['invoice_Date'],
+            'Due_date' => $validatedData['Due_date'],
+            'product' => $validatedData['product'],
+            'section_id' => $validatedData['Section'],
+            'Amount_collection' => $validatedData['Amount_collection'],
+            'Amount_Commission' => $validatedData['Amount_Commission'],
+            'Discount' => $validatedData['Discount'],
+            'Value_VAT' => $validatedData['Value_VAT'],
+            'Rate_VAT' => $validatedData['Rate_VAT'],
+            'Total' => $validatedData['Total'],
             'Status' => 'unpaid',
             'Value_Status' => 2,
-            'note' => $request->note,
+            'note' => $validatedData['note'],
         ]);
 
         // insert into Invoices_details
         $invoice = Invoice::latest()->first();
         Invoices_details::create([
             'id_Invoice' => $invoice->id,
-            'invoice_number' => $request->invoice_number,
-            'product' => $request->product,
+            'invoice_number' => $validatedData['invoice_number'],
+            'product' => $validatedData['product'],
             'Section' => $invoice->section->name,
             'Status' => 'inpaid',
             'Value_Status' => 2,
-            'note' => $request->note,
+            'note' => $validatedData['note'],
             'user' => Auth::user()->name,
         ]);
 
@@ -126,19 +142,35 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, Invoice $invoice)
     {
+        //validation
+        $validatedData = $request->validate([
+            'invoice_number' => 'required',
+            'invoice_Date' => 'required|date',
+            'Due_date' => 'required|date|after_or_equal:invoice_Date',
+            'product' => 'required',
+            'Section' => 'required',
+            'Amount_collection' => 'required|numeric',
+            'Amount_Commission' => 'required|numeric',
+            'Discount' => 'required|numeric',
+            'Value_VAT' => 'required|numeric',
+            'Rate_VAT' => 'required|numeric',
+            'Total' => 'required|numeric',
+            'note' => 'nullable',
+        ]);
+
         $invoice->update([
-            'invoice_number' => $request->invoice_number,
-            'invoice_Date' => $request->invoice_Date,
-            'Due_date' => $request->Due_date,
-            'product' => $request->product,
-            'section_id' => $request->Section,
-            'Amount_collection' => $request->Amount_collection,
-            'Amount_Commission' => $request->Amount_Commission,
-            'Discount' => $request->Discount,
-            'Value_VAT' => $request->Value_VAT,
-            'Rate_VAT' => $request->Rate_VAT,
-            'Total' => $request->Total,
-            'note' => $request->note,
+            'invoice_number' => $validatedData['invoice_number'],
+            'invoice_Date' => $validatedData['invoice_Date'],
+            'Due_date' => $validatedData['Due_date'],
+            'product' => $validatedData['product'],
+            'section_id' => $validatedData['Section'],
+            'Amount_collection' => $validatedData['Amount_collection'],
+            'Amount_Commission' => $validatedData['Amount_Commission'],
+            'Discount' => $validatedData['Discount'],
+            'Value_VAT' => $validatedData['Value_VAT'],
+            'Rate_VAT' => $validatedData['Rate_VAT'],
+            'Total' => $validatedData['Total'],
+            'note' => $validatedData['note'],
         ]);
 
         return to_route('invoices.index')->with('success', trans('messages.edit'));
@@ -198,7 +230,7 @@ class InvoiceController extends Controller
                 'Status' => 'partially paid',
                 'Payment_Date' => $request->payment_date,
             ]);
-    
+
             Invoices_details::create([
                 'id_Invoice' => $invoice->id,
                 'invoice_number' => $request->invoice_number,
@@ -210,38 +242,35 @@ class InvoiceController extends Controller
                 'note' => $request->note,
                 'user' => Auth::user()->name,
             ]);
-
         }
         return back()->with('success', trans('messages.add'));
     }
 
-    
+
     public function showPaidInvoices()
     {
-       $invoices = Invoice::where("Value_Status", 1)->get();
-       return view('invoices.invoices_paid', compact('invoices'));
+        $invoices = Invoice::where("Value_Status", 1)->get();
+        return view('invoices.invoices_paid', compact('invoices'));
     }
-    
+
     public function showUnpaidInvoices()
     {
-       $invoices = Invoice::where("Value_Status", 2)->get();
-       return view('invoices.invoices_unpaid', compact('invoices'));
+        $invoices = Invoice::where("Value_Status", 2)->get();
+        return view('invoices.invoices_unpaid', compact('invoices'));
     }
-    
+
     public function showPartiallyPaidInvoices()
     {
-       $invoices = Invoice::where("Value_Status", 3)->get();
-       return view('invoices.invoices_partially', compact('invoices'));
+        $invoices = Invoice::where("Value_Status", 3)->get();
+        return view('invoices.invoices_partially', compact('invoices'));
     }
-    
+
     public function print_invoice($id)
     {
         $invoice = Invoice::where('id', $id)->first();
-        return view('invoices.invoice_print',compact('invoice'));
+        return view('invoices.invoice_print', compact('invoice'));
 
-    //    $invoice = Invoice::where("Value_Status", 3)->get();
-    //    return view('invoices.invoices_partially', compact('invoices'));
+        //    $invoice = Invoice::where("Value_Status", 3)->get();
+        //    return view('invoices.invoices_partially', compact('invoices'));
     }
-
-
 }
